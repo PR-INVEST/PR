@@ -13,7 +13,6 @@
             /* More sophisticated gradient background */
             @apply bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 text-gray-800;
             line-height: 1.8; /* Increased base line height for overall readability */
-            letter-spacing: 0.025rem; /* General letter spacing for all text */
         }
         /* Custom scrollbar for better aesthetics */
         body::-webkit-scrollbar {
@@ -53,15 +52,16 @@
         .question-section {
             @apply bg-white p-8 md:p-12 rounded-3xl shadow-2xl mb-12 border border-blue-200; /* More rounded, stronger shadow, subtle border */
         }
-        /* Increased margin between questions for better separation */
+        /* Styling for each individual question group */
         .question-group {
-            /* Setting margin-bottom to 2rem as requested by the user */
-            margin-bottom: 2rem;
+            @apply bg-gray-50 p-6 rounded-lg shadow-md; /* Light gray background, rounded, shadow */
+            margin-bottom: 2rem; /* Explicit margin-bottom for question groups (32px) */
         }
         .question-group label {
-            /* Updated font size for question labels */
-            @apply block text-3xl md:text-4xl font-bold mb-6 text-gray-800 leading-normal; /* Larger, bolder labels, increased margin below label (approx. 0.5x line height) */
-            letter-spacing: 0.025rem; /* Apply letter spacing to question labels */
+            /* Updated font size for question labels: 36px for md screens, 30px for small screens */
+            @apply block text-3xl md:text-4xl font-bold mb-6 text-gray-800 leading-normal; /* Basic styling from Tailwind */
+            /* Adjusted letter-spacing for better readability */
+            letter-spacing: 0.025rem;
         }
         .option-group {
             @apply space-y-4; /* More space between options */
@@ -70,24 +70,41 @@
             @apply flex items-start p-4 md:p-5 border border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-all duration-300 cursor-pointer; /* Enhanced hover, more padding, softer corners */
         }
         .option-item label {
-            /* Updated font size for option labels */
-            @apply text-3xl md:text-3xl font-normal mb-0 cursor-pointer flex-grow leading-relaxed; /* Larger text for options, more line height */
-            letter-spacing: 0.025rem; /* Apply letter spacing to option labels */
+            /* Updated font size for option labels: 36px for md screens, 30px for small screens */
+            @apply text-3xl md:text-4xl font-normal mb-0 cursor-pointer flex-grow leading-relaxed; /* Basic styling from Tailwind */
+            /* Adjusted letter-spacing for better readability */
+            letter-spacing: 0.025rem;
         }
         /* Styling for hidden questions */
         .hidden-question {
             display: none;
         }
-        /* Text area for specific age input */
-        textarea {
-            @apply w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-y min-h-[6rem];
-            letter-spacing: 0.025rem; /* Apply letter spacing to textareas */
-        }
-        /* Input type number styling */
+        /* Text area and number input styling */
+        textarea,
         input[type="number"] {
-            @apply w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200;
-            letter-spacing: 0.025rem; /* Apply letter spacing to number inputs */
+            @apply w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-y;
+            letter-spacing: 0.025rem; /* Apply letter spacing to textareas and number inputs */
         }
+
+        /* Specific styling for Q1 input (number) */
+        #q1_age_input {
+            width: 50%; /* Adjusted width as requested (approx 3-5 times wider than original min-width) */
+            margin-top: 1rem; /* Smaller margin to bring it closer to label */
+            min-height: 4rem; /* Ensure sufficient height for the input box */
+        }
+
+        /* Specific styling for Q11 input (textarea) */
+        #q11_minor_children_ages {
+            min-height: 4rem; /* Consistent height for the textarea */
+            margin-top: 1rem; /* Smaller margin to bring it closer to label */
+        }
+
+        /* Specific styling for Q13 input (textarea) */
+        #q13_adult_children_ages_status {
+            min-height: 4rem; /* Consistent height for the textarea */
+            margin-top: 1rem; /* Smaller margin to bring it closer to label */
+        }
+
         /* Button styling */
         .submit-button {
             /* Enhanced button styling */
@@ -100,8 +117,8 @@
         }
         /* Section heading specific styling */
         .question-section h2 {
-            @apply text-blue-800 border-b-4 border-blue-500 pb-4 mb-10; /* Darker blue, thicker border, more margin below */
-            font-size: 2.75rem; /* Larger font size for section titles */
+            /* Now matching header p and question labels font size (36px for md, 30px for sm) */
+            @apply text-3xl md:text-4xl font-bold text-blue-800 border-b-4 border-blue-500 pb-4 mb-10; /* Darker blue, thicker border, more margin below */
             line-height: 1.2;
             letter-spacing: 0.025rem; /* Apply letter spacing to H2 titles, overriding previous tighter spacing */
         }
@@ -138,7 +155,8 @@
 
                 <div class="question-group">
                     <label for="q1_age_input">1. 您的具体年龄是？</label>
-                    <input type="number" id="q1_age_input" name="age" placeholder="请输入您的年龄" min="18" max="120" required class="block mt-4">
+                    <!-- Adjusted spacing and width for Q1 input, simplified placeholder -->
+                    <input type="number" id="q1_age_input" name="age" placeholder="请这里输入" min="18" max="120" required>
                 </div>
 
                 <div class="question-group">
@@ -151,10 +169,6 @@
                         <div class="option-item">
                             <input type="radio" id="q2_gender_2" name="gender" value="female">
                             <label for="q2_gender_2">B. 女</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q2_gender_3" name="gender" value="prefer_not_to_say">
-                            <label for="q2_gender_3">C. 不愿透露</label>
                         </div>
                     </div>
                 </div>
@@ -246,11 +260,11 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q6_citizenship_goal_2" name="citizenship_goal" value="permanent_residency_sufficient">
-                            <label for="q6_citizenship_goal_2">B. 有永居身份即可满足需求，不强制要求入籍</label>
+                            <label for="q6_citizenship_2">B. 有永居身份即可满足需求，不强制要求入籍</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q6_citizenship_goal_3" name="citizenship_goal" value="open_to_citizenship">
-                            <label for="q6_citizenship_goal_3">C. 持开放态度，若条件允许且流程便捷可考虑入籍</label>
+                            <label for="q6_citizenship_3">C. 持开放态度，若条件允许且流程便捷可考虑入籍</label>
                         </div>
                     </div>
                 </div>
@@ -348,7 +362,8 @@
                 <!-- Conditional question group: depends on q10_group being visible -->
                 <div class="question-group hidden-question" id="q11_group">
                     <label>11. 请填写所有随行**未成年子女**的具体年龄（例如：5岁, 12岁）。</label>
-                    <textarea id="q11_minor_children_ages" name="minor_children_ages" placeholder="请输入未成年子女的具体年龄，例如：5岁, 12岁"></textarea>
+                    <!-- Adjusted spacing for Q11 textarea, simplified placeholder -->
+                    <textarea id="q11_minor_children_ages" name="minor_children_ages" placeholder="请这里输入"></textarea>
                 </div>
 
                 <!-- Conditional question group: depends on q9_family_type_3 (adult_children) -->
@@ -377,7 +392,8 @@
                 <!-- Conditional question group: depends on q12_group being visible -->
                 <div class="question-group hidden-question" id="q13_group">
                     <label>13. 请填写所有随行**成年子女**的具体年龄及主要状态（例如：22岁在读大学, 28岁在职）。</label>
-                    <textarea id="q13_adult_children_ages_status" name="adult_children_ages_status" placeholder="请输入成年子女的具体年龄及主要状态，例如：22岁在读大学, 28岁在职"></textarea>
+                    <!-- Adjusted spacing for Q13 textarea, simplified placeholder -->
+                    <textarea id="q13_adult_children_ages_status" name="adult_children_ages_status" placeholder="请这里输入"></textarea>
                 </div>
 
                 <div class="question-group">
@@ -389,7 +405,7 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q14_decision_style_2" name="decision_making_style" value="intuitive_flexible">
-                            <label for="q14_decision_style_2">B. 直觉型，更依赖感觉和经验，偏好灵活性</label>
+                            <label for="q14_decision_2">B. 直觉型，更依赖感觉和经验，偏好灵活性</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q14_decision_style_3" name="decision_making_style" value="balanced_approach">
@@ -1147,11 +1163,11 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q47_life_pace_2" name="desired_life_pace" value="medium_paced_city">
-                            <label for="q47_life_pace_2">B. 中等节奏城市，兼具城市便利与生活舒适度</label>
+                            <label for="q47_life_2">B. 中等节奏城市，兼具城市便利与生活舒适度</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q47_life_pace_3" name="desired_life_pace" value="slow_paced_town_rural">
-                            <label for="q47_life_pace_3">C. 慢节奏小镇或乡村，追求宁静自然的生活</label>
+                            <label for="q47_life_3">C. 慢节奏小镇或乡村，追求宁静自然的生活</label>
                         </div>
                     </div>
                 </div>
@@ -1165,11 +1181,11 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q48_nature_env_2" name="nature_environment_importance" value="important_good_quality">
-                            <label for="q48_nature_env_2">B. 重要考量，希望有良好的环境基础</label>
+                            <label for="q48_nature_2">B. 重要考量，希望有良好的环境基础</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q48_nature_env_3" name="nature_environment_importance" value="general_consideration_acceptable">
-                            <label for="q48_nature_env_3">C. 一般考量，只要环境可接受即可</label>
+                            <label for="q48_nature_3">C. 一般考量，只要环境可接受即可</label>
                         </div>
                     </div>
                 </div>
@@ -1183,11 +1199,11 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q49_travel_convenience_2" name="travel_convenience" value="important_reasonable_travel">
-                            <label for="q49_travel_convenience_2">B. 重要考量，可接受中等距离和转机</label>
+                            <label for="q49_travel_2">B. 重要考量，可接受中等距离和转机</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q49_travel_convenience_3" name="travel_convenience" value="not_important_long_travel_ok">
-                            <label for="q49_travel_convenience_3">C. 不重要，可接受长途旅行和多次转机</label>
+                            <label for="q49_travel_3">C. 不重要，可接受长途旅行和多次转机</label>
                         </div>
                     </div>
                 </div>
@@ -1205,7 +1221,7 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q50_growth_potential_3" name="future_growth_potential" value="not_primary_focus_on_growth">
-                            <label for="q50_growth_potential_3">C. 非主要关注点，更侧重生活品质或身份价值</label>
+                            <label for="q50_growth_3">C. 非主要关注点，更侧重生活品质或身份价值</label>
                         </div>
                     </div>
                 </div>
@@ -1219,7 +1235,7 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q51_religious_cultural_2" name="religious_cultural_preference" value="no_flexible_acceptance">
-                            <label for="q51_religious_cultural_2">B. 否，对宗教和文化环境持开放和包容态度</label>
+                            <label for="q51_religious_2">B. 否，对宗教和文化环境持开放和包容态度</label>
                         </div>
                     </div>
                 </div>
@@ -1233,15 +1249,15 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q52_food_pref_2" name="food_preference" value="authentic_local_cuisine">
-                            <label for="q52_food_pref_2">B. 偏好地道的当地美食，希望深入体验本土文化</label>
+                            <label for="q52_food_2">B. 偏好地道的当地美食，希望深入体验本土文化</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q52_food_pref_3" name="food_preference" value="familiar_asian_cuisine">
-                            <label for="q52_food_pref_3">C. 偏好能够方便找到中餐或其他亚洲美食</label>
+                            <label for="q52_food_3">C. 偏好能够方便找到中餐或其他亚洲美食</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q52_food_pref_4" name="food_preference" value="not_food_focused">
-                            <label for="q52_food_pref_4">D. 对美食无特别要求，能满足日常所需即可</label>
+                            <label for="q52_food_4">D. 对美食无特别要求，能满足日常所需即可</label>
                         </div>
                     </div>
                 </div>
@@ -1255,11 +1271,11 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q53_sport_habit_2" name="sport_habit" value="moderately_active_some_sports">
-                            <label for="q53_sport_habit_2">B. 适度活跃，偶尔参与体育活动，有基本设施即可</label>
+                            <label for="q53_sport_2">B. 适度活跃，偶尔参与体育活动，有基本设施即可</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q53_sport_habit_3" name="sport_habit" value="sedentary_no_specific_sports">
-                            <label for="q53_sport_habit_3">C. 较少运动，无特定体育活动偏好</label>
+                            <label for="q53_3">C. 较少运动，无特定体育活动偏好</label>
                         </div>
                     </div>
                 </div>
@@ -1313,7 +1329,7 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q56_shopping_pref_3" name="shopping_preference" value="cost_effective_shopping">
-                            <label for="q56_shopping_pref_3">C. 追求性价比，希望购物消费相对经济实惠</label>
+                            <label for="q56_shopping_3">C. 追求性价比，希望购物消费相对经济实惠</label>
                         </div>
                     </div>
                 </div>
@@ -1542,11 +1558,11 @@
                 const accompanyingFamilyTypesCheckboxes = document.querySelectorAll('input[name="accompanying_family_types"]');
 
                 // Updated Q number references
-                const q9Group = document.getElementById('q9_group'); // Was q8Group
-                const q10Group = document.getElementById('q10_group'); // Was q9Group
-                const q11Group = document.getElementById('q11_group'); // Was q10Group - Minor children ages text area
-                const q12Group = document.getElementById('q12_group'); // Was q11Group
-                const q13Group = document.getElementById('q13_group'); // Was q12Group - Adult children ages/status text area
+                const q9Group = document.getElementById('q9_group'); // "若有随行家属，您的随行家属包括？"
+                const q10Group = document.getElementById('q10_group'); // "若有未成年子女随行，大致数量是？"
+                const q11Group = document.getElementById('q11_group'); // "请填写所有随行未成年子女的具体年龄" (textarea)
+                const q12Group = document.getElementById('q12_group'); // "若有成年子女随行，他们目前主要状态是？"
+                const q13Group = document.getElementById('q13_group'); // "请填写所有随行成年子女的具体年龄及主要状态" (textarea)
 
                 /**
                  * Clears inputs and hides a question group.
@@ -1559,7 +1575,7 @@
                     inputs.forEach(input => {
                         if (input.type === 'radio' || input.type === 'checkbox') {
                             input.checked = false;
-                        } else if (input.tagName === 'TEXTAREA') { // Target textarea specifically
+                        } else if (input.tagName === 'TEXTAREA' || input.type === 'number') { // Target textarea and number input
                             input.value = '';
                         }
                     });
@@ -1573,11 +1589,11 @@
                     groupElement.classList.remove('hidden-question');
                 }
 
-                // Event listener for Question 8 (family present) - Changed from Q7
+                // Event listener for Question 8 (family present)
                 familyPresentRadios.forEach(radio => {
                     radio.addEventListener('change', function() {
                         if (this.value === 'yes' && this.checked) {
-                            showQuestionGroup(q9Group); // Show Q9 (was Q8)
+                            showQuestionGroup(q9Group); // Show Q9 (accompanying family types)
                         } else {
                             hideQuestionGroup(q9Group); // Hide Q9 and all subsequent family questions
                             hideQuestionGroup(q10Group);
@@ -1588,7 +1604,7 @@
                     });
                 });
 
-                // Event listener for Question 9 (accompanying family types) - Changed from Q8
+                // Event listener for Question 9 (accompanying family types)
                 accompanyingFamilyTypesCheckboxes.forEach(checkbox => {
                     checkbox.addEventListener('change', function() {
                         const minorChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="minor_children"]').checked;
@@ -1607,7 +1623,7 @@
                             showQuestionGroup(q12Group);
                         } else {
                             hideQuestionGroup(q12Group);
-                            hideQuestionGroup(q13Group); // Hide adult children ages if status is hidden
+                            hideQuestionGroup(q13Group);
                         }
                     });
                 });
@@ -1622,7 +1638,6 @@
                 });
 
                 // Event listener for Question 12 (adult children status) - triggers Q13 (adult children ages/status)
-                // This needs to check if ANY of the adult children status checkboxes are checked
                 document.querySelectorAll('input[name="adult_children_status"]').forEach(checkbox => {
                     checkbox.addEventListener('change', function() {
                         const anyAdultStatusSelected = Array.from(document.querySelectorAll('input[name="adult_children_status"]:checked')).some(cb => cb.checked);
@@ -1644,12 +1659,10 @@
                 hideQuestionGroup(q13Group);
 
                 // Re-evaluate visibility if user navigates back or refreshes with previous selections
-                // This part needs to be robust for all nested conditions.
                 const initialFamilyPresent = document.querySelector('input[name="family_present"]:checked');
                 if (initialFamilyPresent && initialFamilyPresent.value === 'yes') {
                     showQuestionGroup(q9Group);
 
-                    // Check Q9 selections to reveal Q10/Q12
                     const initialMinorChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="minor_children"]').checked;
                     const initialAdultChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="adult_children"]').checked;
 
@@ -1676,14 +1689,19 @@
                 const formData = new FormData(event.target);
                 const data = {};
                 for (let [key, value] of formData.entries()) {
-                    const inputElement = event.target.querySelector(`[name="${key}"][value="${value}"]`) || event.target.querySelector(`[name="${key}"]`); // Handle textareas too
-                    if (inputElement && (inputElement.type === 'checkbox' || inputElement.tagName === 'TEXTAREA')) {
-                        if (!data[key]) {
-                            data[key] = [];
+                    const inputElement = event.target.querySelector(`[name="${key}"][value="${value}"]`) || event.target.querySelector(`[name="${key}"]`); // Handle textareas and number inputs too
+                    if (inputElement && (inputElement.type === 'checkbox' || inputElement.tagName === 'TEXTAREA' || inputElement.type === 'number')) {
+                        // For checkboxes, collect all selected values into an array
+                        if (inputElement.type === 'checkbox') {
+                            if (!data[key]) {
+                                data[key] = [];
+                            }
+                            data[key].push(value);
+                        } else {
+                            data[key] = value; // For textareas and number inputs, just take the value
                         }
-                        data[key].push(value);
                     } else {
-                        data[key] = value;
+                        data[key] = value; // For radio buttons, direct value
                     }
                 }
                 console.log('问卷提交数据:', data);
