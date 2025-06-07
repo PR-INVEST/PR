@@ -104,10 +104,13 @@
             box-sizing: border-box; /* Ensure padding doesn't increase total height */
         }
 
-        /* Specific styling for Q1 inputs */
+        /* Specific styling for Q1 inputs to ensure they are below the label and have a fixed height */
         #q1_name, #q1_email, #q1_phone, #q4_wechat_id, #q4_whatsapp_number, #q4_line_id {
             max-width: 320px; /* Constrain width for better form aesthetics */
             margin-top: 0.75rem; /* Margin below label */
+            display: block; /* Ensure it's a block element */
+            height: 38px; /* Ensure fixed height */
+            box-sizing: border-box; /* Include padding in height */
         }
         #q5_age_input {
             display: block; /* Ensure it's on its own line below the label */
@@ -147,7 +150,7 @@
         .submit-button {
             /* Enhanced button styling */
             @apply bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white
-                   font-extrabold text-xl py-4 px-12 rounded-full shadow-2xl /* Adjusted font size and padding */
+                   font-extrabold text-2xl py-4 px-12 rounded-full shadow-2xl /* Increased font size to text-2xl (24px) */
                    transition-all duration-300 transform hover:scale-105
                    focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-75
                    border border-white border-opacity-30; /* Added more padding, bolder font, text-2xl */
@@ -227,16 +230,19 @@
 
                 <div class="question-group">
                     <label for="q1_name">1. 您的姓名是？ (可选)</label>
+                    <!-- Input field for name - now explicitly block and fixed height -->
                     <input type="text" id="q1_name" name="name" placeholder="请这里输入您的姓名">
                 </div>
 
                 <div class="question-group">
                     <label for="q1_email">2. 您的邮箱地址是？ (必填)</label>
+                    <!-- Input field for email - now explicitly block and fixed height -->
                     <input type="email" id="q1_email" name="email" placeholder="请这里输入您的邮箱" required>
                 </div>
 
                 <div class="question-group">
                     <label for="q1_phone">3. 您的电话号码是？ (必填，请包含国家区号)</label>
+                    <!-- Input field for phone - now explicitly block and fixed height -->
                     <input type="tel" id="q1_phone" name="phone" placeholder="例如：+86 13812345678" required>
                 </div>
 
@@ -1696,6 +1702,20 @@
             </div>
         </form>
 
+        <!-- Custom Message Box -->
+        <div id="messageBox" class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center hidden z-50">
+            <div class="bg-white p-8 rounded-lg shadow-xl text-center max-w-sm mx-auto border-t-4 border-blue-500">
+                <div class="flex justify-center mb-4">
+                    <i class="fas fa-check-circle text-green-500 text-4xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-gray-800">提交成功！</h3>
+                <p class="text-gray-700 mb-6">感谢您的提交！我们已收到您的问卷，将尽快根据您的偏好为您匹配最佳方案，并安排专业顾问与您联系。</p>
+                <button id="closeMessageBox" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-200">
+                    好的
+                </button>
+            </div>
+        </div>
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const form = document.getElementById('immigrationQuestionnaire');
@@ -1977,8 +1997,16 @@
                 console.log('问卷提交数据:', data); // Log the data to console for debugging/inspection
                 // Clear local storage on successful submission (optional, depends on desired behavior)
                 localStorage.removeItem('immigrationFormData');
-                alert('感谢您的提交！我们已收到您的问卷，将尽快根据您的偏好为您匹配最佳方案，并安排专业顾问与您联系。');
+
+                // Show custom message box instead of alert
+                document.getElementById('messageBox').classList.remove('hidden');
+
                 // Formspree will handle the actual HTTP POST request to its endpoint automatically
+            });
+
+            // Event listener for closing the custom message box
+            document.getElementById('closeMessageBox').addEventListener('click', function() {
+                document.getElementById('messageBox').classList.add('hidden');
             });
         </script>
     </div>
