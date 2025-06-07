@@ -265,6 +265,9 @@
 
         <!-- Questionnaire Form -->
         <form id="immigrationQuestionnaire" action="https://formspree.io/f/xldngdge" method="POST" class="space-y-12">
+            <!-- Hidden field for the formatted report -->
+            <input type="hidden" name="Formatted_Report" id="formattedReportOutput">
+
             <!-- Section 1: 个人背景与移民目标 -->
             <div id="page1" class="page question-section" data-page-index="0">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
@@ -611,12 +614,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Removed Q1.13 based on user request -->
-                <!-- <div class="question-group">
-                    <label for="q1_19_language_exam_score">13. 您是否参加过雅思/托福/其他语言考试？如有，请提供分数。</label>
-                    <input type="text" id="q1_13_language_exam_score" name="language_exam_score" placeholder="例如：雅思总分6.5">
-                </div> -->
 
                 <div class="question-group">
                     <label>13. 您对新环境的适应能力如何？</label>
@@ -2168,6 +2165,61 @@
 
             });
 
+            // Function to generate the formatted report string
+            function generateFormattedReport() {
+                let report = "--- 投资移民意向评估问卷报告 ---\n\n";
+                const sections = document.querySelectorAll('.question-section');
+
+                sections.forEach(section => {
+                    const sectionTitleElement = section.querySelector('h2');
+                    if (sectionTitleElement) {
+                        report += `**${sectionTitleElement.textContent.trim()}**\n\n`;
+                    }
+
+                    const questionGroups = section.querySelectorAll('.question-group');
+                    questionGroups.forEach(group => {
+                        // Skip hidden question groups
+                        if (group.classList.contains('hidden-question')) {
+                            return;
+                        }
+
+                        const questionLabelElement = group.querySelector('label');
+                        if (questionLabelElement) {
+                            const questionText = questionLabelElement.textContent.trim();
+                            report += `${questionText}\n`;
+
+                            // Handle different input types
+                            const inputs = group.querySelectorAll('input, textarea');
+                            let answers = [];
+
+                            inputs.forEach(input => {
+                                if (input.type === 'radio' || input.type === 'checkbox') {
+                                    if (input.checked) {
+                                        // Get the label text directly next to the input
+                                        const labelForOption = document.querySelector(`label[for="${input.id}"]`);
+                                        if (labelForOption) {
+                                            answers.push(labelForOption.textContent.trim());
+                                        }
+                                    }
+                                } else if (input.tagName === 'TEXTAREA' || input.type === 'number' || input.type === 'text' || input.type === 'email' || input.type === 'tel') {
+                                    if (input.value) {
+                                        answers.push(input.value.trim());
+                                    }
+                                }
+                            });
+
+                            if (answers.length > 0) {
+                                report += `   回答：${answers.join('; ')}\n\n`;
+                            } else {
+                                report += `   回答：未填写\n\n`;
+                            }
+                        }
+                    });
+                });
+                return report;
+            }
+
+
             // Form submission handler (for logging data and Formspree submission)
             document.getElementById('immigrationQuestionnaire').addEventListener('submit', function(event) {
                 // IMPORTANT: Trigger browser's native validation first
@@ -2185,17 +2237,23 @@
                 }
 
                 event.preventDefault(); // Prevent default form submission to handle with custom message box after validation passes
+
+                // Generate the formatted report and set it to the hidden input
+                document.getElementById('formattedReportOutput').value = generateFormattedReport();
+
                 const formData = new FormData(event.target);
                 const data = {};
                 for (let [key, value] of formData.entries()) {
                     // Collect all values for checkboxes (as they can have multiple selected)
-                    if (event.target.querySelectorAll(`[name="${key}"][type="checkbox"]`).length > 0) {
-                        if (!data[key]) {
-                            data[key] = [];
-                        }
+                    if (event.target.querySelectorAll(`[name="${key}"][type="checkbox"]`).length > 0 && Array.isArray(data[key])) {
+                        // If key already exists as an array, it means multiple checkboxes for the same name
                         data[key].push(value);
+                    } else if (event.target.querySelectorAll(`[name="${key}"][type="checkbox"]`).length > 0) {
+                        // First checkbox for this name
+                        data[key] = [value];
                     } else {
-                        data[key] = value; // For radio buttons, text inputs, number inputs
+                        // For radio buttons, text inputs, number inputs, and our new hidden field
+                        data[key] = value;
                     }
                 }
                 console.log('问卷提交数据:', data);
