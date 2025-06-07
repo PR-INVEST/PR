@@ -6,6 +6,8 @@
     <title>投资移民意向评估问卷</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Custom font and base styling */
         body {
@@ -95,28 +97,26 @@
         input[type="text"],
         input[type="email"],
         input[type="tel"] {
-            @apply w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200;
+            @apply w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200;
             letter-spacing: 0.035rem; /* Apply letter spacing to textareas and number inputs */
-        }
-        /* Fixed height for single-line text inputs for consistency with Q1 */
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"] {
-            height: 38px; /* Fixed height for consistent look with textareas */
-            padding: 0.5rem 0.75rem; /* Match textarea padding */
+            height: 38px; /* Fixed height for consistency */
+            padding: 0.5rem 0.75rem; /* Consistent padding */
+            box-sizing: border-box; /* Ensure padding doesn't increase total height */
         }
 
         /* Specific styling for Q1 inputs */
-        #q1_name, #q1_email, #q1_phone, #q1_wechat, #q1_whatsapp, #q1_line {
+        #q1_name, #q1_email, #q1_phone, #q4_wechat_id, #q4_whatsapp_number, #q4_line_id {
             max-width: 320px; /* Constrain width for better form aesthetics */
+            margin-top: 0.75rem; /* Margin below label */
         }
-        #q1_age_input {
+        #q5_age_input {
             display: block; /* Ensure it's on its own line below the label */
             width: 140px; /* Width for approximately 8 characters (8 * 14px + padding) */
             height: 38px; /* Fixed height, consistent with text areas */
             margin-top: 0.75rem; /* Keep some margin from label */
             font-size: 1.125rem; /* Adjust font size within the input itself */
             padding: 0.5rem 0.75rem; /* Adjusted padding for height and internal spacing */
+            box-sizing: border-box; /* Ensure padding doesn't increase total height */
         }
 
         /* Specific styling for Q8_3 input (textarea) - Fixed height and no resize */
@@ -128,6 +128,7 @@
             font-size: 1.125rem; /* Adjust font size within the textarea */
             padding: 0.5rem 0.75rem; /* Add specific padding */
             resize: none; /* Disable resizing */
+            box-sizing: border-box; /* Ensure padding doesn't increase total height */
         }
 
         /* Specific styling for Q8_6 input (textarea) - Fixed height and no resize */
@@ -139,6 +140,7 @@
             font-size: 1.125rem; /* Adjust font size within the textarea */
             padding: 0.5rem 0.75rem; /* Add specific padding */
             resize: none; /* Disable resizing */
+            box-sizing: border-box; /* Ensure padding doesn't increase total height */
         }
 
         /* Button styling */
@@ -261,6 +263,19 @@
                             <input type="checkbox" id="q4_contact_line" name="preferred_contact_method" value="line">
                             <label for="q4_contact_line">E. Line</label>
                         </div>
+                    </div>
+                    <!-- Conditional inputs for specific contact methods -->
+                    <div class="hidden-question mt-4" id="q4_wechat_group">
+                        <label for="q4_wechat_id" class="text-base font-normal mb-2">微信ID：</label>
+                        <input type="text" id="q4_wechat_id" name="wechat_id" placeholder="请输入您的微信ID">
+                    </div>
+                    <div class="hidden-question mt-4" id="q4_whatsapp_group">
+                        <label for="q4_whatsapp_number" class="text-base font-normal mb-2">WhatsApp号码：</label>
+                        <input type="text" id="q4_whatsapp_number" name="whatsapp_number" placeholder="请输入您的WhatsApp号码">
+                    </div>
+                    <div class="hidden-question mt-4" id="q4_line_group">
+                        <label for="q4_line_id" class="text-base font-normal mb-2">Line ID：</label>
+                        <input type="text" id="q4_line_id" name="line_id" placeholder="请输入您的Line ID">
                     </div>
                 </div>
 
@@ -1683,10 +1698,15 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
+                const form = document.getElementById('immigrationQuestionnaire');
                 const familyPresentRadios = document.querySelectorAll('input[name="family_present"]');
                 const accompanyingFamilyTypesCheckboxes = document.querySelectorAll('input[name="accompanying_family_types"]');
 
                 // Element references for all conditional groups (NEW IDs)
+                const q4_wechat_group = document.getElementById('q4_wechat_group');
+                const q4_whatsapp_group = document.getElementById('q4_whatsapp_group');
+                const q4_line_group = document.getElementById('q4_line_group');
+
                 const q8_1_group = document.getElementById('q8_1_group'); // "8.1. 若有随行家属，您的随行家属包括？"
                 const q8_2_group = document.getElementById('q8_2_group'); // "8.2. 若有未成年子女随行，大致数量是？"
                 const q8_3_group = document.getElementById('q8_3_group'); // "8.3. 请填写所有随行未成年子女的具体年龄" (textarea)
@@ -1719,6 +1739,15 @@
                     groupElement.classList.remove('hidden-question');
                 }
 
+                /**
+                 * Handles visibility for Q4 conditional inputs.
+                 */
+                function handleQ4Visibility() {
+                    document.getElementById('q4_contact_wechat').checked ? showQuestionGroup(q4_wechat_group) : hideQuestionGroup(q4_wechat_group);
+                    document.getElementById('q4_contact_whatsapp').checked ? showQuestionGroup(q4_whatsapp_group) : hideQuestionGroup(q4_whatsapp_group);
+                    document.getElementById('q4_contact_line').checked ? showQuestionGroup(q4_line_group) : hideQuestionGroup(q4_line_group);
+                }
+
                 // Event listener for Question 8 (family present)
                 familyPresentRadios.forEach(radio => {
                     radio.addEventListener('change', function() {
@@ -1733,6 +1762,7 @@
                             hideQuestionGroup(q8_5_group);
                             hideQuestionGroup(q8_6_group);
                         }
+                        saveFormData(); // Save data after change
                     });
                 });
 
@@ -1758,6 +1788,7 @@
                             hideQuestionGroup(q8_5_group); // Also hide subsequent adult children questions
                             hideQuestionGroup(q8_6_group);
                         }
+                        saveFormData(); // Save data after change
                     });
                 });
 
@@ -1767,6 +1798,7 @@
                         if (this.checked) {
                             showQuestionGroup(q8_3_group);
                         }
+                        saveFormData(); // Save data after change
                     });
                 });
 
@@ -1780,6 +1812,7 @@
                              hideQuestionGroup(q8_5_group);
                              hideQuestionGroup(q8_6_group);
                         }
+                        saveFormData(); // Save data after change
                     });
                 });
 
@@ -1794,12 +1827,127 @@
                         } else {
                             showQuestionGroup(q8_6_group);
                         }
+                        saveFormData(); // Save data after change
                     });
                 });
 
+                // Event listeners for Q4 contact method checkboxes
+                document.getElementById('q4_contact_wechat').addEventListener('change', function() { handleQ4Visibility(); saveFormData(); });
+                document.getElementById('q4_contact_whatsapp').addEventListener('change', function() { handleQ4Visibility(); saveFormData(); });
+                document.getElementById('q4_contact_line').addEventListener('change', function() { handleQ4Visibility(); saveFormData(); });
 
-                // Initial state setup on load
+                /**
+                 * Saves form data to LocalStorage.
+                 */
+                function saveFormData() {
+                    const formData = new FormData(form);
+                    const data = {};
+                    for (let [key, value] of formData.entries()) {
+                        // For checkboxes and other multi-selects, collect all selected values into an array
+                        if (form.querySelectorAll(`[name="${key}"][type="checkbox"]`).length > 0) {
+                            if (!data[key]) {
+                                data[key] = [];
+                            }
+                            data[key].push(value);
+                        } else {
+                            data[key] = value; // For radio buttons, text inputs, number inputs
+                        }
+                    }
+                    localStorage.setItem('immigrationFormData', JSON.stringify(data));
+                    console.log('Form data saved to LocalStorage.');
+                }
+
+                /**
+                 * Loads form data from LocalStorage and populates the form.
+                 */
+                function loadFormData() {
+                    const savedData = localStorage.getItem('immigrationFormData');
+                    if (savedData) {
+                        const data = JSON.parse(savedData);
+                        for (const key in data) {
+                            const value = data[key];
+                            const inputElements = form.querySelectorAll(`[name="${key}"]`);
+
+                            if (inputElements.length > 0) {
+                                const firstInput = inputElements[0];
+
+                                if (firstInput.type === 'radio' || firstInput.type === 'checkbox') {
+                                    // Handle radio and checkbox inputs
+                                    if (Array.isArray(value)) {
+                                        // For checkboxes
+                                        value.forEach(v => {
+                                            const cb = form.querySelector(`[name="${key}"][value="${v}"]`);
+                                            if (cb) cb.checked = true;
+                                        });
+                                    } else {
+                                        // For radio buttons
+                                        const rb = form.querySelector(`[name="${key}"][value="${value}"]`);
+                                        if (rb) rb.checked = true;
+                                    }
+                                } else {
+                                    // Handle text, number, email, tel, textarea inputs
+                                    firstInput.value = value;
+                                }
+                            }
+                        }
+                        console.log('Form data loaded from LocalStorage.');
+                        // After loading data, re-evaluate visibility of conditional questions
+                        reEvaluateConditionalVisibility();
+                    }
+                }
+
+                /**
+                 * Re-evaluates the visibility of all conditional sections after loading data.
+                 */
+                function reEvaluateConditionalVisibility() {
+                    // Re-evaluate Q8 family present
+                    const currentFamilyPresent = document.querySelector('input[name="family_present"]:checked');
+                    if (currentFamilyPresent && currentFamilyPresent.value === 'yes') {
+                        showQuestionGroup(q8_1_group);
+                        const minorChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="minor_children"]').checked;
+                        const adultChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="adult_children"]').checked;
+
+                        if (minorChildrenSelected) {
+                            showQuestionGroup(q8_2_group);
+                            if (document.querySelector('input[name="minor_children_count"]:checked')) { // Check if a count was selected
+                                showQuestionGroup(q8_3_group);
+                            }
+                        }
+                        if (adultChildrenSelected) {
+                            showQuestionGroup(q8_4_group);
+                            if (document.querySelector('input[name="adult_children_count"]:checked')) { // Check if a count was selected
+                                showQuestionGroup(q8_5_group);
+                                // For 8.6, it depends on 8.5 selection as well
+                                const anyAdultStatusSelected = Array.from(document.querySelectorAll('input[name="adult_children_status"]:checked')).some(cb => cb.checked);
+                                if (anyAdultStatusSelected) {
+                                    showQuestionGroup(q8_6_group);
+                                }
+                            }
+                        }
+                    } else {
+                         // If no family selected (or unchecked after load), ensure all hidden
+                        hideQuestionGroup(q8_1_group);
+                        hideQuestionGroup(q8_2_group);
+                        hideQuestionGroup(q8_3_group);
+                        hideQuestionGroup(q8_4_group);
+                        hideQuestionGroup(q8_5_group);
+                        hideQuestionGroup(q8_6_group);
+                    }
+
+                    // Re-evaluate Q4 contact methods
+                    handleQ4Visibility();
+                }
+
+
+                // Add event listeners for all form inputs to trigger saving
+                form.addEventListener('input', saveFormData);
+                form.addEventListener('change', saveFormData); // Catch radio/checkbox changes
+
+                // Initial state setup and load data on page load
                 // Hide all conditional groups initially
+                hideQuestionGroup(q4_wechat_group);
+                hideQuestionGroup(q4_whatsapp_group);
+                hideQuestionGroup(q4_line_group);
                 hideQuestionGroup(q8_1_group);
                 hideQuestionGroup(q8_2_group);
                 hideQuestionGroup(q8_3_group);
@@ -1807,34 +1955,7 @@
                 hideQuestionGroup(q8_5_group);
                 hideQuestionGroup(q8_6_group);
 
-                // Re-evaluate visibility if user navigates back or refreshes with previous selections
-                const initialFamilyPresent = document.querySelector('input[name="family_present"]:checked');
-                if (initialFamilyPresent && initialFamilyPresent.value === 'yes') {
-                    showQuestionGroup(q8_1_group);
-
-                    const initialMinorChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="minor_children"]').checked;
-                    const initialAdultChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="adult_children"]').checked;
-
-                    if (initialMinorChildrenSelected) {
-                        showQuestionGroup(q8_2_group);
-                        const initialMinorChildrenCountSelected = document.querySelector('input[name="minor_children_count"]:checked');
-                        if (initialMinorChildrenCountSelected) {
-                            showQuestionGroup(q8_3_group);
-                        }
-                    }
-                    if (initialAdultChildrenSelected) {
-                        showQuestionGroup(q8_4_group);
-                        const initialAdultChildrenCountSelected = document.querySelector('input[name="adult_children_count"]:checked');
-                        if (initialAdultChildrenCountSelected) {
-                            showQuestionGroup(q8_5_group);
-                            showQuestionGroup(q8_6_group);
-                            const anyInitialAdultStatusSelected = Array.from(document.querySelectorAll('input[name="adult_children_status"]:checked')).some(cb => cb.checked);
-                            if (!anyInitialAdultStatusSelected) {
-                                hideQuestionGroup(q8_6_group);
-                            }
-                        }
-                    }
-                }
+                loadFormData(); // Attempt to load saved data and set initial visibility
             });
 
             // Form submission handler (for logging data and Formspree submission)
@@ -1844,7 +1965,7 @@
                 const data = {};
                 for (let [key, value] of formData.entries()) {
                     // This logic ensures checkboxes gather multiple values into an array
-                    if (key === 'preferred_contact_method' || key === 'accompanying_family_types' || key === 'wealth_accumulation_method' || key === 'culture_language_env_preference' || key === 'eu_region_interest' || key === 'specific_country_interest' || key === 'excluded_countries' || key === 'adult_children_status' || key === 'preferred_investment_sector') {
+                    if (event.target.querySelectorAll(`[name="${key}"][type="checkbox"]`).length > 0) {
                         if (!data[key]) {
                             data[key] = [];
                         }
@@ -1854,6 +1975,8 @@
                     }
                 }
                 console.log('问卷提交数据:', data); // Log the data to console for debugging/inspection
+                // Clear local storage on successful submission (optional, depends on desired behavior)
+                localStorage.removeItem('immigrationFormData');
                 alert('感谢您的提交！我们已收到您的问卷，将尽快根据您的偏好为您匹配最佳方案，并安排专业顾问与您联系。');
                 // Formspree will handle the actual HTTP POST request to its endpoint automatically
             });
