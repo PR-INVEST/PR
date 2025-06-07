@@ -97,8 +97,10 @@
         input[type="text"],
         input[type="email"],
         input[type="tel"] {
-            /* Full width on small screens, constrained on larger screens */
-            @apply w-full md:max-w-xs p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200;
+            /* Full width on small screens */
+            @apply w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200;
+            /* Constrained on larger screens to approximately 6 Chinese characters width */
+            @apply md:max-w-[12ch]; /* Approximate width for 6 Chinese characters (varies by font/char) */
             letter-spacing: 0.035rem; /* Apply letter spacing to textareas and number inputs */
             height: 38px; /* Fixed height for consistency */
             padding: 0.5rem 0.75rem; /* Consistent padding */
@@ -181,7 +183,7 @@
         /* Progress Bar Styles */
         .progress-bar-container {
             /* Increased margin-top and margin-bottom for more space around the progress bar */
-            @apply w-full bg-gray-700 rounded-full h-8 mt-32 mb-32 relative shadow-inner; /* Taller, more prominent, inner shadow, increased margin-top and margin-bottom */
+            @apply w-full bg-gray-700 rounded-full h-8 mt-32 mb-64 relative shadow-inner; /* Taller, more prominent, inner shadow, increased margin-top and margin-bottom */
         }
         .progress-bar-fill {
             @apply h-full bg-blue-600 rounded-full transition-all duration-500 ease-in-out shadow-md; /* Deeper blue, subtle shadow */
