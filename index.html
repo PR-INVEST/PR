@@ -104,20 +104,22 @@
             box-sizing: border-box; /* Ensure padding doesn't increase total height */
         }
 
-        /* Specific styling for Q1, Q4 inputs to ensure they are below the label and have a fixed height */
-        #q1_name, #q1_email, #q1_phone,
-        #q4_wechat_id, #q4_whatsapp_number, #q4_line_id,
-        /* NEW: Q17 and Q19 inputs */
-        #q17_language_exam_score, #q19_work_experience_years,
-        /* NEW: Q21 input */
-        #q21_certification_details {
+        /* Specific styling for inputs to ensure they are below the label and have a fixed height */
+        #q1_1_name, #q1_2_email, #q1_3_phone,
+        #q1_4_wechat_id, #q1_4_whatsapp_number, #q1_4_line_id,
+        /* Q17 and Q19 inputs (now renumbered) */
+        #q1_13_language_exam_score, #q1_15_work_experience_years,
+        /* Q21 input (now renumbered) */
+        #q1_17_certification_details,
+        /* New Part 5 inputs */
+        #q5_1_name, #q5_2_email, #q5_3_phone, #q5_4_wechat_id, #q5_4_whatsapp_number, #q5_4_line_id {
             max-width: 320px; /* Constrain width for better form aesthetics */
             margin-top: 0.75rem; /* Margin below label */
             display: block; /* Ensure it's a block element */
             height: 38px; /* Ensure fixed height */
             box-sizing: border-box; /* Include padding in height */
         }
-        #q5_age_input {
+        #q1_5_age_input {
             display: block; /* Ensure it's on its own line below the label */
             width: 140px; /* Width for approximately 8 characters (8 * 14px + padding) */
             height: 38px; /* Fixed height, consistent with text areas */
@@ -127,8 +129,8 @@
             box-sizing: border-box; /* Ensure padding doesn't increase total height */
         }
 
-        /* Specific styling for Q8_3 input (textarea) - Fixed height and no resize */
-        #q8_3_minor_children_ages {
+        /* Specific styling for Q8_3 input (now renumbered) - Fixed height and no resize */
+        #q1_9_minor_children_ages {
             display: block; /* Explicitly ensure it's on a new line below the label */
             max-width: 320px; /* Max-width for a more controlled appearance */
             height: 38px; /* Fixed height */
@@ -139,8 +141,8 @@
             box-sizing: border-box; /* Ensure padding doesn't increase total height */
         }
 
-        /* Specific styling for Q8_6 input (textarea) - Fixed height and no resize */
-        #q8_6_adult_children_ages_status {
+        /* Specific styling for Q8_6 input (now renumbered) - Fixed height and no resize */
+        #q1_12_adult_children_ages_status {
             display: block; /* Explicitly ensure it's on a new line below the label */
             max-width: 320px; /* Max-width for a more controlled appearance */
             height: 38px; /* Fixed height */
@@ -196,6 +198,7 @@
         header h1 {
             font-size: 36px; /* Default for small screens */
             letter-spacing: 0.035rem; /* Apply letter spacing to H1 title */
+            line-height: 1.2; /* Ensure good line spacing for split title */
         }
         @media (min-width: 768px) { /* On medium screens and up */
             header h1 {
@@ -213,6 +216,13 @@
                 font-size: 24px; /* 24px for larger screens */
             }
         }
+        /* Auto-save message styling */
+        .auto-save-message {
+            @apply bg-blue-100 text-blue-800 p-4 rounded-xl shadow-md mb-8 text-center font-medium;
+            font-size: 16px;
+            letter-spacing: 0.02rem;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body class="p-6 md:p-10 lg:p-14">
@@ -220,12 +230,17 @@
         <!-- Header Section -->
         <header class="text-center mb-16 mt-10 p-8 bg-white rounded-3xl shadow-xl border border-blue-200">
             <h1 class="font-extrabold text-blue-800 mb-5 tracking-tight leading-tight">
-                投资移民意向评估问卷
+                投资移民意向<br/>评估问卷
             </h1>
             <p class="text-gray-700 leading-relaxed max-w-3xl mx-auto">
                 尊敬的客户，请您花几分钟时间完成这份详细问卷，以便我们深入了解您的个性化需求，为您量身定制最精准、高效的投资移民方案。您的信息将严格保密。
             </p>
         </header>
+
+        <!-- Auto-save Message -->
+        <div class="auto-save-message">
+            <i class="fas fa-info-circle mr-2"></i> 本问卷共计63个问题，页面采用自动缓存技术（须同一浏览器），您可随时离开，页面将自动保存。
+        </div>
 
         <!-- Questionnaire Form -->
         <form id="immigrationQuestionnaire" action="https://formspree.io/f/xldngdge" method="POST" class="space-y-12">
@@ -252,580 +267,523 @@
                 </h2>
 
                 <div class="question-group">
-                    <label for="q1_name">1. 您的姓名是？ (可选)</label>
-                    <!-- Input field for name - now explicitly block and fixed height -->
-                    <input type="text" id="q1_name" name="name" placeholder="请这里输入您的姓名">
+                    <label for="q1_1_age_input">1. 您的年龄是？</label>
+                    <input type="number" id="q1_1_age_input" name="age" placeholder="请这里输入" min="18" max="120" required>
                 </div>
 
                 <div class="question-group">
-                    <label for="q1_email">2. 您的邮箱地址是？ (必填)</label>
-                    <!-- Input field for email - now explicitly block and fixed height -->
-                    <input type="email" id="q1_email" name="email" placeholder="请这里输入您的邮箱" required>
-                </div>
-
-                <div class="question-group">
-                    <label for="q1_phone">3. 您的电话号码是？ (必填，请包含国家区号)</label>
-                    <!-- Input field for phone - now explicitly block and fixed height -->
-                    <input type="tel" id="q1_phone" name="phone" placeholder="例如：+86 13812345678" required>
-                </div>
-
-                <div class="question-group">
-                    <label>4. 您的首选联系方式是？ (可多选)</label>
+                    <label>2. 您的性别是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="checkbox" id="q4_contact_email" name="preferred_contact_method" value="email">
-                            <label for="q4_contact_email">A. 邮箱</label>
+                            <input type="radio" id="q1_2_gender_1" name="gender" value="male" required>
+                            <label for="q1_2_gender_1">A. 男</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q4_contact_phone" name="preferred_contact_method" value="phone">
-                            <label for="q4_contact_phone">B. 电话</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="checkbox" id="q4_contact_wechat" name="preferred_contact_method" value="wechat">
-                            <label for="q4_contact_wechat">C. 微信</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="checkbox" id="q4_contact_whatsapp" name="preferred_contact_method" value="whatsapp">
-                            <label for="q4_contact_whatsapp">D. WhatsApp</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="checkbox" id="q4_contact_line" name="preferred_contact_method" value="line">
-                            <label for="q4_contact_line">E. Line</label>
-                        </div>
-                    </div>
-                    <!-- Conditional inputs for specific contact methods -->
-                    <div class="hidden-question mt-4" id="q4_wechat_group">
-                        <label for="q4_wechat_id" class="text-base font-normal mb-2">微信ID：</label>
-                        <input type="text" id="q4_wechat_id" name="wechat_id" placeholder="请输入您的微信ID">
-                    </div>
-                    <div class="hidden-question mt-4" id="q4_whatsapp_group">
-                        <label for="q4_whatsapp_number" class="text-base font-normal mb-2">WhatsApp号码：</label>
-                        <input type="text" id="q4_whatsapp_number" name="whatsapp_number" placeholder="请输入您的WhatsApp号码">
-                    </div>
-                    <div class="hidden-question mt-4" id="q4_line_group">
-                        <label for="q4_line_id" class="text-base font-normal mb-2">Line ID：</label>
-                        <input type="text" id="q4_line_id" name="line_id" placeholder="请输入您的Line ID">
-                    </div>
-                </div>
-
-                <div class="question-group">
-                    <label for="q5_age_input">5. 您的年龄是？</label>
-                    <input type="number" id="q5_age_input" name="age" placeholder="请这里输入" min="18" max="120" required>
-                </div>
-
-                <div class="question-group">
-                    <label>6. 您的性别是？</label>
-                    <div class="option-group">
-                        <div class="option-item">
-                            <input type="radio" id="q6_gender_1" name="gender" value="male" required>
-                            <label for="q6_gender_1">A. 男</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q6_gender_2" name="gender" value="female">
-                            <label for="q6_gender_2">B. 女</label>
+                            <input type="radio" id="q1_2_gender_2" name="gender" value="female">
+                            <label for="q1_2_gender_2">B. 女</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>7. 您的最高学历是？</label>
+                    <label>3. 您的最高学历是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q7_edu_1" name="education" value="highschool_below" required>
-                            <label for="q7_edu_1">A. 高中及以下</label>
+                            <input type="radio" id="q1_3_edu_1" name="education" value="highschool_below" required>
+                            <label for="q1_3_edu_1">A. 高中及以下</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q7_edu_2" name="education" value="college_bachelor">
-                            <label for="q7_edu_2">B. 大专/本科</label>
+                            <input type="radio" id="q1_3_edu_2" name="education" value="college_bachelor">
+                            <label for="q1_3_edu_2">B. 大专/本科</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q7_edu_3" name="education" value="master">
-                            <label for="q7_edu_3">C. 硕士</label>
+                            <input type="radio" id="q1_3_edu_3" name="education" value="master">
+                            <label for="q1_3_edu_3">C. 硕士</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q7_edu_4" name="education" value="phd_above">
-                            <label for="q7_edu_4">D. 博士及以上</label>
+                            <input type="radio" id="q1_3_edu_4" name="education" value="phd_above">
+                            <label for="q1_3_edu_4">D. 博士及以上</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>8. 您是否有随行家属？</label>
+                    <label>4. 您是否有随行家属？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q8_family_present_yes" name="family_present" value="yes" required>
-                            <label for="q8_family_present_yes">A. 是</label>
+                            <input type="radio" id="q1_4_family_present_yes" name="family_present" value="yes" required>
+                            <label for="q1_4_family_present_yes">A. 是</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q8_family_present_no" name="family_present" value="no">
-                            <label for="q8_family_present_no">B. 否，仅主申请人</label>
+                            <input type="radio" id="q1_4_family_present_no" name="family_present" value="no">
+                            <label for="q1_4_family_present_no">B. 否，仅主申请人</label>
                         </div>
                     </div>
                 </div>
 
-                <div class="question-group hidden-question" id="q8_1_group">
-                    <label>8.1. 若有随行家属，您的随行家属包括？(可多选)</label>
+                <div class="question-group hidden-question" id="q1_5_group">
+                    <label>5. 若有随行家属，您的随行家属包括？(可多选)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="checkbox" id="q8_1_family_type_1" name="accompanying_family_types" value="spouse">
-                            <label for="q8_1_family_type_1">A. 配偶</label>
+                            <input type="checkbox" id="q1_5_family_type_1" name="accompanying_family_types" value="spouse">
+                            <label for="q1_5_family_type_1">A. 配偶</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q8_1_family_type_2" name="accompanying_family_types" value="minor_children">
-                            <label for="q8_1_family_type_2">B. 未成年子女 (18岁以下)</label>
+                            <input type="checkbox" id="q1_5_family_type_2" name="accompanying_family_types" value="minor_children">
+                            <label for="q1_5_family_type_2">B. 未成年子女 (18岁以下)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q8_1_family_type_3" name="accompanying_family_types" value="adult_children">
-                            <label for="q8_1_family_type_3">C. 成年子女 (18岁及以上)</label>
+                            <input type="checkbox" id="q1_5_family_type_3" name="accompanying_family_types" value="adult_children">
+                            <label for="q1_5_family_type_3">C. 成年子女 (18岁及以上)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q8_1_family_type_4" name="accompanying_family_types" value="parents">
-                            <label for="q8_1_family_type_4">D. 主申请人或配偶的父母</label>
+                            <input type="checkbox" id="q1_5_family_type_4" name="accompanying_family_types" value="parents">
+                            <label for="q1_5_family_type_4">D. 主申请人或配偶的父母</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q8_1_family_type_5" name="accompanying_family_types" value="grandparents">
-                            <label for="q8_1_family_type_5">E. 主申请人或配偶的祖父母</label>
+                            <input type="checkbox" id="q1_5_family_type_5" name="accompanying_family_types" value="grandparents">
+                            <label for="q1_5_family_type_5">E. 主申请人或配偶的祖父母</label>
                         </div>
                     </div>
                 </div>
 
-                <div class="question-group hidden-question" id="q8_2_group">
-                    <label>8.2. 若有未成年子女随行，大致数量是？</label>
+                <div class="question-group hidden-question" id="q1_6_group">
+                    <label>6. 若有未成年子女随行，大致数量是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q8_2_minor_children_count_1" name="minor_children_count" value="1">
-                            <label for="q8_2_minor_children_count_1">A. 1 名</label>
+                            <input type="radio" id="q1_6_minor_children_count_1" name="minor_children_count" value="1">
+                            <label for="q1_6_minor_children_count_1">A. 1 名</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q8_2_minor_children_count_2" name="minor_children_count" value="2">
-                            <label for="q8_2_minor_children_count_2">B. 2 名</label>
+                            <input type="radio" id="q1_6_minor_children_count_2" name="minor_children_count" value="2">
+                            <label for="q1_6_minor_children_count_2">B. 2 名</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q8_2_minor_children_count_3" name="minor_children_count" value="3">
-                            <label for="q8_2_minor_children_count_3">C. 3 名</label>
+                            <input type="radio" id="q1_6_minor_children_count_3" name="minor_children_count" value="3">
+                            <label for="q1_6_minor_children_count_3">C. 3 名</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q8_2_minor_children_count_4" name="minor_children_count" value="more_than_3">
-                            <label for="q8_2_minor_children_count_4">D. 3 名以上</label>
+                            <input type="radio" id="q1_6_minor_children_count_4" name="minor_children_count" value="more_than_3">
+                            <label for="q1_6_minor_children_count_4">D. 3 名以上</label>
                         </div>
                     </div>
                 </div>
 
-                <div class="question-group hidden-question" id="q8_3_group">
-                    <label>8.3. 请填写所有随行**未成年子女**的具体年龄（例如：5岁, 12岁）。</label>
-                    <textarea id="q8_3_minor_children_ages" name="minor_children_ages" placeholder="请这里输入"></textarea>
+                <div class="question-group hidden-question" id="q1_7_group">
+                    <label>7. 请填写所有随行**未成年子女**的具体年龄（例如：5岁, 12岁）。</label>
+                    <textarea id="q1_9_minor_children_ages" name="minor_children_ages" placeholder="请这里输入"></textarea>
                 </div>
 
-                <div class="question-group hidden-question" id="q8_4_group">
-                    <label>8.4. 若有成年子女随行，大致数量是？</label>
+                <div class="question-group hidden-question" id="q1_8_group">
+                    <label>8. 若有成年子女随行，大致数量是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q8_4_adult_children_count_1" name="adult_children_count" value="1">
-                            <label for="q8_4_adult_children_count_1">A. 1 名</label>
+                            <input type="radio" id="q1_8_adult_children_count_1" name="adult_children_count" value="1">
+                            <label for="q1_8_adult_children_count_1">A. 1 名</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q8_4_adult_children_count_2" name="adult_children_count" value="2">
-                            <label for="q8_4_adult_children_count_2">B. 2 名</label>
+                            <input type="radio" id="q1_8_adult_children_count_2" name="adult_children_count" value="2">
+                            <label for="q1_8_adult_children_count_2">B. 2 名</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q8_4_adult_children_count_3" name="adult_children_count" value="3">
-                            <label for="q8_4_adult_children_count_3">C. 3 名</label>
+                            <input type="radio" id="q1_8_adult_children_count_3" name="adult_children_count" value="3">
+                            <label for="q1_8_adult_children_count_3">C. 3 名</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q8_4_adult_children_count_4" name="adult_children_count" value="more_than_3">
-                            <label for="q8_4_adult_children_count_4">D. 3 名以上</label>
+                            <input type="radio" id="q1_8_adult_children_count_4" name="adult_children_count" value="more_than_3">
+                            <label for="q1_8_adult_children_count_4">D. 3 名以上</label>
                         </div>
                     </div>
                 </div>
 
-                <div class="question-group hidden-question" id="q8_5_group">
-                    <label>8.5. 若有成年子女随行，他们目前主要状态是？(可多选，可根据子女的实际情况多选)</label>
+                <div class="question-group hidden-question" id="q1_9_group">
+                    <label>9. 若有成年子女随行，他们目前主要状态是？(可多选，可根据子女的实际情况多选)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="checkbox" id="q8_5_adult_children_status_1" name="adult_children_status" value="studying_secondary_university">
-                            <label for="q8_5_adult_children_status_1">A. 在学中 (中学/大学)</label>
+                            <input type="checkbox" id="q1_9_adult_children_status_1" name="adult_children_status" value="studying_secondary_university">
+                            <label for="q1_9_adult_children_status_1">A. 在学中 (中学/大学)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q8_5_adult_children_status_2" name="adult_children_status" value="employed_full_time">
-                            <label for="q8_5_adult_children_status_2">B. 在职工作 (全职)</label>
+                            <input type="checkbox" id="q1_9_adult_children_status_2" name="adult_children_status" value="employed_full_time">
+                            <label for="q1_9_adult_children_status_2">B. 在职工作 (全职)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q8_5_adult_children_status_3" name="adult_children_status" value="unemployed_seeking">
-                            <label for="q8_5_adult_children_status_3">C. 待业/正在寻找工作</label>
+                            <input type="checkbox" id="q1_9_adult_children_status_3" name="adult_children_status" value="unemployed_seeking">
+                            <label for="q1_9_adult_children_status_3">C. 待业/正在寻找工作</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q8_5_adult_children_status_4" name="adult_children_status" value="other_adult_status">
-                            <label for="q8_5_adult_children_status_4">D. 其他情况</label>
+                            <input type="checkbox" id="q1_9_adult_children_status_4" name="adult_children_status" value="other_adult_status">
+                            <label for="q1_9_adult_children_status_4">D. 其他情况</label>
                         </div>
                     </div>
                 </div>
 
-                <div class="question-group hidden-question" id="q8_6_group">
-                    <label>8.6. 请填写所有随行**成年子女**的具体年龄及主要状态（例如：22岁在读大学, 28岁在职）。</label>
-                    <textarea id="q8_6_adult_children_ages_status" name="adult_children_ages_status" placeholder="请这里输入"></textarea>
+                <div class="question-group hidden-question" id="q1_10_group">
+                    <label>10. 请填写所有随行**成年子女**的具体年龄及主要状态（例如：22岁在读大学, 28岁在职）。</label>
+                    <textarea id="q1_12_adult_children_ages_status" name="adult_children_ages_status" placeholder="请这里输入"></textarea>
                 </div>
 
                 <div class="question-group">
-                    <label>9. 您的主要移民目的是？ (请选择最主要的一项)</label>
+                    <label>11. 您的主要移民目的是？ (请选择最主要的一项)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q9_purpose_1" name="primary_purpose" value="global_mobility" required>
-                            <label for="q9_purpose_1">A. 获得海外身份，方便全球出行与居住自由</label>
+                            <input type="radio" id="q1_11_purpose_1" name="primary_purpose" value="global_mobility" required>
+                            <label for="q1_11_purpose_1">A. 获得海外身份，方便全球出行与居住自由</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q9_purpose_2" name="primary_purpose" value="children_education">
-                            <label for="q9_purpose_2">B. 为子女提供更优质的教育资源与发展平台</label>
+                            <input type="radio" id="q1_11_purpose_2" name="primary_purpose" value="children_education">
+                            <label for="q1_11_purpose_2">B. 为子女提供更优质的教育资源与发展平台</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q9_purpose_3" name="primary_purpose" value="asset_global_allocation">
-                            <label for="q9_purpose_3">C. 实现资产全球化配置与家族财富传承</label>
+                            <input type="radio" id="q1_11_purpose_3" name="primary_purpose" value="asset_global_allocation">
+                            <label for="q1_11_purpose_3">C. 实现资产全球化配置与家族财富传承</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q9_purpose_4" name="primary_purpose" value="second_citizenship_risk_aversion">
-                            <label for="q9_purpose_4">D. 获得第二国籍，分散个人与家庭的风险</label>
+                            <input type="radio" id="q1_11_purpose_4" name="primary_purpose" value="second_citizenship_risk_aversion">
+                            <label for="q1_11_purpose_4">D. 获得第二国籍，分散个人与家庭的风险</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q9_purpose_5" name="primary_purpose" value="retirement_quality_life">
-                            <label for="q9_purpose_5">E. 改善生活环境，享受高质量的养老生活</label>
+                            <input type="radio" id="q1_11_purpose_5" name="primary_purpose" value="retirement_quality_life">
+                            <label for="q1_11_purpose_5">E. 改善生活环境，享受高质量的养老生活</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q9_purpose_6" name="primary_purpose" value="overseas_business_expansion">
-                            <label for="q9_purpose_6">F. 海外创业或拓展商业版图，寻求新的商业机遇</label>
+                            <input type="radio" id="q1_11_purpose_6" name="primary_purpose" value="overseas_business_expansion">
+                            <label for="q1_11_purpose_6">F. 海外创业或拓展商业版图，寻求新的商业机遇</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q9_purpose_7" name="primary_purpose" value="other_purpose">
-                            <label for="q9_purpose_7">G. 其他（后续将与专业顾问详细沟通具体目的）</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question-group">
-                    <label>10. 您期望首先获得的身份类型是？</label>
-                    <div class="option-group">
-                        <div class="option-item">
-                            <input type="radio" id="q10_identity_1" name="desired_identity_type" value="residency_permit_temp" required>
-                            <label for="q10_identity_1">A. 临时居留许可 (通常需定期续签，方便短期居住与考察)</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q10_identity_2" name="desired_identity_type" value="permanent_residency_green_card">
-                            <label for="q10_identity_2">B. 永久居留权 (绿卡/永居，可长期居住，通常无强制居住要求)</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q10_identity_3" name="desired_identity_type" value="direct_citizenship">
-                            <label for="q10_identity_3">C. 直接公民身份 (护照，一步到位，可免签全球多国)</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q10_identity_4" name="desired_identity_type" value="flexible_identity_path">
-                            <label for="q10_identity_4">D. 暂无明确偏好，希望了解不同身份的优劣及后续发展路径</label>
+                            <input type="radio" id="q1_11_purpose_7" name="primary_purpose" value="other_purpose">
+                            <label for="q1_11_purpose_7">G. 其他（后续将与专业顾问详细沟通具体目的）</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>11. 您对最终获得移民国公民身份（入籍）的意愿是？</label>
+                    <label>12. 您期望首先获得的身份类型是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q11_citizenship_goal_1" name="citizenship_goal" value="must_achieve_citizenship" required>
-                            <label for="q11_citizenship_goal_1">A. 强烈希望，最终目标是获得公民身份，不介意等待时间</label>
+                            <input type="radio" id="q1_12_identity_1" name="desired_identity_type" value="residency_permit_temp" required>
+                            <label for="q1_12_identity_1">A. 临时居留许可 (通常需定期续签，方便短期居住与考察)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q11_citizenship_2" name="citizenship_goal" value="permanent_residency_sufficient">
-                            <label for="q11_citizenship_2">B. 有永居身份即可满足需求，不强制要求入籍</label>
+                            <input type="radio" id="q1_12_identity_2" name="desired_identity_type" value="permanent_residency_green_card">
+                            <label for="q1_12_identity_2">B. 永久居留权 (绿卡/永居，可长期居住，通常无强制居住要求)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q11_citizenship_3" name="citizenship_goal" value="open_to_citizenship">
-                            <label for="q11_citizenship_3">C. 持开放态度，若条件允许且流程便捷可考虑入籍</label>
+                            <input type="radio" id="q1_12_identity_3" name="desired_identity_type" value="direct_citizenship">
+                            <label for="q1_12_identity_3">C. 直接公民身份 (护照，一步到位，可免签全球多国)</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_12_identity_4" name="desired_identity_type" value="flexible_identity_path">
+                            <label for="q1_12_identity_4">D. 暂无明确偏好，希望了解不同身份的优劣及后续发展路径</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>12. 您预计何时启动移民申请流程？</label>
+                    <label>13. 您对最终获得移民国公民身份（入籍）的意愿是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q12_timeline_1" name="application_timeline" value="within_3_months" required>
-                            <label for="q12_timeline_1">A. 3个月内，希望尽快启动</label>
+                            <input type="radio" id="q1_13_citizenship_goal_1" name="citizenship_goal" value="must_achieve_citizenship" required>
+                            <label for="q1_13_citizenship_goal_1">A. 强烈希望，最终目标是获得公民身份，不介意等待时间</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q12_timeline_2" name="application_timeline" value="3_to_6_months">
-                            <label for="q12_timeline_2">B. 3-6个月内</label>
+                            <input type="radio" id="q1_13_citizenship_2" name="citizenship_goal" value="permanent_residency_sufficient">
+                            <label for="q1_13_citizenship_2">B. 有永居身份即可满足需求，不强制要求入籍</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q12_timeline_3" name="application_timeline" value="6_to_12_months">
-                            <label for="q12_timeline_3">C. 6-12个月内</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q12_timeline_4" name="application_timeline" value="over_1_year">
-                            <label for="q12_timeline_4">D. 1年以后，仍在规划中</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q12_timeline_5" name="application_timeline" value="no_fixed_timeline">
-                            <label for="q12_timeline_5">E. 暂无明确时间表，希望先了解详细政策和可行性</label>
+                            <input type="radio" id="q1_13_citizenship_3" name="citizenship_goal" value="open_to_citizenship">
+                            <label for="q1_13_citizenship_3">C. 持开放态度，若条件允许且流程便捷可考虑入籍</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>13. 您对新环境的适应能力如何？</label>
+                    <label>14. 您预计何时启动移民申请流程？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q13_adaptability_1" name="adaptability_to_new_environments" value="highly_adaptable" required>
-                            <label for="q13_adaptability_1">A. 适应能力强，乐于接受并融入新环境</label>
+                            <input type="radio" id="q1_14_timeline_1" name="application_timeline" value="within_3_months" required>
+                            <label for="q1_14_timeline_1">A. 3个月内，希望尽快启动</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q13_adaptability_2" name="adaptability_to_new_environments" value="moderately_adaptable">
-                            <label for="q13_adaptability_2">B. 适度活跃，需要时间适应</label>
+                            <input type="radio" id="q1_14_timeline_2" name="application_timeline" value="3_to_6_months">
+                            <label for="q1_14_timeline_2">B. 3-6个月内</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q13_adaptability_3" name="adaptability_to_new_environments" value="less_adaptable">
-                            <label for="q13_adaptability_3">C. 适应能力较弱，更倾向于熟悉的环境</label>
+                            <input type="radio" id="q1_14_timeline_3" name="application_timeline" value="6_to_12_months">
+                            <label for="q1_14_timeline_3">C. 6-12个月内</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_14_timeline_4" name="application_timeline" value="over_1_year">
+                            <label for="q1_14_timeline_4">D. 1年以后，仍在规划中</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_14_timeline_5" name="application_timeline" value="no_fixed_timeline">
+                            <label for="q1_14_timeline_5">E. 暂无明确时间表，希望先了解详细政策和可行性</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>14. 您偏好的社交方式是？</label>
+                    <label>15. 您对新环境的适应能力如何？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q14_social_pref_1" name="social_style" value="extrovert_large_groups" required>
-                            <label for="q14_social_pref_1">A. 开放外向，喜欢参与大型社交活动和拓展人脉</label>
+                            <input type="radio" id="q1_15_adaptability_1" name="adaptability_to_new_environments" value="highly_adaptable" required>
+                            <label for="q1_15_adaptability_1">A. 适应能力强，乐于接受并融入新环境</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q14_social_pref_2" name="social_style" value="introvert_small_circles">
-                            <label for="q14_social_pref_2">B. 相对内向，更偏好小范围、深度的朋友聚会</label>
+                            <input type="radio" id="q1_15_adaptability_2" name="adaptability_to_new_environments" value="moderately_adaptable">
+                            <label for="q1_15_adaptability_2">B. 适度活跃，需要时间适应</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q14_social_pref_3" name="social_style" value="balanced_social">
-                            <label for="q14_social_pref_3">C. 兼顾两者，视情况而定</label>
+                            <input type="radio" id="q1_15_adaptability_3" name="adaptability_to_new_environments" value="less_adaptable">
+                            <label for="q1_15_adaptability_3">C. 适应能力较弱，更倾向于熟悉的环境</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>15. 您的国际旅行经验如何？</label>
+                    <label>16. 您偏好的社交方式是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q15_travel_exp_1" name="international_travel_experience" value="limited_rarely_traveled" required>
-                            <label for="q15_travel_exp_1">A. 有限，很少出国旅行</label>
+                            <input type="radio" id="q1_16_social_pref_1" name="social_style" value="extrovert_large_groups" required>
+                            <label for="q1_16_social_pref_1">A. 开放外向，喜欢参与大型社交活动和拓展人脉</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q15_travel_exp_2" name="international_travel_experience" value="some_casual_travel">
-                            <label for="q15_travel_exp_2">B. 较多，有休闲旅游经验，去过几个国家</label>
+                            <input type="radio" id="q1_16_social_pref_2" name="social_style" value="introvert_small_circles">
+                            <label for="q1_16_social_pref_2">B. 相对内向，更偏好小范围、深度的朋友聚会</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q15_travel_exp_3" name="international_travel_experience" value="extensive_business_travel">
-                            <label for="q15_travel_exp_3">C. 广泛，有频繁的商务或深度旅行经验，去过很多国家</label>
+                            <input type="radio" id="q1_16_social_pref_3" name="social_style" value="balanced_social">
+                            <label for="q1_16_social_pref_3">C. 兼顾两者，视情况而定</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>16. 您的英语或其他外语水平如何？(请选择您最熟练的语言水平)</label>
+                    <label>17. 您的国际旅行经验如何？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q16_lang_1" name="language_proficiency" value="native_fluent_english" required>
-                            <label for="q16_lang_1">A. 英语母语或流利沟通 (雅思7.0+水平)</label>
+                            <input type="radio" id="q1_17_travel_exp_1" name="international_travel_experience" value="limited_rarely_traveled" required>
+                            <label for="q1_17_travel_exp_1">A. 有限，很少出国旅行</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q16_lang_2" name="language_proficiency" value="business_working_english">
-                            <label for="q16_lang_2">B. 英语商务沟通无障碍 (雅思5.5-6.5水平)</label>
+                            <input type="radio" id="q1_17_travel_exp_2" name="international_travel_experience" value="some_casual_travel">
+                            <label for="q1_17_travel_exp_2">B. 较多，有休闲旅游经验，去过几个国家</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q16_lang_3" name="language_proficiency" value="daily_basic_english">
-                            <label for="q16_lang_3">C. 英语日常交流无障碍 (雅思4.0-5.0水平)</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q16_lang_4" name="language_proficiency" value="some_basic_english">
-                            <label for="q16_lang_4">D. 具备基本英语交流能力</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q16_lang_5" name="language_proficiency" value="fluent_other_language">
-                            <label for="q16_lang_5">E. 流利掌握其他小语种 (如葡萄牙语、希腊语、法语等)</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q16_lang_6" name="language_proficiency" value="no_foreign_language">
-                            <label for="q16_lang_6">F. 几乎无外语能力</label>
+                            <input type="radio" id="q1_17_travel_exp_3" name="international_travel_experience" value="extensive_business_travel">
+                            <label for="q1_17_travel_exp_3">C. 广泛，有频繁的商务或深度旅行经验，去过很多国家</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label for="q17_language_exam_score">17. 您是否参加过雅思/托福/其他语言考试？如有，请提供分数。</label>
-                    <input type="text" id="q17_language_exam_score" name="language_exam_score" placeholder="例如：雅思总分6.5">
-                </div>
-
-                <div class="question-group">
-                    <label>18. 您的最高职业背景是？ (请选择最符合您情况的一项)</label>
+                    <label>18. 您的英语或其他外语水平如何？(请选择您最熟练的语言水平)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q18_profession_1" name="occupation_category" value="management_executive" required>
-                            <label for="q18_profession_1">A. 高级管理人员/企业主</label>
+                            <input type="radio" id="q1_18_lang_1" name="language_proficiency" value="native_fluent_english" required>
+                            <label for="q1_18_lang_1">A. 英语母语或流利沟通 (雅思7.0+水平)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q18_profession_2" name="occupation_category" value="professional_technical">
-                            <label for="q18_profession_2">B. 专业技术人员 (如IT工程师、医生、律师)</label>
+                            <input type="radio" id="q1_18_lang_2" name="language_proficiency" value="business_working_english">
+                            <label for="q1_18_lang_2">B. 英语商务沟通无障碍 (雅思5.5-6.5水平)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q18_profession_3" name="occupation_category" value="business_sales">
-                            <label for="q18_profession_3">C. 商业/销售人员</label>
+                            <input type="radio" id="q1_18_lang_3" name="language_proficiency" value="daily_basic_english">
+                            <label for="q1_18_lang_3">C. 英语日常交流无障碍 (雅思4.0-5.0水平)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q18_profession_4" name="occupation_category" value="public_sector_civil_servant">
-                            <label for="q18_profession_4">D. 公务员/事业单位人员</label>
+                            <input type="radio" id="q1_18_lang_4" name="language_proficiency" value="some_basic_english">
+                            <label for="q1_18_lang_4">D. 具备基本英语交流能力</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q18_profession_5" name="occupation_category" value="student">
-                            <label for="q18_profession_5">E. 学生</label>
+                            <input type="radio" id="q1_18_lang_5" name="language_proficiency" value="fluent_other_language">
+                            <label for="q1_18_lang_5">E. 流利掌握其他小语种 (如葡萄牙语、希腊语、法语等)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q18_profession_6" name="occupation_category" value="retiree">
-                            <label for="q18_profession_6">F. 退休人员</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q18_profession_7" name="occupation_category" value="other_occupation">
-                            <label for="q18_profession_7">G. 其他（请在后续详细说明）</label>
+                            <input type="radio" id="q1_18_lang_6" name="language_proficiency" value="no_foreign_language">
+                            <label for="q1_18_lang_6">F. 几乎无外语能力</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label for="q19_work_experience_years">19. 您的工作经验总年限是？</label>
-                    <input type="number" id="q19_work_experience_years" name="work_experience_years" placeholder="请这里输入年限" min="0" max="60">
+                    <label for="q1_19_language_exam_score">19. 您是否参加过雅思/托福/其他语言考试？如有，请提供分数。</label>
+                    <input type="text" id="q1_13_language_exam_score" name="language_exam_score" placeholder="例如：雅思总分6.5">
                 </div>
 
                 <div class="question-group">
-                    <label>20. 您的职业是否在目标国家的紧缺职业列表中？</label>
+                    <label>20. 您的最高职业背景是？ (请选择最符合您情况的一项)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q20_skill_list_yes" name="on_skill_list" value="yes">
-                            <label for="q20_skill_list_yes">A. 是</label>
+                            <input type="radio" id="q1_20_profession_1" name="occupation_category" value="management_executive" required>
+                            <label for="q1_20_profession_1">A. 高级管理人员/企业主</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q20_skill_list_no" name="on_skill_list" value="no">
-                            <label for="q20_skill_list_no">B. 否</label>
+                            <input type="radio" id="q1_20_profession_2" name="occupation_category" value="professional_technical">
+                            <label for="q1_20_profession_2">B. 专业技术人员 (如IT工程师、医生、律师)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q20_skill_list_unsure" name="on_skill_list" value="unsure">
-                            <label for="q20_skill_list_unsure">C. 不确定</label>
+                            <input type="radio" id="q1_20_profession_3" name="occupation_category" value="business_sales">
+                            <label for="q1_20_profession_3">C. 商业/销售人员</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_20_profession_4" name="occupation_category" value="public_sector_civil_servant">
+                            <label for="q1_20_profession_4">D. 公务员/事业单位人员</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_20_profession_5" name="occupation_category" value="student">
+                            <label for="q1_20_profession_5">E. 学生</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_20_profession_6" name="occupation_category" value="retiree">
+                            <label for="q1_20_profession_6">F. 退休人员</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_20_profession_7" name="occupation_category" value="other_occupation">
+                            <label for="q1_20_profession_7">G. 其他（请在后续详细说明）</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>21. 您是否拥有专业资格认证（如注册会计师、医生执照等）？</label>
-                    <div class="option-group">
-                        <div class="option-item">
-                            <input type="radio" id="q21_professional_cert_yes" name="professional_certification" value="yes">
-                            <label for="q21_professional_cert_yes">A. 是</label> <!-- Removed " (请在后续说明具体)" -->
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q21_professional_cert_no" name="professional_certification" value="no">
-                            <label for="q21_professional_cert_no">B. 否</label>
-                        </div>
-                    </div>
-                    <!-- NEW: Conditional input for Q21 details -->
-                    <div class="hidden-question mt-4" id="q21_certification_details_group">
-                        <label for="q21_certification_details" class="text-base font-normal mb-2">请说明具体的专业资格认证：</label>
-                        <input type="text" id="q21_certification_details" name="professional_certification_details" placeholder="例如：注册会计师，医生执照">
-                    </div>
+                    <label for="q1_21_work_experience_years">21. 您的工作经验总年限是？</label>
+                    <input type="number" id="q1_15_work_experience_years" name="work_experience_years" placeholder="请这里输入年限" min="0" max="60">
                 </div>
 
                 <div class="question-group">
-                    <label>22. 您的当前国籍是？(这可能影响部分项目的适用性和排期)</label>
+                    <label>22. 您的职业是否在目标国家的紧缺职业列表中？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q22_nationality_1" name="current_nationality" value="china_mainland" required>
-                            <label for="q22_nationality_1">A. 中国大陆</label>
+                            <input type="radio" id="q1_22_skill_list_yes" name="on_skill_list" value="yes">
+                            <label for="q1_22_skill_list_yes">A. 是</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q22_nationality_2" name="current_nationality" value="hong_kong_macau_taiwan">
-                            <label for="q22_nationality_2">B. 中国香港/澳门/台湾</label>
+                            <input type="radio" id="q1_22_skill_list_no" name="on_skill_list" value="no">
+                            <label for="q1_22_skill_list_no">B. 否</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q22_nationality_3" name="current_nationality" value="other_asia">
-                            <label for="q22_nationality_3">C. 亚洲其他国家</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q22_nationality_4" name="current_nationality" value="europe_north_america">
-                            <label for="q22_nationality_4">D. 欧洲/北美国家</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q22_nationality_5" name="current_nationality" value="other_region">
-                            <label for="q22_nationality_5">E. 其他地区国家</label>
+                            <input type="radio" id="q1_22_skill_list_unsure" name="on_skill_list" value="unsure">
+                            <label for="q1_22_skill_list_unsure">C. 不确定</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>23. 您目前的主要居住国家是？</label>
+                    <label>23. 您是否拥有专业资格认证（如注册会计师、医生执照等）？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q23_residence_1" name="current_residence" value="china_mainland" required>
-                            <label for="q23_residence_1">A. 中国大陆</label>
+                            <input type="radio" id="q1_23_professional_cert_yes" name="professional_certification" value="yes">
+                            <label for="q1_23_professional_cert_yes">A. 是</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q23_residence_2" name="current_residence" value="hong_kong_macau_taiwan">
-                            <label for="q23_residence_2">B. 中国香港/澳门/台湾</label>
+                            <input type="radio" id="q1_23_professional_cert_no" name="professional_certification" value="no">
+                            <label for="q1_23_professional_cert_no">B. 否</label>
+                        </div>
+                    </div>
+                    <!-- Conditional input for Q23 details -->
+                    <div class="hidden-question mt-4" id="q1_23_certification_details_group">
+                        <label for="q1_17_certification_details" class="text-base font-normal mb-2">请说明具体的专业资格认证：</label>
+                        <input type="text" id="q1_17_certification_details" name="professional_certification_details" placeholder="例如：注册会计师，医生执照">
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label>24. 您的当前国籍是？(这可能影响部分项目的适用性和排期)</label>
+                    <div class="option-group">
+                        <div class="option-item">
+                            <input type="radio" id="q1_24_nationality_1" name="current_nationality" value="china_mainland" required>
+                            <label for="q1_24_nationality_1">A. 中国大陆</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q23_residence_3" name="current_residence" value="asia_other">
-                            <label for="q23_residence_3">C. 亚洲其他国家</label>
+                            <input type="radio" id="q1_24_nationality_2" name="current_nationality" value="hong_kong_macau_taiwan">
+                            <label for="q1_24_nationality_2">B. 中国香港/澳门/台湾</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q23_residence_4" name="current_residence" value="north_america">
-                            <label for="q23_residence_4">D. 北美</label>
+                            <input type="radio" id="q1_24_nationality_3" name="current_nationality" value="other_asia">
+                            <label for="q1_24_nationality_3">C. 亚洲其他国家</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q23_residence_5" name="current_residence" value="europe">
-                            <label for="q23_residence_5">E. 欧洲</label>
+                            <input type="radio" id="q1_24_nationality_4" name="current_nationality" value="europe_north_america">
+                            <label for="q1_24_nationality_4">D. 欧洲/北美国家</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q23_residence_6" name="current_residence" value="oceania">
-                            <label for="q23_residence_6">F. 大洋洲</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q23_residence_7" name="current_residence" value="other_region_residence">
-                            <label for="q23_residence_7">G. 其他地区</label>
+                            <input type="radio" id="q1_24_nationality_5" name="current_nationality" value="other_region">
+                            <label for="q1_24_nationality_5">E. 其他地区国家</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>24. 您对保留原国籍的偏好是？</label>
+                    <label>25. 您目前的主要居住国家是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q24_dual_nationality_1" name="dual_nationality_preference" value="must_retain_original" required>
-                            <label for="q24_dual_nationality_1">A. 必须保留原国籍，接受双重国籍的国家</label>
+                            <input type="radio" id="q1_25_residence_1" name="current_residence" value="china_mainland" required>
+                            <label for="q1_25_residence_1">A. 中国大陆</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q24_dual_nationality_2" name="dual_nationality_preference" value="flexible_can_give_up">
-                            <label for="q24_dual_nationality_2">B. 持开放态度，若要求则可放弃原国籍</label>
+                            <input type="radio" id="q1_25_residence_2" name="current_residence" value="hong_kong_macau_taiwan">
+                            <label for="q1_25_residence_2">B. 中国香港/澳门/台湾</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q24_dual_nationality_3" name="dual_nationality_preference" value="no_preference_dual_nationality">
-                            <label for="q24_dual_nationality_3">C. 无明确偏好</label>
+                            <input type="radio" id="q1_25_residence_3" name="current_residence" value="asia_other">
+                            <label for="q1_25_residence_3">C. 亚洲其他国家</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_25_residence_4" name="current_residence" value="north_america">
+                            <label for="q1_25_residence_4">D. 北美</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_25_residence_5" name="current_residence" value="europe">
+                            <label for="q1_25_residence_5">E. 欧洲</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_25_residence_6" name="current_residence" value="oceania">
+                            <label for="q1_25_residence_6">F. 大洋洲</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_25_residence_7" name="current_residence" value="other_region_residence">
+                            <label for="q1_25_residence_7">G. 其他地区</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>25. 您的婚姻状况是？</label>
+                    <label>26. 您对保留原国籍的偏好是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q25_marital_1" name="marital_status" value="married" required>
-                            <label for="q25_marital_1">A. 已婚</label>
+                            <input type="radio" id="q1_26_dual_nationality_1" name="dual_nationality_preference" value="must_retain_original" required>
+                            <label for="q1_26_dual_nationality_1">A. 必须保留原国籍，接受双重国籍的国家</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q25_marital_2" name="marital_status" value="single">
-                            <label for="q25_marital_2">B. 未婚</label>
+                            <input type="radio" id="q1_26_dual_nationality_2" name="dual_nationality_preference" value="flexible_can_give_up">
+                            <label for="q1_26_dual_nationality_2">B. 持开放态度，若要求则可放弃原国籍</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q25_marital_3" name="marital_status" value="divorced_separated">
-                            <label for="q25_marital_3">C. 离异/分居</label>
+                            <input type="radio" id="q1_26_dual_nationality_3" name="dual_nationality_preference" value="no_preference_dual_nationality">
+                            <label for="q1_26_dual_nationality_3">C. 无明确偏好</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label>27. 您的婚姻状况是？</label>
+                    <div class="option-group">
+                        <div class="option-item">
+                            <input type="radio" id="q1_27_marital_1" name="marital_status" value="married" required>
+                            <label for="q1_27_marital_1">A. 已婚</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q25_marital_4" name="marital_status" value="widowed">
-                            <label for="q25_marital_4">D. 丧偶</label>
+                            <input type="radio" id="q1_27_marital_2" name="marital_status" value="single">
+                            <label for="q1_27_marital_2">B. 未婚</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_27_marital_3" name="marital_status" value="divorced_separated">
+                            <label for="q1_27_marital_3">C. 离异/分居</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_27_marital_4" name="marital_status" value="widowed">
+                            <label for="q1_27_marital_4">D. 丧偶</label>
                         </div>
                     </div>
                 </div>
@@ -837,321 +795,321 @@
                 </h2>
 
                 <div class="question-group">
-                    <label>26. 您的家庭总净资产（包含全球范围内的流动资产、不动产、金融资产等，不含自住房产）大概是多少？</label>
+                    <label>1. 您的家庭总净资产（包含全球范围内的流动资产、不动产、金融资产等，不含自住房产）大概是多少？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q26_net_worth_1" name="total_net_worth" value="below_500k_usd" required>
-                            <label for="q26_net_worth_1">A. 低于 50 万美元</label>
+                            <input type="radio" id="q2_1_net_worth_1" name="total_net_worth" value="below_500k_usd" required>
+                            <label for="q2_1_net_worth_1">A. 低于 50 万美元</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q26_net_worth_2" name="total_net_worth" value="500k_1m_usd">
-                            <label for="q26_net_worth_2">B. 50 万 - 100 万美元</label>
+                            <input type="radio" id="q2_1_net_worth_2" name="total_net_worth" value="500k_1m_usd">
+                            <label for="q2_1_net_worth_2">B. 50 万 - 100 万美元</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q26_net_worth_3" name="total_net_worth" value="1m_2m_usd">
-                            <label for="q26_net_worth_3">C. 101 万 - 200 万美元</label>
+                            <input type="radio" id="q2_1_net_worth_3" name="total_net_worth" value="1m_2m_usd">
+                            <label for="q2_1_net_worth_3">C. 101 万 - 200 万美元</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q26_net_worth_4" name="total_net_worth" value="2m_5m_usd">
-                            <label for="q26_net_worth_4">D. 201 万 - 500 万美元</label>
+                            <input type="radio" id="q2_1_net_worth_4" name="total_net_worth" value="2m_5m_usd">
+                            <label for="q2_1_net_worth_4">D. 201 万 - 500 万美元</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q26_net_worth_5" name="total_net_worth" value="over_5m_usd">
-                            <label for="q26_net_worth_5">E. 500 万美元以上</label>
+                            <input type="radio" id="q2_1_net_worth_5" name="total_net_worth" value="over_5m_usd">
+                            <label for="q2_1_net_worth_5">E. 500 万美元以上</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>27. 您用于投资移民的资金预算范围是？ (以美元为单位，通常不含政府申请费、律师费、尽职调查费等杂费)</label>
+                    <label>2. 您用于投资移民的资金预算范围是？ (以美元为单位，通常不含政府申请费、律师费、尽职调查费等杂费)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q27_budget_1" name="investment_budget_range" value="below_50k_usd" required>
-                            <label for="q27_budget_1">A. 低于 5 万美元</label>
+                            <input type="radio" id="q2_2_budget_1" name="investment_budget_range" value="below_50k_usd" required>
+                            <label for="q2_2_budget_1">A. 低于 5 万美元</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q27_budget_2" name="investment_budget_range" value="50k_100k_usd">
-                            <label for="q27_budget_2">B. 5 万 - 10 万美元</label>
+                            <input type="radio" id="q2_2_budget_2" name="investment_budget_range" value="50k_100k_usd">
+                            <label for="q2_2_budget_2">B. 5 万 - 10 万美元</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q27_budget_3" name="investment_budget_3" value="100k_300k_usd">
-                            <label for="q27_budget_3">C. 10 万 - 30 万美元</label>
+                            <input type="radio" id="q2_2_budget_3" name="investment_budget_3" value="100k_300k_usd">
+                            <label for="q2_2_budget_3">C. 10 万 - 30 万美元</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q27_budget_4" name="investment_budget_range" value="300k_1m_usd">
-                            <label for="q27_budget_4">D. 30 万 - 100 万美元</label>
+                            <input type="radio" id="q2_2_budget_4" name="investment_budget_range" value="300k_1m_usd">
+                            <label for="q2_2_budget_4">D. 30 万 - 100 万美元</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q27_budget_5" name="investment_budget_range" value="1m_plus_usd">
-                            <label for="q27_budget_5">E. 100 万美元以上</label>
+                            <input type="radio" id="q2_2_budget_5" name="investment_budget_range" value="1m_plus_usd">
+                            <label for="q2_2_budget_5">E. 100 万美元以上</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q27_budget_6" name="investment_budget_range" value="no_fixed_budget_inquire">
-                            <label for="q27_budget_6">F. 暂无明确预算，希望了解不同投资额度对应的方案</label>
+                            <input type="radio" id="q2_2_budget_6" name="investment_budget_range" value="no_fixed_budget_inquire">
+                            <label for="q2_2_budget_6">F. 暂无明确预算，希望了解不同投资额度对应的方案</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>28. 您的预算是否包括移民律师费、政府申请费、生活费用等全部开销？</label>
+                    <label>3. 您的预算是否包括移民律师费、政府申请费、生活费用等全部开销？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q28_budget_compre_yes" name="budget_comprehensive" value="yes" required>
-                            <label for="q28_budget_compre_yes">A. 是，包含所有相关费用</label>
+                            <input type="radio" id="q2_3_budget_compre_yes" name="budget_comprehensive" value="yes" required>
+                            <label for="q2_3_budget_compre_yes">A. 是，包含所有相关费用</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q28_budget_compre_no" name="budget_comprehensive" value="no">
-                            <label for="q28_budget_compre_no">B. 否，仅指投资额度，其他费用另算</label>
+                            <input type="radio" id="q2_3_budget_compre_no" name="budget_comprehensive" value="no">
+                            <label for="q2_3_budget_compre_no">B. 否，仅指投资额度，其他费用另算</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q28_budget_compre_unsure" name="budget_comprehensive" value="unsure">
-                            <label for="q28_budget_compre_unsure">C. 不确定，希望了解全部费用构成</label>
+                            <input type="radio" id="q2_3_budget_compre_unsure" name="budget_comprehensive" value="unsure">
+                            <label for="q2_3_budget_compre_unsure">C. 不确定，希望了解全部费用构成</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>29. 您对投资移民的投资方式有何偏好？(可多选)</label>
+                    <label>4. 您对投资移民的投资方式有何偏好？(可多选)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="checkbox" id="q29_inv_pref_1" name="investment_method_preference" value="real_estate_purchase">
-                            <label for="q29_inv_pref_1">A. 购买房产 (如住宅、商业地产)，追求实物资产</label>
+                            <input type="checkbox" id="q2_4_inv_pref_1" name="investment_method_preference" value="real_estate_purchase">
+                            <label for="q2_4_inv_pref_1">A. 购买房产 (如住宅、商业地产)，追求实物资产</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q29_inv_pref_2" name="investment_method_preference" value="government_bonds_funds">
-                            <label for="q29_inv_pref_2">B. 购买政府债券/投资基金，偏好被动投资</label>
+                            <input type="checkbox" id="q2_4_inv_pref_2" name="investment_method_preference" value="government_bonds_funds">
+                            <label for="q2_4_inv_pref_2">B. 购买政府债券/投资基金，偏好被动投资</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q29_inv_pref_3" name="investment_method_preference" value="business_startup_investment">
-                            <label for="q29_inv_pref_3">C. 创办或投资当地企业，并积极创造就业</label>
+                            <input type="checkbox" id="q2_4_inv_pref_3" name="investment_method_preference" value="business_startup_investment">
+                            <label for="q2_4_inv_pref_3">C. 创办或投资当地企业，并积极创造就业</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q29_inv_pref_4" name="investment_method_preference" value="donation_to_government_charity">
-                            <label for="q29_inv_pref_4">D. 向政府或公益机构捐款，追求快速便捷</label>
+                            <input type="checkbox" id="q2_4_inv_pref_4" name="investment_method_preference" value="donation_to_government_charity">
+                            <label for="q2_4_inv_pref_4">D. 向政府或公益机构捐款，追求快速便捷</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q29_inv_pref_5" name="investment_method_preference" value="other_specific_assets">
-                            <label for="q29_inv_pref_5">E. 其他特定资产投资 (如上市股票、私募股权等)</label>
+                            <input type="checkbox" id="q2_4_inv_pref_5" name="investment_method_preference" value="other_specific_assets">
+                            <label for="q2_4_inv_pref_5">E. 其他特定资产投资 (如上市股票、私募股权等)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q29_inv_pref_6" name="investment_method_preference" value="no_preference_flexible_methods">
-                            <label for="q29_inv_pref_6">F. 暂无偏好，希望了解哪种方式更稳妥或有优势</label>
+                            <input type="checkbox" id="q2_4_inv_pref_6" name="investment_method_preference" value="no_preference_flexible_methods">
+                            <label for="q2_4_inv_pref_6">F. 暂无偏好，希望了解哪种方式更稳妥或有优势</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>30. 您对投资回报的期望是？</label>
+                    <label>5. 您对投资回报的期望是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q30_roi_1" name="roi_expectation" value="identity_priority_no_roi" required>
-                            <label for="q30_roi_1">A. 首要目标是获得身份，不追求投资回报或可接受无回报</label>
+                            <input type="radio" id="q2_5_roi_1" name="roi_expectation" value="identity_priority_no_roi" required>
+                            <label for="q2_5_roi_1">A. 首要目标是获得身份，不追求投资回报或可接受无回报</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q30_roi_2" name="roi_expectation" value="modest_roi_safety_first">
-                            <label for="q30_roi_2">B. 期望有适度投资回报，但资金安全性是优先考量</label>
+                            <input type="radio" id="q2_5_roi_2" name="roi_expectation" value="modest_roi_safety_first">
+                            <label for="q2_5_roi_2">B. 期望有适度投资回报，但资金安全性是优先考量</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q30_roi_3" name="roi_expectation" value="higher_roi_acceptable_risk">
-                            <label for="q30_roi_3">C. 追求较高的投资回报，并愿意为之承担相应风险</label>
+                            <input type="radio" id="q2_5_roi_3" name="roi_expectation" value="higher_roi_acceptable_risk">
+                            <label for="q2_5_roi_3">C. 追求较高的投资回报，并愿意为之承担相应风险</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>31. 您对投资的风险承受能力是？</label>
+                    <label>6. 您对投资的风险承受能力是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q31_risk_tolerance_1" name="risk_tolerance_level" value="extremely_low_risk_safety_first" required>
-                            <label for="q31_risk_tolerance_1">A. 极低风险，资金绝对安全是首要考量，宁可回报低</label>
+                            <input type="radio" id="q2_6_risk_tolerance_1" name="risk_tolerance_level" value="extremely_low_risk_safety_first" required>
+                            <label for="q2_6_risk_tolerance_1">A. 极低风险，资金绝对安全是首要考量，宁可回报低</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q31_risk_tolerance_2" name="risk_tolerance_2" value="low_to_medium_risk_minor_fluctuations">
-                            <label for="q31_risk_tolerance_2">B. 中低风险，可以接受少量市场波动，但本金安全是底线</label>
+                            <input type="radio" id="q2_6_risk_tolerance_2" name="risk_tolerance_2" value="low_to_medium_risk_minor_fluctuations">
+                            <label for="q2_6_risk_tolerance_2">B. 中低风险，可以接受少量市场波动，但本金安全是底线</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q31_risk_tolerance_3" name="risk_tolerance_level" value="medium_to_high_risk_for_growth">
-                            <label for="q31_risk_tolerance_3">C. 中高风险，愿意为追求更高回报承担一定风险，能接受部分损失</label>
+                            <input type="radio" id="q2_6_risk_tolerance_3" name="risk_tolerance_level" value="medium_to_high_risk_for_growth">
+                            <label for="q2_6_risk_tolerance_3">C. 中高风险，愿意为追求更高回报承担一定风险，能接受部分损失</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>32. 您对投资项目的控制权和参与度有何期望？</label>
+                    <label>7. 您对投资项目的控制权和参与度有何期望？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q32_control_1" name="investment_control" value="no_involvement_passive_investment" required>
-                            <label for="q32_control_1">A. 无需参与管理，倾向于完全被动投资 (如基金、国债)</label>
+                            <input type="radio" id="q2_7_control_1" name="investment_control" value="no_involvement_passive_investment" required>
+                            <label for="q2_7_control_1">A. 无需参与管理，倾向于完全被动投资 (如基金、国债)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q32_control_2" name="investment_control" value="some_oversight_minimal_involvement">
-                            <label for="q32_control_2">B. 少量参与，仅需定期了解投资进展和策略</label>
+                            <input type="radio" id="q2_7_control_2" name="investment_control" value="some_oversight_minimal_involvement">
+                            <label for="q2_7_control_2">B. 少量参与，仅需定期了解投资进展和策略</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q32_control_3" name="investment_control" value="active_management_direct_business">
-                            <label for="q32_control_3">C. 积极参与，愿意亲自管理或经营企业，享受商业乐趣</label>
+                            <input type="radio" id="q2_7_control_3" name="investment_control" value="active_management_direct_business">
+                            <label for="q2_7_control_3">C. 积极参与，愿意亲自管理或经营企业，享受商业乐趣</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>33. 您的投资资金来源合法性证明是否齐全？</label>
+                    <label>8. 您的投资资金来源合法性证明是否齐全？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q33_fund_source_1" name="fund_source_legality" value="all_documents_ready" required>
-                            <label for="q33_fund_source_1">A. 是，所有资金来源都有清晰、完整的证明文件，符合国际合规要求</label>
+                            <input type="radio" id="q2_8_fund_source_1" name="fund_source_legality" value="all_documents_ready" required>
+                            <label for="q2_8_fund_source_1">A. 是，所有资金来源都有清晰、完整的证明文件，符合国际合规要求</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q33_fund_source_2" name="fund_source_legality" value="partial_documents_need_assistance">
-                            <label for="q33_fund_source_2">B. 部分资金来源有证明，需要专业协助整理和完善</label>
+                            <input type="radio" id="q2_8_fund_source_2" name="fund_source_legality" value="partial_documents_need_assistance">
+                            <label for="q2_8_fund_source_2">B. 部分资金来源有证明，需要专业协助整理和完善</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q33_fund_source_3" name="fund_source_legality" value="unsure_need_full_guidance">
-                            <label for="q33_fund_source_3">C. 尚不清楚如何准备，需要详细的指引和协助，从零开始</label>
+                            <input type="radio" id="q2_8_fund_source_3" name="fund_source_legality" value="unsure_need_full_guidance">
+                            <label for="q2_8_fund_source_3">C. 尚不清楚如何准备，需要详细的指引和协助，从零开始</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>34. 您的主要财富积累方式是？ (可多选，有助于了解您的资产构成和风险偏好)</label>
+                    <label>9. 您的主要财富积累方式是？ (可多选，有助于了解您的资产构成和风险偏好)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="checkbox" id="q34_wealth_source_1" name="wealth_accumulation_method" value="business_operations">
-                            <label for="q34_wealth_source_1">A. 企业经营所得</label>
+                            <input type="checkbox" id="q2_9_wealth_source_1" name="wealth_accumulation_method" value="business_operations">
+                            <label for="q2_9_wealth_source_1">A. 企业经营所得</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q34_wealth_source_2" name="wealth_accumulation_method" value="real_estate_investment">
-                            <label for="q34_wealth_source_2">B. 房地产投资增值</label>
+                            <input type="checkbox" id="q2_9_wealth_source_2" name="wealth_accumulation_method" value="real_estate_investment">
+                            <label for="q2_9_wealth_source_2">B. 房地产投资增值</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q34_wealth_source_3" name="wealth_accumulation_method" value="financial_market_investment">
-                            <label for="q34_wealth_source_3">C. 金融市场投资 (股票、基金、债券等)</label>
+                            <input type="checkbox" id="q2_9_wealth_source_3" name="wealth_accumulation_method" value="financial_market_investment">
+                            <label for="q2_9_wealth_source_3">C. 金融市场投资 (股票、基金、债券等)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q34_wealth_source_4" name="wealth_accumulation_method" value="inheritance_gift">
-                            <label for="q34_wealth_source_4">D. 继承或赠予</label>
+                            <input type="checkbox" id="q2_9_wealth_source_4" name="wealth_accumulation_method" value="inheritance_gift">
+                            <label for="q2_9_wealth_source_4">D. 继承或赠予</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q34_wealth_source_5" name="wealth_accumulation_method" value="employment_income">
-                            <label for="q34_wealth_source_5">E. 高薪职业收入</label>
+                            <input type="checkbox" id="q2_9_wealth_source_5" name="wealth_accumulation_method" value="employment_income">
+                            <label for="q2_9_wealth_source_5">E. 高薪职业收入</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q34_wealth_source_6" name="wealth_accumulation_method" value="other_wealth_source">
-                            <label for="q34_wealth_source_6">F. 其他（后续详细沟通）</label>
+                            <input type="checkbox" id="q2_9_wealth_source_6" name="wealth_accumulation_method" value="other_wealth_source">
+                            <label for="q2_9_wealth_source_6">F. 其他（后续详细沟通）</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>35. 您希望投资资金在移民成功后多久内可退出或变现？</label>
+                    <label>10. 您希望投资资金在移民成功后多久内可退出或变现？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q35_exit_timeline_1" name="investment_exit_timeline" value="1_3_years" required>
-                            <label for="q35_exit_timeline_1">A. 1-3年内，希望尽快实现资金灵活度</label>
+                            <input type="radio" id="q2_10_exit_timeline_1" name="investment_exit_timeline" value="1_3_years" required>
+                            <label for="q2_10_exit_timeline_1">A. 1-3年内，希望尽快实现资金灵活度</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q35_exit_timeline_2" name="investment_exit_timeline" value="3_5_years">
-                            <label for="q35_exit_timeline_2">B. 3-5年内，可接受中期持有</label>
+                            <input type="radio" id="q2_10_exit_timeline_2" name="investment_exit_timeline" value="3_5_years">
+                            <label for="q2_10_exit_timeline_2">B. 3-5年内，可接受中期持有</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q35_exit_timeline_3" name="investment_exit_timeline" value="5_plus_years">
-                            <label for="q35_exit_timeline_3">C. 5年以上，可接受长期持有以求稳定回报</label>
+                            <input type="radio" id="q2_10_exit_timeline_3" name="investment_exit_timeline" value="5_plus_years">
+                            <label for="q2_10_exit_timeline_3">C. 5年以上，可接受长期持有以求稳定回报</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q35_exit_timeline_4" name="investment_exit_timeline" value="not_concerned_with_exit">
-                            <label for="q35_exit_timeline_4">D. 不关注资金退出，身份是唯一考量</label>
+                            <input type="radio" id="q2_10_exit_timeline_4" name="investment_exit_timeline" value="not_concerned_with_exit">
+                            <label for="q2_10_exit_timeline_4">D. 不关注资金退出，身份是唯一考量</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>36. 您是否愿意通过融资或贷款来满足部分投资金额要求？</label>
+                    <label>11. 您是否愿意通过融资或贷款来满足部分投资金额要求？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q36_financing_1" name="willingness_to_finance" value="yes_willing" required>
-                            <label for="q36_financing_1">A. 是，愿意考虑通过融资或贷款来满足部分投资额</label>
+                            <input type="radio" id="q2_11_financing_1" name="willingness_to_finance" value="yes_willing" required>
+                            <label for="q2_11_financing_1">A. 是，愿意考虑通过融资或贷款来满足部分投资额</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q36_financing_2" name="willingness_to_finance" value="no_prefer_full_cash">
-                            <label for="q36_financing_2">B. 否，偏好全额现金投资</label>
+                            <input type="radio" id="q2_11_financing_2" name="willingness_to_finance" value="no_prefer_full_cash">
+                            <label for="q2_11_financing_2">B. 否，偏好全额现金投资</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q36_financing_3" name="willingness_to_finance" value="depends_on_terms">
-                            <label for="q36_financing_3">C. 取决于融资或贷款的具体条款和成本</label>
+                            <input type="radio" id="q2_11_financing_3" name="willingness_to_finance" value="depends_on_terms">
+                            <label for="q2_11_financing_3">C. 取决于融资或贷款的具体条款和成本</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>37. 您对移民国特定行业投资是否有偏好？(可多选)</label>
+                    <label>12. 您对移民国特定行业投资是否有偏好？(可多选)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="checkbox" id="q37_sector_1" name="preferred_investment_sector" value="tech_innovation">
-                            <label for="q37_sector_1">A. 科技与创新 (如人工智能、生物科技、IT)</label>
+                            <input type="checkbox" id="q2_12_sector_1" name="preferred_investment_sector" value="tech_innovation">
+                            <label for="q2_12_sector_1">A. 科技与创新 (如人工智能、生物科技、IT)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q37_sector_2" name="preferred_investment_sector" value="real_estate_development">
-                            <label for="q37_sector_2">B. 房地产开发与投资</label>
+                            <input type="checkbox" id="q2_12_sector_2" name="preferred_investment_sector" value="real_estate_development">
+                            <label for="q2_12_sector_2">B. 房地产开发与投资</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q37_sector_3" name="preferred_investment_sector" value="hospitality_tourism">
-                            <label for="q37_sector_3">C. 酒店与旅游业</label>
+                            <input type="checkbox" id="q2_12_sector_3" name="preferred_investment_sector" value="hospitality_tourism">
+                            <label for="q2_12_sector_3">C. 酒店与旅游业</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q37_sector_4" name="preferred_investment_sector" value="agriculture_food">
-                            <label for="q37_sector_4">D. 农业与食品加工</label>
+                            <input type="checkbox" id="q2_12_sector_4" name="preferred_investment_sector" value="agriculture_food">
+                            <label for="q2_12_sector_4">D. 农业与食品加工</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q37_sector_5" name="preferred_investment_sector" value="renewable_energy">
-                            <label for="q37_sector_5">E. 可再生能源</label>
+                            <input type="checkbox" id="q2_12_sector_5" name="preferred_investment_sector" value="renewable_energy">
+                            <label for="q2_12_sector_5">E. 可再生能源</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q37_sector_6" name="preferred_investment_sector" value="education_healthcare">
-                            <label for="q37_sector_6">F. 教育与医疗服务</label>
+                            <input type="checkbox" id="q2_12_sector_6" name="preferred_investment_sector" value="education_healthcare">
+                            <label for="q2_12_sector_6">F. 教育与医疗服务</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q37_sector_7" name="preferred_investment_sector" value="financial_services">
-                            <label for="q37_sector_7">G. 金融服务</label>
+                            <input type="checkbox" id="q2_12_sector_7" name="preferred_investment_sector" value="financial_services">
+                            <label for="q2_12_sector_7">G. 金融服务</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q37_sector_8" name="preferred_investment_sector" value="no_specific_sector_preference">
-                            <label for="q37_sector_8">H. 无特定行业偏好，以符合移民政策和投资安全性为主</label>
+                            <input type="checkbox" id="q2_12_sector_8" name="preferred_investment_sector" value="no_specific_sector_preference">
+                            <label for="q2_12_sector_8">H. 无特定行业偏好，以符合移民政策和投资安全性为主</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>38. 您在移民后是否有在当地继续经营或开展新业务的强烈意愿？</label>
+                    <label>13. 您在移民后是否有在当地继续经营或开展新业务的强烈意愿？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q38_biz_intent_1" name="post_immigration_business_intent" value="strong_intent_to_operate" required>
-                            <label for="q38_biz_intent_1">A. 强烈意愿，计划积极投入当地商业运营</label>
+                            <input type="radio" id="q2_13_biz_intent_1" name="post_immigration_business_intent" value="strong_intent_to_operate" required>
+                            <label for="q2_13_biz_intent_1">A. 强烈意愿，计划积极投入当地商业运营</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q38_biz_intent_2" name="post_immigration_business_intent" value="interested_but_not_mandatory">
-                            <label for="q38_biz_intent_2">B. 有兴趣，但并非必须，可根据情况决定</label>
+                            <input type="radio" id="q2_13_biz_intent_2" name="post_immigration_business_intent" value="interested_but_not_mandatory">
+                            <label for="q2_13_biz_intent_2">B. 有兴趣，但并非必须，可根据情况决定</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q38_biz_intent_3" name="post_immigration_business_intent" value="no_intent_to_operate">
-                            <label for="q38_biz_intent_3">C. 无意愿，仅作为身份获取的投资行为</label>
+                            <input type="radio" id="q2_13_biz_intent_3" name="post_immigration_business_intent" value="no_intent_to_operate">
+                            <label for="q2_13_biz_intent_3">C. 无意愿，仅作为身份获取的投资行为</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>39. 您对长期资产增值与短期资金流动性的重视程度排序是？</label>
+                    <label>14. 您对长期资产增值与短期资金流动性的重视程度排序是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q39_asset_priority_1" name="asset_priority" value="long_term_growth_over_liquidity" required>
-                            <label for="q39_asset_priority_1">A. 长期资产增值优先于短期流动性</label>
+                            <input type="radio" id="q2_14_asset_priority_1" name="asset_priority" value="long_term_growth_over_liquidity" required>
+                            <label for="q2_14_asset_priority_1">A. 长期资产增值优先于短期流动性</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q39_asset_priority_2" name="asset_priority" value="balance_growth_liquuldity">
-                            <label for="q39_asset_priority_2">B. 平衡长期增长与短期流动性，两者兼顾</label>
+                            <input type="radio" id="q2_14_asset_priority_2" name="asset_priority" value="balance_growth_liquuldity">
+                            <label for="q2_14_asset_priority_2">B. 平衡长期增长与短期流动性，两者兼顾</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q39_asset_priority_3" name="asset_priority" value="short_term_liquidity_over_growth">
-                            <label for="q39_asset_priority_3">C. 短期流动性优先于长期资产增值</label>
+                            <input type="radio" id="q2_14_asset_priority_3" name="asset_priority" value="short_term_liquidity_over_growth">
+                            <label for="q2_14_asset_priority_3">C. 短期流动性优先于长期资产增值</label>
                         </div>
                     </div>
                 </div>
@@ -1164,357 +1122,356 @@
                 </h2>
 
                 <div class="question-group">
-                    <label>40. 您对移民国居住时间的要求是？</label>
+                    <label>1. 您对移民国居住时间的要求是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q40_residency_req_1" name="residency_duration_preference" value="no_mandatory_physical_stay" required>
-                            <label for="q40_residency_req_1">A. 无强制居住要求，仅需保留身份，每年登陆即可</label>
+                            <input type="radio" id="q3_1_residency_req_1" name="residency_duration_preference" value="no_mandatory_physical_stay" required>
+                            <label for="q3_1_residency_req_1">A. 无强制居住要求，仅需保留身份，每年登陆即可</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q40_residency_req_2" name="residency_duration_preference" value="short_flexible_stays">
-                            <label for="q40_residency_req_2">B. 每年短期灵活居住数天或数周，方便度假与维持联系</label>
+                            <input type="radio" id="q3_1_residency_req_2" name="residency_duration_preference" value="short_flexible_stays">
+                            <label for="q3_1_residency_req_2">B. 每年短期灵活居住数天或数周，方便度假与维持联系</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q40_residency_req_3" name="residency_duration_preference" value="several_months_per_year">
-                            <label for="q40_residency_req_3">C. 每年居住数月，以适应当地生活并享受福利</label>
+                            <input type="radio" id="q3_1_residency_req_3" name="residency_duration_preference" value="several_months_per_year">
+                            <label for="q3_1_residency_req_3">C. 每年居住数月，以适应当地生活并享受福利</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q40_residency_req_4" name="residency_duration_preference" value="full_time_relocation">
-                            <label for="q40_residency_req_4">D. 计划长期甚至永久居住，将生活重心完全转移</label>
+                            <input type="radio" id="q3_1_residency_req_4" name="residency_duration_preference" value="full_time_relocation">
+                            <label for="q3_1_residency_req_4">D. 计划长期甚至永久居住，将生活重心完全转移</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>41. 您对移民国家的文化和语言环境有何偏好？(可多选)</label>
+                    <label>2. 您对移民国家的文化和语言环境有何偏好？(可多选)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="checkbox" id="q41_culture_lang_pref_1" name="culture_language_env_preference" value="english_speaking_primary">
-                            <label for="q41_culture_lang_pref_1">A. 英语系国家优先，方便语言适应和生活</label>
+                            <input type="checkbox" id="q3_2_culture_lang_pref_1" name="culture_language_env_preference" value="english_speaking_primary">
+                            <label for="q3_2_culture_lang_pref_1">A. 英语系国家优先，方便语言适应和生活</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q41_culture_lang_pref_2" name="culture_language_env_preference" value="european_multilingual_acceptance">
-                            <label for="q41_culture_lang_pref_2">B. 欧洲大陆国家优先，接受非英语环境和多元文化体验</label>
+                            <input type="checkbox" id="q3_2_culture_lang_pref_2" name="culture_language_env_preference" value="european_multilingual_acceptance">
+                            <label for="q3_2_culture_lang_pref_2">B. 欧洲大陆国家优先，接受非英语环境和多元文化体验</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q41_culture_lang_pref_3" name="culture_language_env_preference" value="established_chinese_community">
-                            <label for="q41_culture_lang_pref_3">C. 希望有成熟的华人社区或便利的中文服务</label>
+                            <input type="checkbox" id="q3_2_culture_lang_pref_3" name="culture_language_env_preference" value="established_chinese_community">
+                            <label for="q3_2_culture_lang_pref_3">C. 希望有成熟的华人社区或便利的中文服务</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q41_culture_lang_pref_4" name="culture_language_env_preference" value="diverse_cultural_experience">
-                            <label for="q41_culture_lang_pref_4">D. 开放接受不同文化和语言挑战，追求多元体验和融入</label>
+                            <input type="checkbox" id="q3_2_culture_lang_pref_4" name="culture_language_env_preference" value="diverse_cultural_experience">
+                            <label for="q3_2_culture_lang_pref_4">D. 开放接受不同文化和语言挑战，追求多元体验和融入</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q41_culture_lang_pref_5" name="culture_language_env_preference" value="no_strong_preference_culture_lang">
-                            <label for="q41_culture_lang_pref_5">E. 无特殊偏好，只要整体生活环境适合即可</label>
+                            <input type="checkbox" id="q3_2_culture_lang_pref_5" name="culture_language_env_preference" value="no_strong_preference_culture_lang">
+                            <label for="q3_2_culture_lang_pref_5">E. 无特殊偏好，只要整体生活环境适合即可</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>42. 您对移民国家的教育体系有何偏好？</label>
+                    <label>3. 您对移民国家的教育体系有何偏好？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q42_edu_sys_pref_1" name="education_system_preference" value="high_ranking_international_schools" required>
-                            <label for="q42_edu_sys_pref_1">A. 国际化教育水平高，拥有众多知名国际学校</label>
+                            <input type="radio" id="q3_3_edu_sys_pref_1" name="education_system_preference" value="high_ranking_international_schools" required>
+                            <label for="q3_3_edu_sys_pref_1">A. 国际化教育水平高，拥有众多知名国际学校</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q42_edu_sys_pref_2" name="education_system_preference" value="strong_public_education_affordable">
-                            <label for="q42_edu_sys_pref_2">B. 公立教育体系健全，教育质量高且费用相对较低</label>
+                            <input type="radio" id="q3_3_edu_sys_pref_2" name="education_system_preference" value="strong_public_education_affordable">
+                            <label for="q3_3_edu_sys_pref_2">B. 公立教育体系健全，教育质量高且费用相对较低</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q42_edu_sys_pref_3" name="education_system_preference" value="diverse_private_options_for_specific_needs">
-                            <label for="q42_edu_sys_pref_3">C. 私立教育选择多样，能满足个性化教育需求</label>
+                            <input type="radio" id="q3_3_edu_sys_pref_3" name="education_system_preference" value="diverse_private_options_for_specific_needs">
+                            <label for="q3_3_edu_sys_pref_3">C. 私立教育选择多样，能满足个性化教育需求</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q42_edu_sys_pref_4" name="education_system_preference" value="no_specific_education_focus">
-                            <label for="q42_edu_sys_pref_4">D. 暂无明确偏好，子女教育非主要考量</label>
+                            <input type="radio" id="q3_3_edu_sys_pref_4" name="education_system_preference" value="no_specific_education_focus">
+                            <label for="q3_3_edu_sys_pref_4">D. 暂无明确偏好，子女教育非主要考量</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>43. 您对移民国家的医疗福利体系有何偏好？</label>
+                    <label>4. 您对移民国家的医疗福利体系有何偏好？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q43_medical_sys_pref_1" name="medical_system_preference" value="comprehensive_public_healthcare" required>
-                            <label for="q43_medical_sys_pref_1">A. 健全的公共医疗系统，享受免费或低成本医疗服务</label>
+                            <input type="radio" id="q3_4_medical_sys_pref_1" name="medical_system_preference" value="comprehensive_public_healthcare" required>
+                            <label for="q3_4_medical_sys_pref_1">A. 健全的公共医疗系统，享受免费或低成本医疗服务</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q43_medical_sys_pref_2" name="medical_system_preference" value="high_quality_private_medical">
-                            <label for="q43_medical_sys_pref_2">B. 高质量的私人医疗服务，注重医疗效率和舒适度</label>
+                            <input type="radio" id="q3_4_medical_sys_pref_2" name="medical_system_preference" value="high_quality_private_medical">
+                            <label for="q3_4_medical_sys_pref_2">B. 高质量的私人医疗服务，注重医疗效率和舒适度</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q43_medical_sys_pref_3" name="medical_system_preference" value="balance_of_public_private">
-                            <label for="q43_medical_sys_pref_3">C. 公共与私人医疗兼顾，平衡成本与服务质量</label>
+                            <input type="radio" id="q3_4_medical_sys_pref_3" name="medical_system_preference" value="balance_of_public_private">
+                            <label for="q3_4_medical_sys_pref_3">C. 公共与私人医疗兼顾，平衡成本与服务质量</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q43_medical_sys_pref_4" name="medical_system_preference" value="no_strong_medical_preference">
-                            <label for="q43_medical_sys_pref_4">D. 无特殊偏好</label>
+                            <input type="radio" id="q3_4_medical_sys_pref_4" name="medical_system_preference" value="no_strong_medical_preference">
+                            <label for="q3_4_medical_sys_pref_4">D. 无特殊偏好</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>44. 您对移民国家的税务政策有何偏好？</label>
+                    <label>5. 您对移民国家的税务政策有何偏好？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q44_tax_policy_pref_1" name="tax_policy_preference" value="low_tax_burden_country" required>
-                            <label for="q44_tax_policy_pref_1">A. 整体税负较低的国家优先，注重财富保值</label>
+                            <input type="radio" id="q3_5_tax_policy_pref_1" name="tax_policy_preference" value="low_tax_burden_country" required>
+                            <label for="q3_5_tax_policy_pref_1">A. 整体税负较低的国家优先，注重财富保值</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q44_tax_policy_pref_2" name="tax_policy_preference" value="territorial_taxation">
-                            <label for="q44_tax_policy_pref_2">B. 实行属地征税（非全球征税）政策的国家优先，规避海外收入纳税</label>
+                            <input type="radio" id="q3_5_tax_policy_pref_2" name="tax_policy_preference" value="territorial_taxation">
+                            <label for="q3_5_tax_policy_pref_2">B. 实行属地征税（非全球征税）政策的国家优先，规避海外收入纳税</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q44_tax_policy_pref_3" name="tax_policy_preference" value="fair_tax_system_with_planning">
-                            <label for="q44_tax_policy_pref_3">C. 接受正常的税务体系，但希望有专业的税务规划空间</label>
+                            <input type="radio" id="q3_5_tax_policy_pref_3" name="tax_policy_preference" value="fair_tax_system_with_planning">
+                            <label for="q3_5_tax_policy_pref_3">C. 接受正常的税务体系，但希望有专业的税务规划空间</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q44_tax_policy_pref_4" name="tax_policy_preference" value="no_strong_tax_preference">
-                            <label for="q44_tax_policy_pref_4">D. 无特殊偏好</label>
+                            <input type="radio" id="q3_5_tax_policy_pref_4" name="tax_policy_preference" value="no_strong_tax_preference">
+                            <label for="q3_5_tax_policy_pref_4">D. 无特殊偏好</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>45. 您对移民目的地的气候环境有何偏好？</label>
+                    <label>6. 您对移民目的地的气候环境有何偏好？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q45_climate_pref_1" name="climate_preference" value="warm_sunny_Mediterranean" required>
-                            <label for="q45_climate_pref_1">A. 温暖阳光充足，地中海或亚热带气候</label>
+                            <input type="radio" id="q3_6_climate_pref_1" name="climate_preference" value="warm_sunny_Mediterranean" required>
+                            <label for="q3_6_climate_pref_1">A. 温暖阳光充足，地中海或亚热带气候</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q45_climate_pref_2" name="climate_preference" value="temperate_four_seasons_distinct">
-                            <label for="q45_climate_pref_2">B. 温带气候，四季分明，气候宜人</label>
+                            <input type="radio" id="q3_6_climate_pref_2" name="climate_preference" value="temperate_four_seasons_distinct">
+                            <label for="q3_6_climate_pref_2">B. 温带气候，四季分明，气候宜人</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q45_climate_pref_3" name="climate_preference" value="cooler_mild_summers">
-                            <label for="q45_climate_pref_3">C. 凉爽气候，夏季温和，冬季可能较冷</label>
+                            <input type="radio" id="q3_6_climate_pref_3" name="climate_preference" value="cooler_mild_summers">
+                            <label for="q3_6_climate_pref_3">C. 凉爽气候，夏季温和，冬季可能较冷</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q45_climate_pref_4" name="climate_preference" value="no_specific_climate_preference">
-                            <label for="q45_climate_pref_4">D. 无特殊偏好，能适应多样气候</label>
+                            <input type="radio" id="q3_6_climate_pref_4" name="climate_preference" value="no_specific_climate_preference">
+                            <label for="q3_6_climate_pref_4">D. 无特殊偏好，能适应多样气候</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>46. 您对移民城市的生活成本有何预期？</label>
+                    <label>7. 您对移民城市的生活成本有何预期？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q46_cost_of_living_1" name="cost_of_living_expectation" value="lower_cost_of_living" required>
-                            <label for="q46_cost_of_living_1">A. 希望生活成本相对较低，追求经济适用</label>
+                            <input type="radio" id="q3_7_cost_of_living_1" name="cost_of_living_expectation" value="lower_cost_of_living" required>
+                            <label for="q3_7_cost_of_living_1">A. 希望生活成本相对较低，追求经济适用</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q46_cost_of_living_2" name="cost_of_living_expectation" value="medium_cost_of_living">
-                            <label for="q46_cost_of_living_2">B. 接受中等生活成本，兼顾品质与开销</label>
+                            <input type="radio" id="q3_7_cost_of_living_2" name="cost_of_living_expectation" value="medium_cost_of_living">
+                            <label for="q3_7_cost_of_living_2">B. 接受中等生活成本，兼顾品质与开销</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q46_cost_of_living_3" name="cost_of_living_expectation" value="higher_cost_of_living_for_quality">
-                            <label for="q46_cost_of_living_3">C. 可接受较高生活成本，以换取更好的城市资源和生活品质</label>
+                            <input type="radio" id="q3_7_cost_of_living_3" name="cost_of_living_expectation" value="higher_cost_of_living_for_quality">
+                            <label for="q3_7_cost_of_living_3">C. 可接受较高生活成本，以换取更好的城市资源和生活品质</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>47. 您对移民国家或城市的政治稳定性、社会治安状况有何考量？</label>
+                    <label>8. 您对移民国家或城市的政治稳定性、社会治安状况有何考量？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q47_stability_1" name="political_social_stability" value="extremely_important_safe" required>
-                            <label for="q47_stability_1">A. 非常看重，安全性是选择移民地的首要因素</label>
+                            <input type="radio" id="q3_8_stability_1" name="political_social_stability" value="extremely_important_safe" required>
+                            <label for="q3_8_stability_1">A. 非常看重，安全性是选择移民地的首要因素</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q47_stability_2" name="political_social_stability" value="important_stable">
-                            <label for="q47_stability_2">B. 重要考量，期望社会环境稳定、犯罪率低</label>
+                            <input type="radio" id="q3_8_stability_2" name="political_social_stability" value="important_stable">
+                            <label for="q3_8_stability_2">B. 重要考量，期望社会环境稳定、犯罪率低</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q47_stability_3" name="political_social_stability" value="general_consideration">
-                            <label for="q47_stability_3">C. 一般考量，只要符合基本安全标准即可</label>
+                            <input type="radio" id="q3_8_stability_3" name="political_social_stability" value="general_consideration">
+                            <label for="q3_8_stability_3">C. 一般考量，只要符合基本安全标准即可</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>48. 您希望移民城市提供怎样的生活节奏？</label>
+                    <label>9. 您希望移民城市提供怎样的生活节奏？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q48_life_pace_1" name="desired_life_pace" value="fast_paced_metropolis" required>
-                            <label for="q48_life_pace_1">A. 快节奏大都市，机会多、生活便利</label>
+                            <input type="radio" id="q3_9_life_pace_1" name="desired_life_pace" value="fast_paced_metropolis" required>
+                            <label for="q3_9_life_pace_1">A. 快节奏大都市，机会多、生活便利</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q48_life_pace_2" name="desired_life_pace" value="medium_paced_city">
-                            <label for="q48_life_pace_2">B. 中等节奏城市，兼具城市便利与生活舒适度</label>
+                            <input type="radio" id="q3_9_life_pace_2" name="desired_life_pace" value="medium_paced_city">
+                            <label for="q3_9_life_pace_2">B. 中等节奏城市，兼具城市便利与生活舒适度</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q48_life_pace_3" name="desired_life_pace" value="slow_paced_town_rural">
-                            <label for="q48_life_pace_3">C. 慢节奏小镇或乡村，追求宁静自然的生活</label>
+                            <input type="radio" id="q3_9_life_pace_3" name="desired_life_pace" value="slow_paced_town_rural">
+                            <label for="q3_9_life_pace_3">C. 慢节奏小镇或乡村，追求宁静自然的生活</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>49. 您对移民国家的自然环境（如空气质量、自然风光、生态保护）重视程度是？</label>
+                    <label>10. 您对移民国家的美食文化有何偏好？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q49_nature_env_1" name="nature_environment_importance" value="extremely_important_pristine" required>
-                            <label for="q49_nature_env_1">A. 非常看重，追求优良的空气质量和优美的自然风光</label>
+                            <input type="radio" id="q3_10_food_pref_1" name="food_preference" value="diverse_international_cuisine" required>
+                            <label for="q3_10_food_pref_1">A. 偏好多样化的国际美食，乐于尝试新口味</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q49_nature_env_2" name="nature_environment_importance" value="important_good_quality">
-                            <label for="q49_nature_env_2">B. 重要考量，希望有良好的环境基础</label>
+                            <input type="radio" id="q3_10_food_pref_2" name="food_preference" value="authentic_local_cuisine">
+                            <label for="q3_10_food_pref_2">B. 偏好地道的当地美食，希望深入体验本土文化</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q49_nature_env_3" name="nature_environment_importance" value="general_consideration_acceptable">
-                            <label for="q49_nature_env_3">C. 一般考量，只要环境可接受即可</label>
+                            <input type="radio" id="q3_10_food_pref_3" name="food_preference" value="familiar_asian_cuisine">
+                            <label for="q3_10_food_pref_3">C. 偏好能够方便找到中餐或其他亚洲美食</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q3_10_food_pref_4" name="food_preference" value="not_food_focused">
+                            <label for="q3_10_food_pref_4">D. 对美食无特别要求，能满足日常所需即可</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>50. 您是否看重移民国家与您原籍国的距离及交通便利性？</label>
+                    <label>11. 您和您的家庭是否有规律的体育运动习惯？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q50_travel_convenience_1" name="travel_convenience" value="extremely_important_close_direct" required>
-                            <label for="q50_travel_convenience_1">A. 非常看重，希望距离近且有直航航班</label>
+                            <input type="radio" id="q3_11_sport_habit_1" name="sport_habit" value="highly_active_diverse_sports" required>
+                            <label for="q3_11_sport_habit_1">A. 非常活跃，定期参与多种体育活动，需要良好运动设施</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q50_travel_convenience_2" name="travel_convenience" value="important_reasonable_travel">
-                            <label for="q50_travel_convenience_2">B. 重要考量，可接受中等距离和转机</label>
+                            <input type="radio" id="q3_11_sport_habit_2" name="sport_habit" value="moderately_active_some_sports">
+                            <label for="q3_11_sport_habit_2">B. 适度活跃，偶尔参与体育活动，有基本设施即可</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q50_travel_convenience_3" name="travel_convenience" value="not_important_long_travel_ok">
-                            <label for="q50_travel_convenience_3">C. 不重要，可接受长途旅行和多次转机</label>
+                            <input type="radio" id="q3_11_sport_habit_3" name="sport_habit" value="sedentary_no_specific_sports">
+                            <label for="q3_11_sport_habit_3">C. 较少运动，无特定体育活动偏好</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>51. 您对移民国家未来的发展潜力（经济增长、就业前景、创新能力等）有何期待？</label>
+                    <label>12. 您对休闲娱乐和艺术文化活动的需求是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q51_growth_potential_1" name="future_growth_potential" value="high_growth_potential" required>
-                            <label for="q51_growth_potential_1">A. 期望高增长潜力，追求更好的发展机遇</label>
+                            <input type="radio" id="q3_12_leisure_art_1" name="leisure_art_needs" value="rich_diverse_cultural_scene" required>
+                            <label for="q3_12_leisure_art_1">A. 需求旺盛，期望城市有丰富的艺术场馆、表演和文化活动</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q51_growth_potential_2" name="future_growth_potential" value="stable_development_mature_economy">
-                            <label for="q51_growth_potential_2">B. 期望稳定发展，偏好成熟经济体</label>
+                            <input type="radio" id="q3_12_leisure_art_2" name="leisure_art_needs" value="moderate_options_for_relaxation">
+                            <label for="q3_12_leisure_art_2">B. 适度需求，有基本的休闲娱乐场所和活动即可</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q51_growth_potential_3" name="future_growth_potential" value="not_primary_focus_on_growth">
-                            <label for="q51_growth_potential_3">C. 非主要关注点，更侧重生活品质或身份价值</label>
+                            <input type="radio" id="q3_12_leisure_art_3" name="leisure_art_needs" value="minimal_focus_on_personal_pursuits">
+                            <label for="q3_12_leisure_art_3">C. 需求较低，更偏向个人爱好或家庭活动</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>52. 您是否有特定的宗教信仰或文化习俗偏好，需要移民国能提供相应的环境？</label>
+                    <label>13. 您倾向于怎样的社交圈和社交方式？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q52_religious_cultural_1" name="religious_cultural_preference" value="yes_specific_environment_needed" required>
-                            <label for="q52_religious_cultural_1">A. 是，有特定需求，希望移民国能提供相应的宗教/文化环境</label>
+                            <input type="radio" id="q3_13_social_pref_1" name="social_preference" value="diverse_international_networking" required>
+                            <label for="q3_13_social_pref_1">A. 乐于拓展多元化的国际社交圈，积极参与各类社交活动</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q52_religious_cultural_2" name="religious_cultural_preference" value="no_flexible_acceptance">
-                            <label for="q52_religious_cultural_2">B. 否，对宗教和文化环境持开放和包容态度</label>
+                            <input type="radio" id="q3_13_social_pref_2" name="social_preference" value="smaller_closer_community">
+                            <label for="q3_13_social_pref_2">B. 偏好较小、紧密的社区型社交，与邻里和少数朋友保持联系</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q3_13_social_pref_3" name="social_preference" value="focus_on_family_minimal_external_social">
+                            <label for="q3_13_social_pref_3">C. 更注重家庭内部联系，外部社交需求较少</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>53. 您对移民国家的美食文化有何偏好？</label>
+                    <label>14. 您对购物便利性和消费水平的期望是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q53_food_pref_1" name="food_preference" value="diverse_international_cuisine" required>
-                            <label for="q53_food_pref_1">A. 偏好多样化的国际美食，乐于尝试新口味</label>
+                            <input type="radio" id="q3_14_shopping_pref_1" name="shopping_preference" value="high_end_diverse_shopping" required>
+                            <label for="q3_14_shopping_pref_1">A. 期望拥有高端、多样化的购物选择，追求高品质消费体验</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q53_food_pref_2" name="food_preference" value="authentic_local_cuisine">
-                            <label for="q53_food_pref_2">B. 偏好地道的当地美食，希望深入体验本土文化</label>
+                            <input type="radio" id="q3_14_shopping_pref_2" name="shopping_preference" value="convenient_daily_shopping">
+                            <label for="q3_14_shopping_pref_2">B. 注重日常购物的便利性，满足基本生活需求即可</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q53_food_pref_3" name="food_preference" value="familiar_asian_cuisine">
-                            <label for="q53_food_pref_3">C. 偏好能够方便找到中餐或其他亚洲美食</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q53_food_pref_4" name="food_preference" value="not_food_focused">
-                            <label for="q53_food_pref_4">D. 对美食无特别要求，能满足日常所需即可</label>
+                            <input type="radio" id="q3_14_shopping_pref_3" name="shopping_preference" value="cost_effective_shopping">
+                            <label for="q3_14_shopping_pref_3">C. 追求性价比，希望购物消费相对经济实惠</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>54. 您和您的家庭是否有规律的体育运动习惯？</label>
+                    <label>15. 您对移民国家的自然环境（如空气质量、自然风光、生态保护）重视程度是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q54_sport_habit_1" name="sport_habit" value="highly_active_diverse_sports" required>
-                            <label for="q54_sport_habit_1">A. 非常活跃，定期参与多种体育活动，需要良好运动设施</label>
+                            <input type="radio" id="q3_15_nature_env_1" name="nature_environment_importance" value="extremely_important_pristine" required>
+                            <label for="q3_15_nature_env_1">A. 非常看重，追求优良的空气质量和优美的自然风光</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q54_sport_habit_2" name="sport_habit" value="moderately_active_some_sports">
-                            <label for="q54_sport_habit_2">B. 适度活跃，偶尔参与体育活动，有基本设施即可</label>
+                            <input type="radio" id="q3_15_nature_env_2" name="nature_environment_importance" value="important_good_quality">
+                            <label for="q3_15_nature_env_2">B. 重要考量，希望有良好的环境基础</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q54_sport_habit_3" name="sport_habit" value="sedentary_no_specific_sports">
-                            <label for="q54_sport_habit_3">C. 较少运动，无特定体育活动偏好</label>
+                            <input type="radio" id="q3_15_nature_env_3" name="nature_environment_importance" value="general_consideration_acceptable">
+                            <label for="q3_15_nature_env_3">C. 一般考量，只要环境可接受即可</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>55. 您对休闲娱乐和艺术文化活动的需求是？</label>
+                    <label>16. 您是否看重移民国家与您原籍国的距离及交通便利性？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q55_leisure_art_1" name="leisure_art_needs" value="rich_diverse_cultural_scene" required>
-                            <label for="q55_leisure_art_1">A. 需求旺盛，期望城市有丰富的艺术场馆、表演和文化活动</label>
+                            <input type="radio" id="q3_16_travel_convenience_1" name="travel_convenience" value="extremely_important_close_direct" required>
+                            <label for="q3_16_travel_convenience_1">A. 非常看重，希望距离近且有直航航班</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q55_leisure_art_2" name="leisure_art_needs" value="moderate_options_for_relaxation">
-                            <label for="q55_leisure_art_2">B. 适度需求，有基本的休闲娱乐场所和活动即可</label>
+                            <input type="radio" id="q3_16_travel_convenience_2" name="travel_convenience" value="important_reasonable_travel">
+                            <label for="q3_16_travel_convenience_2">B. 重要考量，可接受中等距离和转机</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q55_leisure_art_3" name="leisure_art_needs" value="minimal_focus_on_personal_pursuits">
-                            <label for="q55_leisure_art_3">C. 需求较低，更偏向个人爱好或家庭活动</label>
+                            <input type="radio" id="q3_16_travel_convenience_3" name="travel_convenience" value="not_important_long_travel_ok">
+                            <label for="q3_16_travel_convenience_3">C. 不重要，可接受长途旅行和多次转机</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>56. 您倾向于怎样的社交圈和社交方式？</label>
+                    <label>17. 您对移民国家未来的发展潜力（经济增长、就业前景、创新能力等）有何期待？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q56_social_pref_1" name="social_preference" value="diverse_international_networking" required>
-                            <label for="q56_social_pref_1">A. 乐于拓展多元化的国际社交圈，积极参与各类社交活动</label>
+                            <input type="radio" id="q3_17_growth_potential_1" name="future_growth_potential" value="high_growth_potential" required>
+                            <label for="q3_17_growth_potential_1">A. 期望高增长潜力，追求更好的发展机遇</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q56_social_pref_2" name="social_preference" value="smaller_closer_community">
-                            <label for="q56_social_pref_2">B. 偏好较小、紧密的社区型社交，与邻里和少数朋友保持联系</label>
+                            <input type="radio" id="q3_17_growth_potential_2" name="future_growth_potential" value="stable_development_mature_economy">
+                            <label for="q3_17_growth_potential_2">B. 期望稳定发展，偏好成熟经济体</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q56_social_pref_3" name="social_preference" value="focus_on_family_minimal_external_social">
-                            <label for="q56_social_pref_3">C. 更注重家庭内部联系，外部社交需求较少</label>
+                            <input type="radio" id="q3_17_growth_potential_3" name="future_growth_potential" value="not_primary_focus_on_growth">
+                            <label for="q3_17_growth_potential_3">C. 非主要关注点，更侧重生活品质或身份价值</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>57. 您对购物便利性和消费水平的期望是？</label>
+                    <label>18. 您是否有特定的宗教信仰或文化习俗偏好，需要移民国能提供相应的环境？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q57_shopping_pref_1" name="shopping_preference" value="high_end_diverse_shopping" required>
-                            <label for="q57_shopping_pref_1">A. 期望拥有高端、多样化的购物选择，追求高品质消费体验</label>
+                            <input type="radio" id="q3_18_religious_cultural_1" name="religious_cultural_preference" value="yes_specific_environment_needed" required>
+                            <label for="q3_18_religious_cultural_1">A. 是，有特定需求，希望移民国能提供相应的宗教/文化环境</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q57_shopping_pref_2" name="shopping_preference" value="convenient_daily_shopping">
-                            <label for="q57_shopping_pref_2">B. 注重日常购物的便利性，满足基本生活需求即可</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q57_shopping_pref_3" name="shopping_preference" value="cost_effective_shopping">
-                            <label for="q57_shopping_pref_3">C. 追求性价比，希望购物消费相对经济实惠</label>
+                            <input type="radio" id="q3_18_religious_cultural_2" name="religious_cultural_preference" value="no_flexible_acceptance">
+                            <label for="q3_18_religious_cultural_2">B. 否，对宗教和文化环境持开放和包容态度</label>
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="question-section">
@@ -1523,202 +1480,263 @@
                 </h2>
 
                 <div class="question-group">
-                    <label>58. 您对哪个大洲的投资移民项目更感兴趣？</label>
+                    <label>1. 您对哪个大洲的投资移民项目更感兴趣？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="checkbox" id="q58_continent_interest_1" name="continent_interest" value="europe_eu">
-                            <label for="q58_continent_interest_1">A. 欧洲 (欧盟成员国)</label>
+                            <input type="checkbox" id="q4_1_continent_interest_1" name="continent_interest" value="europe_eu">
+                            <label for="q4_1_continent_interest_1">A. 欧洲 (欧盟成员国)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q58_continent_interest_2" name="continent_interest" value="north_america_usa_canada">
-                            <label for="q58_continent_interest_2">B. 北美 (美国/加拿大)</label>
+                            <input type="checkbox" id="q4_1_continent_interest_2" name="continent_interest" value="north_america_usa_canada">
+                            <label for="q4_1_continent_interest_2">B. 北美 (美国/加拿大)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q58_continent_interest_3" name="continent_interest" value="oceania_australia_nz">
-                            <label for="q58_continent_interest_3">C. 大洋洲 (澳大利亚/新西兰)</label>
+                            <input type="checkbox" id="q4_1_continent_interest_3" name="continent_interest" value="oceania_australia_nz">
+                            <label for="q4_1_continent_interest_3">C. 大洋洲 (澳大利亚/新西兰)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q58_continent_interest_4" name="continent_interest" value="caribbean_or_asia_etc">
-                            <label for="q58_continent_interest_4">D. 其他 (如加勒比海国家、亚洲、中东等，追求护照便利性)</label>
+                            <input type="checkbox" id="q4_1_continent_interest_4" name="continent_interest" value="caribbean_or_asia_etc">
+                            <label for="q4_1_continent_interest_4">D. 其他 (如加勒比海国家、亚洲、中东等，追求护照便利性)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q58_continent_interest_5" name="continent_interest" value="open_to_all_continents">
-                            <label for="q58_continent_interest_5">E. 暂无明确偏好，希望全面了解并寻求最优解</label>
+                            <input type="checkbox" id="q4_1_continent_interest_5" name="continent_interest" value="open_to_all_continents">
+                            <label for="q4_1_continent_interest_5">E. 暂无明确偏好，希望全面了解并寻求最优解</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>59. 如果您考虑欧盟国家，对哪个区域的欧盟国家更感兴趣？ (可多选)</label>
+                    <label>2. 如果您考虑欧盟国家，对哪个区域的欧盟国家更感兴趣？ (可多选)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="checkbox" id="q59_eu_region_1" name="eu_region_interest" value="southern_europe_preferred">
-                            <label for="q59_eu_region_1">A. 南欧 (如希腊、葡萄牙、西班牙、马耳他、意大利、塞浦路斯) - 气候宜人，生活成本相对较低</label>
+                            <input type="checkbox" id="q4_2_eu_region_1" name="eu_region_interest" value="southern_europe_preferred">
+                            <label for="q4_2_eu_region_1">A. 南欧 (如希腊、葡萄牙、西班牙、马耳他、意大利、塞浦路斯) - 气候宜人，生活成本相对较低</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q59_eu_region_2" name="eu_region_interest" value="western_europe_preferred">
-                            <label for="q59_eu_region_2">B. 西欧 (如爱尔兰、法国、德国、荷兰、比利时、卢森堡) - 经济发达，教育医疗顶级</label>
+                            <input type="checkbox" id="q4_2_eu_region_2" name="eu_region_interest" value="western_europe_preferred">
+                            <label for="q4_2_eu_region_2">B. 西欧 (如爱尔兰、法国、德国、荷兰、比利时、卢森堡) - 经济发达，教育医疗顶级</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q59_eu_region_3" name="eu_region_interest" value="northern_europe_preferred">
-                            <label for="q59_eu_region_3">C. 北欧 (如丹麦、芬兰、瑞典) - 高福利，社会稳定，科技创新</label>
+                            <input type="checkbox" id="q4_2_eu_region_3" name="eu_region_interest" value="northern_europe_preferred">
+                            <label for="q4_2_eu_region_3">C. 北欧 (如丹麦、芬兰、瑞典) - 高福利，社会稳定，科技创新</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q59_eu_region_4" name="eu_region_interest" value="central_eastern_europe_preferred">
-                            <label for="q59_eu_region_4">D. 中东欧 (如匈牙利、波兰、捷克、克罗地亚、罗马尼亚) - 发展中经济体，生活成本较低</label>
+                            <input type="checkbox" id="q4_2_eu_region_4" name="eu_region_interest" value="central_eastern_europe_preferred">
+                            <label for="q4_2_eu_region_4">D. 中东欧 (如匈牙利、波兰、捷克、克罗地亚、罗马尼亚) - 发展中经济体，生活成本较低</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q59_eu_region_5" name="eu_region_interest" value="no_specific_eu_region_preference">
-                            <label for="q59_eu_region_5">E. 暂无明确区域偏好，希望根据整体方案推荐</label>
+                            <input type="checkbox" id="q4_2_eu_region_5" name="eu_region_interest" value="no_specific_eu_region_preference">
+                            <label for="q4_2_eu_region_5">E. 暂无明确区域偏好，希望根据整体方案推荐</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>60. 您是否有任何目前特别关注的特定国家？ (可多选)</label>
+                    <label>3. 您是否有任何目前特别关注的特定国家？ (可多选)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="checkbox" id="q60_country_1" name="specific_country_interest" value="greece">
-                            <label for="q60_country_1">A. 希腊</label>
+                            <input type="checkbox" id="q4_3_country_1" name="specific_country_interest" value="greece">
+                            <label for="q4_3_country_1">A. 希腊</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q60_country_2" name="specific_country_interest" value="portugal">
-                            <label for="q60_country_2">B. 葡萄牙</label>
+                            <input type="checkbox" id="q4_3_country_2" name="specific_country_interest" value="portugal">
+                            <label for="q4_3_country_2">B. 葡萄牙</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q60_country_3" name="specific_country_interest" value="spain">
-                            <label for="q60_country_3">C. 西班牙</label>
+                            <input type="checkbox" id="q4_3_country_3" name="specific_country_interest" value="spain">
+                            <label for="q4_3_country_3">C. 西班牙</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q60_country_4" name="specific_country_interest" value="malta">
-                            <label for="q60_country_4">D. 马耳他</label>
+                            <input type="checkbox" id="q4_3_country_4" name="specific_country_interest" value="malta">
+                            <label for="q4_3_country_4">D. 马耳他</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q60_country_5" name="specific_country_interest" value="hungary">
-                            <label for="q60_country_5">E. 匈牙利</label>
+                            <input type="checkbox" id="q4_3_country_5" name="specific_country_interest" value="hungary">
+                            <label for="q4_3_country_5">E. 匈牙利</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q60_country_6" name="specific_country_interest" value="usa">
-                            <label for="q60_country_6">F. 美国</label>
+                            <input type="checkbox" id="q4_3_country_6" name="specific_country_interest" value="usa">
+                            <label for="q4_3_country_6">F. 美国</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q60_country_7" name="specific_country_interest" value="canada">
-                            <label for="q60_country_7">G. 加拿大</label>
+                            <input type="checkbox" id="q4_3_country_7" name="specific_country_interest" value="canada">
+                            <label for="q4_3_country_7">G. 加拿大</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q60_country_8" name="specific_country_interest" value="australia">
-                            <label for="q60_country_8">H. 澳大利亚</label>
+                            <input type="checkbox" id="q4_3_country_8" name="specific_country_interest" value="australia">
+                            <label for="q4_3_country_8">H. 澳大利亚</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q60_country_9" name="specific_country_interest" value="new_zealand">
-                            <label for="q60_country_9">I. 新西兰</label>
+                            <input type="checkbox" id="q4_3_country_9" name="specific_country_interest" value="new_zealand">
+                            <label for="q4_3_country_9">I. 新西兰</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q60_country_10" name="specific_country_interest" value="turkey">
-                            <label for="q60_country_10">J. 土耳其</label>
+                            <input type="checkbox" id="q4_3_country_10" name="specific_country_interest" value="turkey">
+                            <label for="q4_3_country_10">J. 土耳其</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q60_country_11" name="specific_country_interest" value="caribbean_countries">
-                            <label for="q60_country_11">K. 加勒比海国家 (如圣基茨、格林纳达等)</label>
+                            <input type="checkbox" id="q4_3_country_11" name="specific_country_interest" value="caribbean_countries">
+                            <label for="q4_3_country_11">K. 加勒比海国家 (如圣基茨、格林纳达等)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q60_country_12" name="specific_country_interest" value="other_specified_country">
-                            <label for="q60_country_12">L. 其他（请在后续沟通中说明具体国家）</label>
+                            <input type="checkbox" id="q4_3_country_12" name="specific_country_interest" value="other_specified_country">
+                            <label for="q4_3_country_12">L. 其他（请在后续沟通中说明具体国家）</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q60_country_13" name="specific_country_interest" value="no_specific_country_preference">
-                            <label for="q60_country_13">M. 暂无特定偏好，希望根据评估结果推荐</label>
+                            <input type="checkbox" id="q4_3_country_13" name="specific_country_interest" value="no_specific_country_preference">
+                            <label for="q4_3_country_13">M. 暂无特定偏好，希望根据评估结果推荐</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>61. 您是否有任何明确不考虑的移民国家或地区？ (可多选，有助于我们缩小选择范围)</label>
+                    <label>4. 您是否有任何明确不考虑的移民国家或地区？ (可多选，有助于我们缩小选择范围)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="checkbox" id="q61_exclude_1" name="excluded_countries" value="no_specific_exclusion">
-                            <label for="q61_exclude_1">A. 无明确不考虑的国家或地区</label>
+                            <input type="checkbox" id="q4_4_exclude_1" name="excluded_countries" value="no_specific_exclusion">
+                            <label for="q4_4_exclude_1">A. 无明确不考虑的国家或地区</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q61_exclude_2" name="excluded_countries" value="certain_european_countries">
-                            <label for="q61_exclude_2">B. 某些欧洲国家（后续说明具体）</label>
+                            <input type="checkbox" id="q4_4_exclude_2" name="excluded_countries" value="certain_european_countries">
+                            <label for="q4_4_exclude_2">B. 某些欧洲国家（后续说明具体）</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q61_exclude_3" name="excluded_countries" value="north_america_exclude">
-                            <label for="q61_exclude_3">C. 北美国家</label>
+                            <input type="checkbox" id="q4_4_exclude_3" name="excluded_countries" value="north_america_exclude">
+                            <label for="q4_4_exclude_3">C. 北美国家</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q61_exclude_4" name="excluded_countries" value="oceania_exclude">
-                            <label for="q61_exclude_4">D. 大洋洲国家</label>
+                            <input type="checkbox" id="q4_4_exclude_4" name="excluded_countries" value="oceania_exclude">
+                            <label for="q4_4_exclude_4">D. 大洋洲国家</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q61_exclude_5" name="excluded_countries" value="asian_countries_exclude">
-                            <label for="q61_exclude_5">E. 亚洲国家</label>
+                            <input type="checkbox" id="q4_4_exclude_5" name="excluded_countries" value="asian_countries_exclude">
+                            <label for="q4_4_exclude_5">E. 亚洲国家</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q61_exclude_6" name="excluded_countries" value="other_region_exclude">
-                            <label for="q61_exclude_6">F. 其他区域国家（后续说明具体）</label>
+                            <input type="checkbox" id="q4_4_exclude_6" name="excluded_countries" value="other_region_exclude">
+                            <label for="q4_4_exclude_6">F. 其他区域国家（后续说明具体）</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>62. 您在选择移民国家时，最优先考虑的因素是？ (请选择最重要的一项)</label>
+                    <label>5. 您在选择移民国家时，最优先考虑的因素是？ (请选择最重要的一项)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q62_priority_1" name="country_selection_priority" value="investment_amount" required>
-                            <label for="q62_priority_1">A. 投资金额与成本</label>
+                            <input type="radio" id="q4_5_priority_1" name="country_selection_priority" value="investment_amount" required>
+                            <label for="q4_5_priority_1">A. 投资金额与成本</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q62_priority_2" name="country_selection_priority" value="processing_speed">
-                            <label for="q62_priority_2">B. 审批速度与周期</label>
+                            <input type="radio" id="q4_5_priority_2" name="country_selection_priority" value="processing_speed">
+                            <label for="q4_5_priority_2">B. 审批速度与周期</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q62_priority_3" name="country_selection_priority" value="residency_requirements">
-                            <label for="q62_priority_3">C. 居住要求与灵活性</label>
+                            <input type="radio" id="q4_5_priority_3" name="country_selection_priority" value="residency_requirements">
+                            <label for="q4_5_priority_3">C. 居住要求与灵活性</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q62_priority_4" name="country_selection_priority" value="status_value">
-                            <label for="q62_priority_4">D. 身份的含金量与通行便利性</label>
+                            <input type="radio" id="q4_5_priority_4" name="country_selection_priority" value="status_value">
+                            <label for="q4_5_priority_4">D. 身份的含金量与通行便利性</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q62_priority_5" name="country_selection_priority" value="education_healthcare_benefits">
-                            <label for="q62_priority_5">E. 教育与医疗福利水平</label>
+                            <input type="radio" id="q4_5_priority_5" name="country_selection_priority" value="education_healthcare_benefits">
+                            <label for="q4_5_priority_5">E. 教育与医疗福利水平</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q62_priority_6" name="country_selection_priority" value="living_environment_quality">
-                            <label for="q62_priority_6">F. 整体生活环境与品质</label>
+                            <input type="radio" id="q4_5_priority_6" name="country_selection_priority" value="living_environment_quality">
+                            <label for="q4_5_priority_6">F. 整体生活环境与品质</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q62_priority_7" name="country_selection_priority" value="tax_policy">
-                            <label for="q62_priority_7">G. 税务政策优势</label>
+                            <input type="radio" id="q4_5_priority_7" name="country_selection_priority" value="tax_policy">
+                            <label for="q4_5_priority_7">G. 税务政策优势</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q62_priority_8" name="country_selection_priority" value="political_social_stability">
-                            <label for="q62_priority_8">H. 政治社会稳定性与安全</label>
+                            <input type="radio" id="q4_5_priority_8" name="country_selection_priority" value="political_social_stability">
+                            <label for="q4_5_priority_8">H. 政治社会稳定性与安全</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>63. 您目前对投资移民的了解程度是？</label>
+                    <label>6. 您目前对投资移民的了解程度是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q63_understanding_1" name="understanding_level" value="little_to_none" required>
-                            <label for="q63_understanding_1">A. 几乎一无所知，需要从基础开始了解</label>
+                            <input type="radio" id="q4_6_understanding_1" name="understanding_level" value="little_to_none" required>
+                            <label for="q4_6_understanding_1">A. 几乎一无所知，需要从基础开始了解</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q63_understanding_2" name="understanding_level" value="basic_understanding">
-                            <label for="q63_understanding_2">B. 有所了解，但信息不全面</label>
+                            <input type="radio" id="q4_6_understanding_2" name="understanding_level" value="basic_understanding">
+                            <label for="q4_6_understanding_2">B. 有所了解，但信息不全面</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q63_understanding_3" name="understanding_level" value="in_depth_research">
-                            <label for="q63_understanding_3">C. 已经做过深入研究，了解大部分政策</label>
+                            <input type="radio" id="q4_6_understanding_3" name="understanding_level" value="in_depth_research">
+                            <label for="q4_6_understanding_3">C. 已经做过深入研究，了解大部分政策</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q63_understanding_4" name="understanding_level" value="consulted_other_agencies">
-                            <label for="q63_understanding_4">D. 已咨询过其他移民机构，希望寻求第二意见或更优方案</label>
+                            <input type="radio" id="q4_6_understanding_4" name="understanding_level" value="consulted_other_agencies">
+                            <label for="q4_6_understanding_4">D. 已咨询过其他移民机构，希望寻求第二意见或更优方案</label>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: 个人联系方式 (Moved from original Q1-4) -->
+            <div class="question-section">
+                <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
+                    第五部分：个人联系方式
+                </h2>
+
+                <div class="question-group">
+                    <label for="q5_1_name">1. 您的姓名是？ (可选)</label>
+                    <input type="text" id="q5_1_name" name="name_contact" placeholder="请这里输入您的姓名">
+                </div>
+
+                <div class="question-group">
+                    <label for="q5_2_email">2. 您的邮箱地址是？ (必填)</label>
+                    <input type="email" id="q5_2_email" name="email_contact" placeholder="请这里输入您的邮箱" required>
+                </div>
+
+                <div class="question-group">
+                    <label for="q5_3_phone">3. 您的电话号码是？ (必填，请包含国家区号)</label>
+                    <input type="tel" id="q5_3_phone" name="phone_contact" placeholder="例如：+86 13812345678" required>
+                </div>
+
+                <div class="question-group">
+                    <label>4. 您的首选联系方式是？ (可多选)</label>
+                    <div class="option-group">
+                        <div class="option-item">
+                            <input type="checkbox" id="q5_4_contact_email" name="preferred_contact_method_final" value="email">
+                            <label for="q5_4_contact_email">A. 邮箱</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="q5_4_contact_phone" name="preferred_contact_method_final" value="phone">
+                            <label for="q5_4_contact_phone">B. 电话</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="q5_4_contact_wechat" name="preferred_contact_method_final" value="wechat">
+                            <label for="q5_4_contact_wechat">C. 微信</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="q5_4_contact_whatsapp" name="preferred_contact_method_final" value="whatsapp">
+                            <label for="q5_4_contact_whatsapp">D. WhatsApp</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="q5_4_contact_line" name="preferred_contact_method_final" value="line">
+                            <label for="q5_4_contact_line">E. Line</label>
+                        </div>
+                    </div>
+                    <!-- Conditional inputs for specific contact methods in new section -->
+                    <div class="hidden-question mt-4" id="q5_4_wechat_group">
+                        <label for="q5_4_wechat_id" class="text-base font-normal mb-2">微信ID：</label>
+                        <input type="text" id="q5_4_wechat_id" name="wechat_id_final" placeholder="请输入您的微信ID">
+                    </div>
+                    <div class="hidden-question mt-4" id="q5_4_whatsapp_group">
+                        <label for="q5_4_whatsapp_number" class="text-base font-normal mb-2">WhatsApp号码：</label>
+                        <input type="text" id="q5_4_whatsapp_number" name="whatsapp_number_final" placeholder="请输入您的WhatsApp号码">
+                    </div>
+                    <div class="hidden-question mt-4" id="q5_4_line_group">
+                        <label for="q5_4_line_id" class="text-base font-normal mb-2">Line ID：</label>
+                        <input type="text" id="q5_4_line_id" name="line_id_final" placeholder="请输入您的Line ID">
                     </div>
                 </div>
             </div>
@@ -1747,25 +1765,26 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const form = document.getElementById('immigrationQuestionnaire');
+                // Updated references for re-numbered questions
                 const familyPresentRadios = document.querySelectorAll('input[name="family_present"]');
                 const accompanyingFamilyTypesCheckboxes = document.querySelectorAll('input[name="accompanying_family_types"]');
-                const q21ProfessionalCertRadios = document.querySelectorAll('input[name="professional_certification"]');
+                const q1_23_ProfessionalCertRadios = document.querySelectorAll('input[name="professional_certification"]'); // Renumbered to Q1.23
 
+                // Element references for all conditional groups (updated IDs)
+                const q1_5_group = document.getElementById('q1_5_group'); // "1.5. 若有随行家属..."
+                const q1_6_group = document.getElementById('q1_6_group'); // "1.6. 若有未成年子女随行..."
+                const q1_7_group = document.getElementById('q1_7_group'); // "1.7. 请填写所有随行未成年子女..." (textarea)
+                const q1_8_group = document.getElementById('q1_8_group'); // "1.8. 若有成年子女随行..."
+                const q1_9_group = document.getElementById('q1_9_group'); // "1.9. 若有成年子女随行，他们目前主要状态..."
+                const q1_10_group = document.getElementById('q1_10_group'); // "1.10. 请填写所有随行成年子女..." (textarea)
 
-                // Element references for all conditional groups
-                const q4_wechat_group = document.getElementById('q4_wechat_group');
-                const q4_whatsapp_group = document.getElementById('q4_whatsapp_group');
-                const q4_line_group = document.getElementById('q4_line_group');
+                // Q1.23 conditional group
+                const q1_23_certification_details_group = document.getElementById('q1_23_certification_details_group');
 
-                const q8_1_group = document.getElementById('q8_1_group'); // "8.1. 若有随行家属，您的随行家属包括？"
-                const q8_2_group = document.getElementById('q8_2_group'); // "8.2. 若有未成年子女随行，大致数量是？"
-                const q8_3_group = document.getElementById('q8_3_group'); // "8.3. 请填写所有随行未成年子女的具体年龄" (textarea)
-                const q8_4_group = document.getElementById('q8_4_group'); // "8.4. 若有成年子女随行，大致数量是？"
-                const q8_5_group = document.getElementById('q8_5_group'); // "8.5. 若有成年子女随行，他们目前主要状态是？"
-                const q8_6_group = document.getElementById('q8_6_group'); // "8.6. 请填写所有随行成年子女的具体年龄及主要状态" (textarea)
-
-                // NEW: Q21 conditional group
-                const q21_certification_details_group = document.getElementById('q21_certification_details_group');
+                // New Part 5 contact method groups
+                const q5_4_wechat_group = document.getElementById('q5_4_wechat_group');
+                const q5_4_whatsapp_group = document.getElementById('q5_4_whatsapp_group');
+                const q5_4_line_group = document.getElementById('q5_4_line_group');
 
                 /**
                  * Clears inputs and hides a question group.
@@ -1773,7 +1792,6 @@
                  */
                 function hideQuestionGroup(groupElement) {
                     groupElement.classList.add('hidden-question');
-                    // Reset all inputs within the hidden group
                     const inputs = groupElement.querySelectorAll('input, textarea');
                     inputs.forEach(input => {
                         if (input.type === 'radio' || input.type === 'checkbox') {
@@ -1793,113 +1811,113 @@
                 }
 
                 /**
-                 * Handles visibility for Q4 conditional inputs.
+                 * Handles visibility for conditional contact inputs in Part 5.
                  */
-                function handleQ4Visibility() {
-                    document.getElementById('q4_contact_wechat').checked ? showQuestionGroup(q4_wechat_group) : hideQuestionGroup(q4_wechat_group);
-                    document.getElementById('q4_contact_whatsapp').checked ? showQuestionGroup(q4_whatsapp_group) : hideQuestionGroup(q4_whatsapp_group);
-                    document.getElementById('q4_contact_line').checked ? showQuestionGroup(q4_line_group) : hideQuestionGroup(q4_line_group);
+                function handleQ5_4_Visibility() {
+                    document.getElementById('q5_4_contact_wechat').checked ? showQuestionGroup(q5_4_wechat_group) : hideQuestionGroup(q5_4_wechat_group);
+                    document.getElementById('q5_4_contact_whatsapp').checked ? showQuestionGroup(q5_4_whatsapp_group) : hideQuestionGroup(q5_4_whatsapp_group);
+                    document.getElementById('q5_4_contact_line').checked ? showQuestionGroup(q5_4_line_group) : hideQuestionGroup(q5_4_line_group);
                 }
 
-                // Event listener for Question 8 (family present)
+                // Event listener for Question 1.4 (family present)
                 familyPresentRadios.forEach(radio => {
                     radio.addEventListener('change', function() {
                         if (this.value === 'yes' && this.checked) {
-                            showQuestionGroup(q8_1_group); // Show 8.1 (accompanying family types)
+                            showQuestionGroup(q1_5_group); // Show 1.5 (accompanying family types)
                         } else {
                             // If no family, hide all conditional family-related questions
-                            hideQuestionGroup(q8_1_group);
-                            hideQuestionGroup(q8_2_group);
-                            hideQuestionGroup(q8_3_group);
-                            hideQuestionGroup(q8_4_group);
-                            hideQuestionGroup(q8_5_group);
-                            hideQuestionGroup(q8_6_group);
+                            hideQuestionGroup(q1_5_group);
+                            hideQuestionGroup(q1_6_group);
+                            hideQuestionGroup(q1_7_group);
+                            hideQuestionGroup(q1_8_group);
+                            hideQuestionGroup(q1_9_group);
+                            hideQuestionGroup(q1_10_group);
                         }
-                        saveFormData(); // Save data after change
+                        saveFormData();
                     });
                 });
 
-                // Event listener for Question 8.1 (accompanying family types)
+                // Event listener for Question 1.5 (accompanying family types)
                 accompanyingFamilyTypesCheckboxes.forEach(checkbox => {
                     checkbox.addEventListener('change', function() {
                         const minorChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="minor_children"]').checked;
                         const adultChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="adult_children"]').checked;
 
-                        // Toggle 8.2 (minor children count) based on minor_children selection in 8.1
+                        // Toggle 1.6 (minor children count) based on minor_children selection in 1.5
                         if (minorChildrenSelected) {
-                            showQuestionGroup(q8_2_group);
+                            showQuestionGroup(q1_6_group);
                         } else {
-                            hideQuestionGroup(q8_2_group);
-                            hideQuestionGroup(q8_3_group); // Hide minor children ages if count is hidden
+                            hideQuestionGroup(q1_6_group);
+                            hideQuestionGroup(q1_7_group); // Hide minor children ages if count is hidden
                         }
 
-                        // Toggle 8.4 (adult children count) based on adult_children selection in 8.1
+                        // Toggle 1.8 (adult children count) based on adult_children selection in 1.5
                         if (adultChildrenSelected) {
-                            showQuestionGroup(q8_4_group);
+                            showQuestionGroup(q1_8_group);
                         } else {
-                            hideQuestionGroup(q8_4_group);
-                            hideQuestionGroup(q8_5_group); // Also hide subsequent adult children questions
-                            hideQuestionGroup(q8_6_group);
+                            hideQuestionGroup(q1_8_group);
+                            hideQuestionGroup(q1_9_group); // Also hide subsequent adult children questions
+                            hideQuestionGroup(q1_10_group);
                         }
-                        saveFormData(); // Save data after change
+                        saveFormData();
                     });
                 });
 
-                // Event listener for Question 8.2 (minor children count) - triggers 8.3 (minor children ages)
+                // Event listener for Question 1.6 (minor children count) - triggers 1.7 (minor children ages)
                 document.querySelectorAll('input[name="minor_children_count"]').forEach(radio => {
                     radio.addEventListener('change', function() {
                         if (this.checked) {
-                            showQuestionGroup(q8_3_group);
+                            showQuestionGroup(q1_7_group);
                         }
-                        saveFormData(); // Save data after change
+                        saveFormData();
                     });
                 });
 
-                // Event listener for Question 8.4 (adult children count) - triggers 8.5 and 8.6
+                // Event listener for Question 1.8 (adult children count) - triggers 1.9 and 1.10
                 document.querySelectorAll('input[name="adult_children_count"]').forEach(radio => {
                     radio.addEventListener('change', function() {
                         if (this.checked) {
-                            showQuestionGroup(q8_5_group);
-                            showQuestionGroup(q8_6_group);
+                            showQuestionGroup(q1_9_group);
+                            showQuestionGroup(q1_10_group);
                         } else {
-                             hideQuestionGroup(q8_5_group);
-                             hideQuestionGroup(q8_6_group);
+                             hideQuestionGroup(q1_9_group);
+                             hideQuestionGroup(q1_10_group);
                         }
-                        saveFormData(); // Save data after change
+                        saveFormData();
                     });
                 });
 
-                // The logic for 8.5 triggering 8.6: keep it for robustness
+                // The logic for 1.9 triggering 1.10: keep it for robustness
                 document.querySelectorAll('input[name="adult_children_status"]').forEach(checkbox => {
                     checkbox.addEventListener('change', function() {
                         const anyAdultStatusSelected = Array.from(document.querySelectorAll('input[name="adult_children_status"]:checked')).some(cb => cb.checked);
-                        // If 8.4 (count) is visible AND an adult status is selected in 8.5, show 8.6.
-                        // Otherwise, hide 8.6.
-                        if (q8_4_group.classList.contains('hidden-question') || !anyAdultStatusSelected) {
-                            hideQuestionGroup(q8_6_group);
+                        // If 1.8 (count) is visible AND an adult status is selected in 1.9, show 1.10.
+                        // Otherwise, hide 1.10.
+                        if (q1_8_group.classList.contains('hidden-question') || !anyAdultStatusSelected) {
+                            hideQuestionGroup(q1_10_group);
                         } else {
-                            showQuestionGroup(q8_6_group);
+                            showQuestionGroup(q1_10_group);
                         }
-                        saveFormData(); // Save data after change
+                        saveFormData();
                     });
                 });
 
-                // NEW: Event listener for Q21 (professional certification)
-                q21ProfessionalCertRadios.forEach(radio => {
+                // Event listener for Q1.23 (professional certification)
+                q1_23_ProfessionalCertRadios.forEach(radio => {
                     radio.addEventListener('change', function() {
                         if (this.value === 'yes' && this.checked) {
-                            showQuestionGroup(q21_certification_details_group);
+                            showQuestionGroup(q1_23_certification_details_group);
                         } else {
-                            hideQuestionGroup(q21_certification_details_group);
+                            hideQuestionGroup(q1_23_certification_details_group);
                         }
-                        saveFormData(); // Save data after change
+                        saveFormData();
                     });
                 });
 
-                // Event listeners for Q4 contact method checkboxes
-                document.getElementById('q4_contact_wechat').addEventListener('change', function() { handleQ4Visibility(); saveFormData(); });
-                document.getElementById('q4_contact_whatsapp').addEventListener('change', function() { handleQ4Visibility(); saveFormData(); });
-                document.getElementById('q4_contact_line').addEventListener('change', function() { handleQ4Visibility(); saveFormData(); });
+                // Event listeners for Q5.4 contact method checkboxes
+                document.getElementById('q5_4_contact_wechat').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
+                document.getElementById('q5_4_contact_whatsapp').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
+                document.getElementById('q5_4_contact_line').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
 
                 /**
                  * Saves form data to LocalStorage.
@@ -1965,80 +1983,75 @@
                  * Re-evaluates the visibility of all conditional sections after loading data.
                  */
                 function reEvaluateConditionalVisibility() {
-                    // Re-evaluate Q8 family present
+                    // Re-evaluate Q1.4 family present
                     const currentFamilyPresent = document.querySelector('input[name="family_present"]:checked');
                     if (currentFamilyPresent && currentFamilyPresent.value === 'yes') {
-                        showQuestionGroup(q8_1_group);
+                        showQuestionGroup(q1_5_group);
                         const minorChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="minor_children"]').checked;
                         const adultChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="adult_children"]').checked;
 
                         if (minorChildrenSelected) {
-                            showQuestionGroup(q8_2_group);
-                            if (document.querySelector('input[name="minor_children_count"]:checked')) { // Check if a count was selected
-                                showQuestionGroup(q8_3_group);
+                            showQuestionGroup(q1_6_group);
+                            if (document.querySelector('input[name="minor_children_count"]:checked')) {
+                                showQuestionGroup(q1_7_group);
                             }
                         }
                         if (adultChildrenSelected) {
-                            showQuestionGroup(q8_4_group);
-                            if (document.querySelector('input[name="adult_children_count"]:checked')) { // Check if a count was selected
-                                showQuestionGroup(q8_5_group);
-                                // For 8.6, it depends on 8.5 selection as well
+                            showQuestionGroup(q1_8_group);
+                            if (document.querySelector('input[name="adult_children_count"]:checked')) {
+                                showQuestionGroup(q1_9_group);
                                 const anyAdultStatusSelected = Array.from(document.querySelectorAll('input[name="adult_children_status"]:checked')).some(cb => cb.checked);
                                 if (anyAdultStatusSelected) {
-                                    showQuestionGroup(q8_6_group);
+                                    showQuestionGroup(q1_10_group);
                                 }
                             }
                         }
                     } else {
-                         // If no family selected (or unchecked after load), ensure all hidden
-                        hideQuestionGroup(q8_1_group);
-                        hideQuestionGroup(q8_2_group);
-                        hideQuestionGroup(q8_3_group);
-                        hideQuestionGroup(q8_4_group);
-                        hideQuestionGroup(q8_5_group);
-                        hideQuestionGroup(q8_6_group);
+                        hideQuestionGroup(q1_5_group);
+                        hideQuestionGroup(q1_6_group);
+                        hideQuestionGroup(q1_7_group);
+                        hideQuestionGroup(q1_8_group);
+                        hideQuestionGroup(q1_9_group);
+                        hideQuestionGroup(q1_10_group);
                     }
 
-                    // Re-evaluate Q4 contact methods
-                    handleQ4Visibility();
-
-                    // NEW: Re-evaluate Q21 professional certification
-                    const professionalCertYes = document.getElementById('q21_professional_cert_yes');
+                    // Re-evaluate Q1.23 professional certification
+                    const professionalCertYes = document.getElementById('q1_23_professional_cert_yes');
                     if (professionalCertYes && professionalCertYes.checked) {
-                        showQuestionGroup(q21_certification_details_group);
+                        showQuestionGroup(q1_23_certification_details_group);
                     } else {
-                        hideQuestionGroup(q21_certification_details_group);
+                        hideQuestionGroup(q1_23_certification_details_group);
                     }
-                }
 
+                    // Re-evaluate Q5.4 contact methods
+                    handleQ5_4_Visibility();
+                }
 
                 // Add event listeners for all form inputs to trigger saving
                 form.addEventListener('input', saveFormData);
-                form.addEventListener('change', saveFormData); // Catch radio/checkbox changes
+                form.addEventListener('change', saveFormData);
 
                 // Initial state setup and load data on page load
                 // Hide all conditional groups initially
-                hideQuestionGroup(q4_wechat_group);
-                hideQuestionGroup(q4_whatsapp_group);
-                hideQuestionGroup(q4_line_group);
-                hideQuestionGroup(q8_1_group);
-                hideQuestionGroup(q8_2_group);
-                hideQuestionGroup(q8_3_group);
-                hideQuestionGroup(q8_4_group);
-                hideQuestionGroup(q8_5_group);
-                hideQuestionGroup(q8_6_group);
-                hideQuestionGroup(q21_certification_details_group); // NEW: Hide Q21 details initially
+                hideQuestionGroup(q1_5_group);
+                hideQuestionGroup(q1_6_group);
+                hideQuestionGroup(q1_7_group);
+                hideQuestionGroup(q1_8_group);
+                hideQuestionGroup(q1_9_group);
+                hideQuestionGroup(q1_10_group);
+                hideQuestionGroup(q1_23_certification_details_group);
+                hideQuestionGroup(q5_4_wechat_group);
+                hideQuestionGroup(q5_4_whatsapp_group);
+                hideQuestionGroup(q5_4_line_group);
 
                 loadFormData(); // Attempt to load saved data and set initial visibility
             });
 
             // Form submission handler (for logging data and Formspree submission)
             document.getElementById('immigrationQuestionnaire').addEventListener('submit', function(event) {
-                // Formspree handles the preventDefault and submission; we just log and show a message
                 const formData = new FormData(event.target);
                 const data = {};
                 for (let [key, value] of formData.entries()) {
-                    // This logic ensures checkboxes gather multiple values into an array
                     if (event.target.querySelectorAll(`[name="${key}"][type="checkbox"]`).length > 0) {
                         if (!data[key]) {
                             data[key] = [];
@@ -2048,14 +2061,11 @@
                         data[key] = value;
                     }
                 }
-                console.log('问卷提交数据:', data); // Log the data to console for debugging/inspection
-                // Clear local storage on successful submission (optional, depends on desired behavior)
+                console.log('问卷提交数据:', data);
                 localStorage.removeItem('immigrationFormData');
 
                 // Show custom message box instead of alert
                 document.getElementById('messageBox').classList.remove('hidden');
-
-                // Formspree will handle the actual HTTP POST request to its endpoint automatically
             });
 
             // Event listener for closing the custom message box
