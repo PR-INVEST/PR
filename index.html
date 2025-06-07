@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>投资移民意向评估问卷 (终极完美版)</title>
+    <title>投资移民意向评估问卷</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -13,6 +13,7 @@
             /* More sophisticated gradient background */
             @apply bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 text-gray-800;
             line-height: 1.8; /* Increased base line height for overall readability */
+            letter-spacing: 0.025rem; /* General letter spacing for all text */
         }
         /* Custom scrollbar for better aesthetics */
         body::-webkit-scrollbar {
@@ -58,8 +59,9 @@
             margin-bottom: 2rem;
         }
         .question-group label {
-            /* Question label font size: text-xl (desktop) / text-2xl (mobile) */
-            @apply block text-xl md:text-2xl font-bold mb-6 text-gray-800 leading-normal; /* Larger, bolder labels, increased margin below label (approx. 0.5x line height) */
+            /* Updated font size for question labels */
+            @apply block text-3xl md:text-4xl font-bold mb-6 text-gray-800 leading-normal; /* Larger, bolder labels, increased margin below label (approx. 0.5x line height) */
+            letter-spacing: 0.025rem; /* Apply letter spacing to question labels */
         }
         .option-group {
             @apply space-y-4; /* More space between options */
@@ -68,8 +70,9 @@
             @apply flex items-start p-4 md:p-5 border border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-all duration-300 cursor-pointer; /* Enhanced hover, more padding, softer corners */
         }
         .option-item label {
-            /* Option item label font size: text-base (mobile) / text-lg (desktop) */
-            @apply text-base md:text-lg font-normal mb-0 cursor-pointer flex-grow leading-relaxed; /* Larger text for options, more line height */
+            /* Updated font size for option labels */
+            @apply text-3xl md:text-3xl font-normal mb-0 cursor-pointer flex-grow leading-relaxed; /* Larger text for options, more line height */
+            letter-spacing: 0.025rem; /* Apply letter spacing to option labels */
         }
         /* Styling for hidden questions */
         .hidden-question {
@@ -78,6 +81,12 @@
         /* Text area for specific age input */
         textarea {
             @apply w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-y min-h-[6rem];
+            letter-spacing: 0.025rem; /* Apply letter spacing to textareas */
+        }
+        /* Input type number styling */
+        input[type="number"] {
+            @apply w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200;
+            letter-spacing: 0.025rem; /* Apply letter spacing to number inputs */
         }
         /* Button styling */
         .submit-button {
@@ -87,24 +96,23 @@
                    transition-all duration-300 transform hover:scale-105
                    focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-75
                    border border-white border-opacity-30; /* Added more padding, bolder font, text-2xl */
+            letter-spacing: 0.025rem; /* Apply letter spacing to button text */
         }
         /* Section heading specific styling */
         .question-section h2 {
-            /* Section title font size: text-3xl (mobile) / text-4xl (desktop), explicitly set font-size for larger display */
             @apply text-blue-800 border-b-4 border-blue-500 pb-4 mb-10; /* Darker blue, thicker border, more margin below */
-            font-size: 2.75rem; /* Explicitly set font size for larger section titles */
+            font-size: 2.75rem; /* Larger font size for section titles */
             line-height: 1.2;
-            letter-spacing: -0.025em; /* Tighter letter spacing for headings */
+            letter-spacing: 0.025rem; /* Apply letter spacing to H2 titles, overriding previous tighter spacing */
         }
-        /* Main header title */
+        /* Header H1 styling */
         header h1 {
-            /* Main title font size: text-5xl (mobile) / text-6xl (desktop) */
-            @apply text-5xl md:text-6xl font-extrabold text-blue-800 mb-5 tracking-tight leading-tight;
+            letter-spacing: 0.025rem; /* Apply letter spacing to H1 title, overriding previous tighter spacing */
         }
-        /* Main header description */
         header p {
-            /* Main description text size: text-xl (mobile) / text-2xl (desktop) */
-            @apply text-xl md:text-2xl text-gray-700 leading-relaxed max-w-3xl mx-auto;
+            /* Updated font size for header paragraph */
+            @apply text-3xl md:text-4xl text-gray-700 leading-relaxed max-w-3xl mx-auto;
+            letter-spacing: 0.025rem; /* Apply letter spacing to header paragraph */
         }
     </style>
 </head>
@@ -115,7 +123,7 @@
             <h1 class="text-5xl md:text-6xl font-extrabold text-blue-800 mb-5 tracking-tight leading-tight">
                 投资移民意向评估问卷
             </h1>
-            <p class="text-xl md:text-2xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
+            <p class="text-3xl md:text-4xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
                 尊敬的客户，请您花几分钟时间完成这份详细问卷，以便我们深入了解您的个性化需求，为您量身定制最精准、高效的投资移民方案。您的信息将严格保密。
             </p>
         </header>
@@ -129,393 +137,372 @@
                 </h2>
 
                 <div class="question-group">
-                    <label>1. 您的年龄段是？</label>
+                    <label for="q1_age_input">1. 您的具体年龄是？</label>
+                    <input type="number" id="q1_age_input" name="age" placeholder="请输入您的年龄" min="18" max="120" required class="block mt-4">
+                </div>
+
+                <div class="question-group">
+                    <label>2. 您的性别是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q1_age_1" name="age" value="18-30" required>
-                            <label for="q1_age_1">A. 18 - 30 岁</label>
+                            <input type="radio" id="q2_gender_1" name="gender" value="male" required>
+                            <label for="q2_gender_1">A. 男</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q1_age_2" name="age" value="31-45">
-                            <label for="q1_age_2">B. 31 - 45 岁</label>
+                            <input type="radio" id="q2_gender_2" name="gender" value="female">
+                            <label for="q2_gender_2">B. 女</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q1_age_3" name="age" value="46-55">
-                            <label for="q1_age_3">C. 46 - 55 岁</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q1_age_4" name="age" value="56+">
-                            <label for="q1_age_4">D. 56 岁以上</label>
+                            <input type="radio" id="q2_gender_3" name="gender" value="prefer_not_to_say">
+                            <label for="q2_gender_3">C. 不愿透露</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>2. 您的最高学历是？</label>
+                    <label>3. 您的最高学历是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q2_edu_1" name="education" value="highschool_below" required>
-                            <label for="q2_edu_1">A. 高中及以下</label>
+                            <input type="radio" id="q3_edu_1" name="education" value="highschool_below" required>
+                            <label for="q3_edu_1">A. 高中及以下</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q2_edu_2" name="education" value="college_bachelor">
-                            <label for="q2_edu_2">B. 大专/本科</label>
+                            <input type="radio" id="q3_edu_2" name="education" value="college_bachelor">
+                            <label for="q3_edu_2">B. 大专/本科</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q2_edu_3" name="education" value="master">
-                            <label for="q2_edu_3">C. 硕士</label>
+                            <input type="radio" id="q3_edu_3" name="education" value="master">
+                            <label for="q3_edu_3">C. 硕士</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q2_edu_4" name="education" value="phd_above">
-                            <label for="q2_edu_4">D. 博士及以上</label>
+                            <input type="radio" id="q3_edu_4" name="education" value="phd_above">
+                            <label for="q3_edu_4">D. 博士及以上</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>3. 您的主要移民目的是？ (请选择最主要的一项)</label>
+                    <label>4. 您的主要移民目的是？ (请选择最主要的一项)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q3_purpose_1" name="primary_purpose" value="global_mobility" required>
-                            <label for="q3_purpose_1">A. 获得海外身份，方便全球出行与居住自由</label>
+                            <input type="radio" id="q4_purpose_1" name="primary_purpose" value="global_mobility" required>
+                            <label for="q4_purpose_1">A. 获得海外身份，方便全球出行与居住自由</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q3_purpose_2" name="primary_purpose" value="children_education">
-                            <label for="q3_purpose_2">B. 为子女提供更优质的教育资源与发展平台</label>
+                            <input type="radio" id="q4_purpose_2" name="primary_purpose" value="children_education">
+                            <label for="q4_purpose_2">B. 为子女提供更优质的教育资源与发展平台</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q3_purpose_3" name="primary_purpose" value="asset_global_allocation">
-                            <label for="q3_purpose_3">C. 实现资产全球化配置与家族财富传承</label>
+                            <input type="radio" id="q4_purpose_3" name="primary_purpose" value="asset_global_allocation">
+                            <label for="q4_purpose_3">C. 实现资产全球化配置与家族财富传承</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q3_purpose_4" name="primary_purpose" value="second_citizenship_risk_aversion">
-                            <label for="q3_purpose_4">D. 获得第二国籍，分散个人与家庭的风险</label>
+                            <input type="radio" id="q4_purpose_4" name="primary_purpose" value="second_citizenship_risk_aversion">
+                            <label for="q4_purpose_4">D. 获得第二国籍，分散个人与家庭的风险</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q3_purpose_5" name="primary_purpose" value="retirement_quality_life">
-                            <label for="q3_purpose_5">E. 改善生活环境，享受高质量的养老生活</label>
+                            <input type="radio" id="q4_purpose_5" name="primary_purpose" value="retirement_quality_life">
+                            <label for="q4_purpose_5">E. 改善生活环境，享受高质量的养老生活</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q3_purpose_6" name="primary_purpose" value="overseas_business_expansion">
-                            <label for="q3_purpose_6">F. 海外创业或拓展商业版图，寻求新的商业机遇</label>
+                            <input type="radio" id="q4_purpose_6" name="primary_purpose" value="overseas_business_expansion">
+                            <label for="q4_purpose_6">F. 海外创业或拓展商业版图，寻求新的商业机遇</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q3_purpose_7" name="primary_purpose" value="other_purpose">
-                            <label for="q3_purpose_7">G. 其他（后续将与专业顾问详细沟通具体目的）</label>
+                            <input type="radio" id="q4_purpose_7" name="primary_purpose" value="other_purpose">
+                            <label for="q4_purpose_7">G. 其他（后续将与专业顾问详细沟通具体目的）</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>4. 您期望首先获得的身份类型是？</label>
+                    <label>5. 您期望首先获得的身份类型是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q4_identity_1" name="desired_identity_type" value="residency_permit_temp" required>
-                            <label for="q4_identity_1">A. 临时居留许可 (通常需定期续签，方便短期居住与考察)</label>
+                            <input type="radio" id="q5_identity_1" name="desired_identity_type" value="residency_permit_temp" required>
+                            <label for="q5_identity_1">A. 临时居留许可 (通常需定期续签，方便短期居住与考察)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q4_identity_2" name="desired_identity_type" value="permanent_residency_green_card">
-                            <label for="q4_identity_2">B. 永久居留权 (绿卡/永居，可长期居住，通常无强制居住要求)</label>
+                            <input type="radio" id="q5_identity_2" name="desired_identity_type" value="permanent_residency_green_card">
+                            <label for="q5_identity_2">B. 永久居留权 (绿卡/永居，可长期居住，通常无强制居住要求)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q4_identity_3" name="desired_identity_type" value="direct_citizenship">
-                            <label for="q4_identity_3">C. 直接公民身份 (护照，一步到位，可免签全球多国)</label>
+                            <input type="radio" id="q5_identity_3" name="desired_identity_type" value="direct_citizenship">
+                            <label for="q5_identity_3">C. 直接公民身份 (护照，一步到位，可免签全球多国)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q4_identity_4" name="desired_identity_type" value="flexible_identity_path">
-                            <label for="q4_identity_4">D. 暂无明确偏好，希望了解不同身份的优劣及后续发展路径</label>
+                            <input type="radio" id="q5_identity_4" name="desired_identity_type" value="flexible_identity_path">
+                            <label for="q5_identity_4">D. 暂无明确偏好，希望了解不同身份的优劣及后续发展路径</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>5. 您对最终获得移民国公民身份（入籍）的意愿是？</label>
+                    <label>6. 您对最终获得移民国公民身份（入籍）的意愿是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q5_citizenship_goal_1" name="citizenship_goal" value="must_achieve_citizenship" required>
-                            <label for="q5_citizenship_goal_1">A. 强烈希望，最终目标是获得公民身份，不介意等待时间</label>
+                            <input type="radio" id="q6_citizenship_goal_1" name="citizenship_goal" value="must_achieve_citizenship" required>
+                            <label for="q6_citizenship_goal_1">A. 强烈希望，最终目标是获得公民身份，不介意等待时间</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q5_citizenship_goal_2" name="citizenship_goal" value="permanent_residency_sufficient">
-                            <label for="q5_citizenship_goal_2">B. 有永居身份即可满足需求，不强制要求入籍</label>
+                            <input type="radio" id="q6_citizenship_goal_2" name="citizenship_goal" value="permanent_residency_sufficient">
+                            <label for="q6_citizenship_goal_2">B. 有永居身份即可满足需求，不强制要求入籍</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q5_citizenship_goal_3" name="citizenship_goal" value="open_to_citizenship">
-                            <label for="q5_citizenship_3">C. 持开放态度，若条件允许且流程便捷可考虑入籍</label>
+                            <input type="radio" id="q6_citizenship_goal_3" name="citizenship_goal" value="open_to_citizenship">
+                            <label for="q6_citizenship_goal_3">C. 持开放态度，若条件允许且流程便捷可考虑入籍</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>6. 您预计何时启动移民申请流程？</label>
+                    <label>7. 您预计何时启动移民申请流程？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q6_timeline_1" name="application_timeline" value="within_3_months" required>
-                            <label for="q6_timeline_1">A. 3个月内，希望尽快启动</label>
+                            <input type="radio" id="q7_timeline_1" name="application_timeline" value="within_3_months" required>
+                            <label for="q7_timeline_1">A. 3个月内，希望尽快启动</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q6_timeline_2" name="application_timeline" value="3_to_6_months">
-                            <label for="q6_timeline_2">B. 3-6个月内</label>
+                            <input type="radio" id="q7_timeline_2" name="application_timeline" value="3_to_6_months">
+                            <label for="q7_timeline_2">B. 3-6个月内</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q6_timeline_3" name="application_timeline" value="6_to_12_months">
-                            <label for="q6_timeline_3">C. 6-12个月内</label>
+                            <input type="radio" id="q7_timeline_3" name="application_timeline" value="6_to_12_months">
+                            <label for="q7_timeline_3">C. 6-12个月内</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q6_timeline_4" name="application_timeline" value="over_1_year">
-                            <label for="q6_timeline_4">D. 1年以后，仍在规划中</label>
+                            <input type="radio" id="q7_timeline_4" name="application_timeline" value="over_1_year">
+                            <label for="q7_timeline_4">D. 1年以后，仍在规划中</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q6_timeline_5" name="application_timeline" value="no_fixed_timeline">
-                            <label for="q6_timeline_5">E. 暂无明确时间表，希望先了解详细政策和可行性</label>
+                            <input type="radio" id="q7_timeline_5" name="application_timeline" value="no_fixed_timeline">
+                            <label for="q7_timeline_5">E. 暂无明确时间表，希望先了解详细政策和可行性</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>7. 您是否有随行家属？</label>
+                    <label>8. 您是否有随行家属？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q7_family_present_yes" name="family_present" value="yes" required>
-                            <label for="q7_family_present_yes">A. 是</label>
+                            <input type="radio" id="q8_family_present_yes" name="family_present" value="yes" required>
+                            <label for="q8_family_present_yes">A. 是</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q7_family_present_no" name="family_present" value="no">
-                            <label for="q7_family_present_no">B. 否，仅主申请人</label>
+                            <input type="radio" id="q8_family_present_no" name="family_present" value="no">
+                            <label for="q8_family_present_no">B. 否，仅主申请人</label>
                         </div>
                     </div>
                 </div>
 
-                <!-- Conditional question group: depends on q7_family_present_yes -->
-                <div class="question-group hidden-question" id="q8_group">
-                    <label>8. 若有随行家属，您的随行家属包括？(可多选)</label>
-                    <div class="option-group">
-                        <div class="option-item">
-                            <input type="checkbox" id="q8_family_type_1" name="accompanying_family_types" value="spouse">
-                            <label for="q8_family_type_1">A. 配偶</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="checkbox" id="q8_family_type_2" name="accompanying_family_types" value="minor_children">
-                            <label for="q8_family_type_2">B. 未成年子女 (18岁以下)</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="checkbox" id="q8_family_type_3" name="accompanying_family_types" value="adult_children">
-                            <label for="q8_family_type_3">C. 成年子女 (18岁及以上)</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="checkbox" id="q8_family_type_4" name="accompanying_family_types" value="parents">
-                            <label for="q8_family_type_4">D. 主申请人或配偶的父母</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="checkbox" id="q8_family_type_5" name="accompanying_family_types" value="grandparents">
-                            <label for="q8_family_type_5">E. 主申请人或配偶的祖父母</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conditional question group: depends on q8_family_type_2 (minor_children) -->
+                <!-- Conditional question group: depends on q8_family_present_yes -->
                 <div class="question-group hidden-question" id="q9_group">
-                    <label>9. 若有未成年子女随行，大致数量是？</label>
+                    <label>9. 若有随行家属，您的随行家属包括？(可多选)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q9_minor_children_count_1" name="minor_children_count" value="1">
-                            <label for="q9_minor_children_count_1">A. 1 名</label>
+                            <input type="checkbox" id="q9_family_type_1" name="accompanying_family_types" value="spouse">
+                            <label for="q9_family_type_1">A. 配偶</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q9_minor_children_count_2" name="minor_children_count" value="2">
-                            <label for="q9_minor_children_count_2">B. 2 名</label>
+                            <input type="checkbox" id="q9_family_type_2" name="accompanying_family_types" value="minor_children">
+                            <label for="q9_family_type_2">B. 未成年子女 (18岁以下)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q9_minor_children_count_3" name="minor_children_count" value="3">
-                            <label for="q9_minor_children_count_3">C. 3 名</label>
+                            <input type="checkbox" id="q9_family_type_3" name="accompanying_family_types" value="adult_children">
+                            <label for="q9_family_type_3">C. 成年子女 (18岁及以上)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q9_minor_children_count_4" name="minor_children_count" value="more_than_3">
-                            <label for="q9_minor_children_count_4">D. 3 名以上</label>
+                            <input type="checkbox" id="q9_family_type_4" name="accompanying_family_types" value="parents">
+                            <label for="q9_family_type_4">D. 主申请人或配偶的父母</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="q9_family_type_5" name="accompanying_family_types" value="grandparents">
+                            <label for="q9_family_type_5">E. 主申请人或配偶的祖父母</label>
                         </div>
                     </div>
                 </div>
 
-                <!-- Conditional question group: depends on q9_group being visible -->
+                <!-- Conditional question group: depends on q9_family_type_2 (minor_children) -->
                 <div class="question-group hidden-question" id="q10_group">
-                    <label>10. 请填写所有随行**未成年子女**的具体年龄（例如：5岁, 12岁）。</label>
-                    <textarea id="q10_minor_children_ages" name="minor_children_ages" placeholder="请输入未成年子女的具体年龄，例如：5岁, 12岁"></textarea>
+                    <label>10. 若有未成年子女随行，大致数量是？</label>
+                    <div class="option-group">
+                        <div class="option-item">
+                            <input type="radio" id="q10_minor_children_count_1" name="minor_children_count" value="1">
+                            <label for="q10_minor_children_count_1">A. 1 名</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q10_minor_children_count_2" name="minor_children_count" value="2">
+                            <label for="q10_minor_children_count_2">B. 2 名</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q10_minor_children_count_3" name="minor_children_count" value="3">
+                            <label for="q10_minor_children_count_3">C. 3 名</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q10_minor_children_count_4" name="minor_children_count" value="more_than_3">
+                            <label for="q10_minor_children_count_4">D. 3 名以上</label>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Conditional question group: depends on q8_family_type_3 (adult_children) -->
+                <!-- Conditional question group: depends on q10_group being visible -->
                 <div class="question-group hidden-question" id="q11_group">
-                    <label>11. 若有成年子女随行，他们目前主要状态是？(可多选，可根据子女的实际情况多选)</label>
-                    <div class="option-group">
-                        <div class="option-item">
-                            <input type="checkbox" id="q11_adult_children_status_1" name="adult_children_status" value="studying_secondary_university">
-                            <label for="q11_adult_children_status_1">A. 在学中 (中学/大学)</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="checkbox" id="q11_adult_children_status_2" name="adult_children_status" value="employed_full_time">
-                            <label for="q11_adult_children_status_2">B. 在职工作 (全职)</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="checkbox" id="q11_adult_children_status_3" name="adult_children_status" value="unemployed_seeking">
-                            <label for="q11_adult_children_status_3">C. 待业/正在寻找工作</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="checkbox" id="q11_adult_children_status_4" name="adult_children_status" value="other_adult_status">
-                            <label for="q11_adult_children_status_4">D. 其他情况</label>
-                        </div>
-                    </div>
+                    <label>11. 请填写所有随行**未成年子女**的具体年龄（例如：5岁, 12岁）。</label>
+                    <textarea id="q11_minor_children_ages" name="minor_children_ages" placeholder="请输入未成年子女的具体年龄，例如：5岁, 12岁"></textarea>
                 </div>
 
-                <!-- Conditional question group: depends on q11_group being visible -->
+                <!-- Conditional question group: depends on q9_family_type_3 (adult_children) -->
                 <div class="question-group hidden-question" id="q12_group">
-                    <label>12. 请填写所有随行**成年子女**的具体年龄及主要状态（例如：22岁在读大学, 28岁在职）。</label>
-                    <textarea id="q12_adult_children_ages_status" name="adult_children_ages_status" placeholder="请输入成年子女的具体年龄及主要状态，例如：22岁在读大学, 28岁在职"></textarea>
+                    <label>12. 若有成年子女随行，他们目前主要状态是？(可多选，可根据子女的实际情况多选)</label>
+                    <div class="option-group">
+                        <div class="option-item">
+                            <input type="checkbox" id="q12_adult_children_status_1" name="adult_children_status" value="studying_secondary_university">
+                            <label for="q12_adult_children_status_1">A. 在学中 (中学/大学)</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="q12_adult_children_status_2" name="adult_children_status" value="employed_full_time">
+                            <label for="q12_adult_children_status_2">B. 在职工作 (全职)</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="q12_adult_children_status_3" name="adult_children_status" value="unemployed_seeking">
+                            <label for="q12_adult_children_status_3">C. 待业/正在寻找工作</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="q12_adult_children_status_4" name="adult_children_status" value="other_adult_status">
+                            <label for="q12_adult_children_status_4">D. 其他情况</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conditional question group: depends on q12_group being visible -->
+                <div class="question-group hidden-question" id="q13_group">
+                    <label>13. 请填写所有随行**成年子女**的具体年龄及主要状态（例如：22岁在读大学, 28岁在职）。</label>
+                    <textarea id="q13_adult_children_ages_status" name="adult_children_ages_status" placeholder="请输入成年子女的具体年龄及主要状态，例如：22岁在读大学, 28岁在职"></textarea>
                 </div>
 
                 <div class="question-group">
-                    <label>13. 您的决策风格偏向哪种？</label>
+                    <label>14. 您的决策风格偏向哪种？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q13_decision_style_1" name="decision_making_style" value="analytical_data_driven" required>
-                            <label for="q13_decision_style_1">A. 分析型，注重数据、逻辑和详细规划</label>
+                            <input type="radio" id="q14_decision_style_1" name="decision_making_style" value="analytical_data_driven" required>
+                            <label for="q14_decision_style_1">A. 分析型，注重数据、逻辑和详细规划</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q13_decision_style_2" name="decision_making_style" value="intuitive_flexible">
-                            <label for="q13_decision_style_2">B. 直觉型，更依赖感觉和经验，偏好灵活性</label>
+                            <input type="radio" id="q14_decision_style_2" name="decision_making_style" value="intuitive_flexible">
+                            <label for="q14_decision_style_2">B. 直觉型，更依赖感觉和经验，偏好灵活性</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q13_decision_style_3" name="decision_making_style" value="balanced_approach">
-                            <label for="q13_decision_3">C. 平衡型，综合考量数据和直觉</label>
+                            <input type="radio" id="q14_decision_style_3" name="decision_making_style" value="balanced_approach">
+                            <label for="q14_decision_3">C. 平衡型，综合考量数据和直觉</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>14. 您对新环境的适应能力如何？</label>
+                    <label>15. 您对新环境的适应能力如何？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q14_adaptability_1" name="adaptability_to_new_environments" value="highly_adaptable" required>
-                            <label for="q14_adaptability_1">A. 适应能力强，乐于接受并融入新环境</label>
+                            <input type="radio" id="q15_adaptability_1" name="adaptability_to_new_environments" value="highly_adaptable" required>
+                            <label for="q15_adaptability_1">A. 适应能力强，乐于接受并融入新环境</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q14_adaptability_2" name="adaptability_to_new_environments" value="moderately_adaptable">
-                            <label for="q14_adaptability_2">B. 适度活跃，需要时间适应</label>
+                            <input type="radio" id="q15_adaptability_2" name="adaptability_to_new_environments" value="moderately_adaptable">
+                            <label for="q15_adaptability_2">B. 适度活跃，需要时间适应</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q14_adaptability_3" name="adaptability_to_new_environments" value="less_adaptable">
-                            <label for="q14_adaptability_3">C. 适应能力较弱，更倾向于熟悉的环境</label>
+                            <input type="radio" id="q15_adaptability_3" name="adaptability_to_new_environments" value="less_adaptable">
+                            <label for="q15_adaptability_3">C. 适应能力较弱，更倾向于熟悉的环境</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>15. 您偏好的社交方式是？</label>
+                    <label>16. 您偏好的社交方式是？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q15_social_pref_1" name="social_style" value="extrovert_large_groups" required>
-                            <label for="q15_social_pref_1">A. 开放外向，喜欢参与大型社交活动和拓展人脉</label>
+                            <input type="radio" id="q16_social_pref_1" name="social_style" value="extrovert_large_groups" required>
+                            <label for="q16_social_pref_1">A. 开放外向，喜欢参与大型社交活动和拓展人脉</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q15_social_pref_2" name="social_style" value="introvert_small_circles">
-                            <label for="q15_social_pref_2">B. 相对内向，更偏好小范围、深度的朋友聚会</label>
+                            <input type="radio" id="q16_social_pref_2" name="social_style" value="introvert_small_circles">
+                            <label for="q16_social_pref_2">B. 相对内向，更偏好小范围、深度的朋友聚会</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q15_social_pref_3" name="social_style" value="balanced_social">
-                            <label for="q15_social_pref_3">C. 兼顾两者，视情况而定</label>
+                            <input type="radio" id="q16_social_pref_3" name="social_style" value="balanced_social">
+                            <label for="q16_social_pref_3">C. 兼顾两者，视情况而定</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>16. 在新国家，您最看重以下哪个非物质方面？ (单选，代表您的核心价值观)</label>
+                    <label>17. 在新国家，您最看重以下哪个非物质方面？ (单选，代表您的核心价值观)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q16_value_1" name="core_value_in_new_country" value="personal_freedom_rights" required>
-                            <label for="q16_value_1">A. 个人自由与权利的保障</label>
+                            <input type="radio" id="q17_value_1" name="core_value_in_new_country" value="personal_freedom_rights" required>
+                            <label for="q17_value_1">A. 个人自由与权利的保障</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q16_value_2" name="core_value_in_new_country" value="community_belonging_support">
-                            <label for="q16_value_2">B. 社区归属感与互助支持</label>
+                            <input type="radio" id="q17_value_2" name="core_value_in_new_country" value="community_belonging_support">
+                            <label for="q17_value_2">B. 社区归属感与互助支持</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q16_value_3" name="core_value_in_new_country" value="innovation_progress">
-                            <label for="q16_value_3">C. 创新精神与社会进步</label>
+                            <input type="radio" id="q17_value_3" name="core_value_in_new_country" value="innovation_progress">
+                            <label for="q17_value_3">C. 创新精神与社会进步</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q16_value_4" name="core_value_in_new_country" value="cultural_heritage_tradition">
-                            <label for="q16_value_4">D. 文化遗产与传统价值的传承</label>
+                            <input type="radio" id="q17_value_4" name="core_value_in_new_country" value="cultural_heritage_tradition">
+                            <label for="q17_value_4">D. 文化遗产与传统价值的传承</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q16_value_5" name="core_value_in_new_country" value="equality_social_justice">
-                            <label for="q16_value_5">E. 平等与社会公正</label>
+                            <input type="radio" id="q17_value_5" name="core_value_in_new_country" value="equality_social_justice">
+                            <label for="q17_value_5">E. 平等与社会公正</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>17. 您的国际旅行经验如何？</label>
+                    <label>18. 您的国际旅行经验如何？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q17_travel_exp_1" name="international_travel_experience" value="limited_rarely_traveled" required>
-                            <label for="q17_travel_exp_1">A. 有限，很少出国旅行</label>
+                            <input type="radio" id="q18_travel_exp_1" name="international_travel_experience" value="limited_rarely_traveled" required>
+                            <label for="q18_travel_exp_1">A. 有限，很少出国旅行</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q17_travel_exp_2" name="international_travel_experience" value="some_casual_travel">
-                            <label for="q17_travel_exp_2">B. 较多，有休闲旅游经验，去过几个国家</label>
+                            <input type="radio" id="q18_travel_exp_2" name="international_travel_experience" value="some_casual_travel">
+                            <label for="q18_travel_exp_2">B. 较多，有休闲旅游经验，去过几个国家</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q17_travel_exp_3" name="international_travel_experience" value="extensive_business_travel">
-                            <label for="q17_travel_exp_3">C. 广泛，有频繁的商务或深度旅行经验，去过很多国家</label>
+                            <input type="radio" id="q18_travel_exp_3" name="international_travel_experience" value="extensive_business_travel">
+                            <label for="q18_travel_exp_3">C. 广泛，有频繁的商务或深度旅行经验，去过很多国家</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label>18. 您是否有经商或高级管理经验？(有助于部分创业或商业投资项目)</label>
+                    <label>19. 您的英语或其他外语水平如何？(请选择您最熟练的语言水平)</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q18_biz_exp_1" name="business_experience" value="over_10_years_senior_management" required>
-                            <label for="q18_biz_exp_1">A. 10年以上高级管理或企业主经验</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q18_biz_exp_2" name="business_experience" value="5_10_years_management">
-                            <label for="q18_biz_exp_2">B. 5-10年管理或企业主经验</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q18_biz_exp_3" name="business_experience" value="2_5_years_management">
-                            <label for="q18_biz_exp_3">C. 2-5年管理或企业主经验</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" id="q18_biz_exp_4" name="business_experience" value="less_than_2_years_or_no_relevant">
-                            <label for="q18_biz_exp_4">D. 2年以下或无相关经验</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="question-group">
-                    <label>19. 您的英语或其他外语水平如何？(可多选)</label>
-                    <div class="option-group">
-                        <div class="option-item">
-                            <input type="checkbox" id="q19_lang_1" name="language_proficiency" value="native_fluent_english">
+                            <input type="radio" id="q19_lang_1" name="language_proficiency" value="native_fluent_english" required>
                             <label for="q19_lang_1">A. 英语母语或流利沟通 (雅思7.0+水平)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q19_lang_2" name="language_proficiency" value="business_working_english">
+                            <input type="radio" id="q19_lang_2" name="language_proficiency" value="business_working_english">
                             <label for="q19_lang_2">B. 英语商务沟通无障碍 (雅思5.5-6.5水平)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q19_lang_3" name="language_proficiency" value="daily_basic_english">
+                            <input type="radio" id="q19_lang_3" name="language_proficiency" value="daily_basic_english">
                             <label for="q19_lang_3">C. 英语日常交流无障碍 (雅思4.0-5.0水平)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q19_lang_4" name="language_proficiency" value="some_basic_english">
+                            <input type="radio" id="q19_lang_4" name="language_proficiency" value="some_basic_english">
                             <label for="q19_lang_4">D. 具备基本英语交流能力</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q19_lang_5" name="language_proficiency" value="fluent_other_language">
+                            <input type="radio" id="q19_lang_5" name="language_proficiency" value="fluent_other_language">
                             <label for="q19_lang_5">E. 流利掌握其他小语种 (如葡萄牙语、希腊语、法语等)</label>
                         </div>
                         <div class="option-item">
-                            <input type="checkbox" id="q19_lang_6" name="language_proficiency" value="no_foreign_language">
+                            <input type="radio" id="q19_lang_6" name="language_proficiency" value="no_foreign_language">
                             <label for="q19_lang_6">F. 几乎无外语能力</label>
                         </div>
                     </div>
@@ -712,7 +699,7 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q27_budget_4" name="investment_budget_range" value="2m_5m_eur_usd">
-                            <label for="q27_budget_4">D. 201 万 - 500 万欧元/美元</label>
+                            <label for="q27_budget_4">D. 201 万 - 500 万美元</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q27_budget_5" name="investment_budget_range" value="over_5m_eur_usd">
@@ -781,7 +768,7 @@
                             <label for="q30_risk_tolerance_1">A. 极低风险，资金绝对安全是首要考量，宁可回报低</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q30_risk_tolerance_2" name="risk_tolerance_level" value="low_to_medium_risk_minor_fluctuations">
+                            <input type="radio" id="q30_risk_tolerance_2" name="risk_tolerance_2" value="low_to_medium_risk_minor_fluctuations">
                             <label for="q30_risk_tolerance_2">B. 中低风险，可以接受少量市场波动，但本金安全是底线</label>
                         </div>
                         <div class="option-item">
@@ -961,7 +948,7 @@
                             <label for="q38_asset_priority_1">A. 长期资产增值优先于短期流动性</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q38_asset_priority_2" name="asset_priority" value="balance_growth_liquidity">
+                            <input type="radio" id="q38_asset_priority_2" name="asset_priority" value="balance_growth_liquuldity">
                             <label for="q38_asset_priority_2">B. 平衡长期增长与短期流动性，两者兼顾</label>
                         </div>
                         <div class="option-item">
@@ -1102,15 +1089,15 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q44_climate_pref_2" name="climate_preference" value="temperate_four_seasons_distinct">
-                            <label for="q44_climate_2">B. 温带气候，四季分明，气候宜人</label>
+                            <label for="q44_climate_pref_2">B. 温带气候，四季分明，气候宜人</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q44_climate_pref_3" name="climate_preference" value="cooler_mild_summers">
-                            <label for="q44_climate_3">C. 凉爽气候，夏季温和，冬季可能较冷</label>
+                            <label for="q44_climate_pref_3">C. 凉爽气候，夏季温和，冬季可能较冷</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q44_climate_pref_4" name="climate_preference" value="no_specific_climate_preference">
-                            <label for="q44_climate_4">D. 无特殊偏好，能适应多样气候</label>
+                            <label for="q44_climate_pref_4">D. 无特殊偏好，能适应多样气候</label>
                         </div>
                     </div>
                 </div>
@@ -1164,7 +1151,7 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q47_life_pace_3" name="desired_life_pace" value="slow_paced_town_rural">
-                            <label for="q47_life_3">C. 慢节奏小镇或乡村，追求宁静自然的生活</label>
+                            <label for="q47_life_pace_3">C. 慢节奏小镇或乡村，追求宁静自然的生活</label>
                         </div>
                     </div>
                 </div>
@@ -1554,11 +1541,12 @@
                 const familyPresentRadios = document.querySelectorAll('input[name="family_present"]');
                 const accompanyingFamilyTypesCheckboxes = document.querySelectorAll('input[name="accompanying_family_types"]');
 
-                const q8Group = document.getElementById('q8_group');
-                const q9Group = document.getElementById('q9_group');
-                const q10Group = document.getElementById('q10_group'); // Minor children ages text area
-                const q11Group = document.getElementById('q11_group');
-                const q12Group = document.getElementById('q12_group'); // Adult children ages/status text area
+                // Updated Q number references
+                const q9Group = document.getElementById('q9_group'); // Was q8Group
+                const q10Group = document.getElementById('q10_group'); // Was q9Group
+                const q11Group = document.getElementById('q11_group'); // Was q10Group - Minor children ages text area
+                const q12Group = document.getElementById('q12_group'); // Was q11Group
+                const q13Group = document.getElementById('q13_group'); // Was q12Group - Adult children ages/status text area
 
                 /**
                  * Clears inputs and hides a question group.
@@ -1585,63 +1573,63 @@
                     groupElement.classList.remove('hidden-question');
                 }
 
-                // Event listener for Question 7 (family present)
+                // Event listener for Question 8 (family present) - Changed from Q7
                 familyPresentRadios.forEach(radio => {
                     radio.addEventListener('change', function() {
                         if (this.value === 'yes' && this.checked) {
-                            showQuestionGroup(q8Group); // Show Q8
+                            showQuestionGroup(q9Group); // Show Q9 (was Q8)
                         } else {
-                            hideQuestionGroup(q8Group); // Hide Q8 and all subsequent family questions
-                            hideQuestionGroup(q9Group);
+                            hideQuestionGroup(q9Group); // Hide Q9 and all subsequent family questions
                             hideQuestionGroup(q10Group);
                             hideQuestionGroup(q11Group);
                             hideQuestionGroup(q12Group);
+                            hideQuestionGroup(q13Group);
                         }
                     });
                 });
 
-                // Event listener for Question 8 (accompanying family types) - now more complex
+                // Event listener for Question 9 (accompanying family types) - Changed from Q8
                 accompanyingFamilyTypesCheckboxes.forEach(checkbox => {
                     checkbox.addEventListener('change', function() {
                         const minorChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="minor_children"]').checked;
                         const adultChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="adult_children"]').checked;
 
-                        // Toggle Q9 (minor children count) based on minor_children selection in Q8
+                        // Toggle Q10 (minor children count) based on minor_children selection in Q9
                         if (minorChildrenSelected) {
-                            showQuestionGroup(q9Group);
+                            showQuestionGroup(q10Group);
                         } else {
-                            hideQuestionGroup(q9Group);
-                            hideQuestionGroup(q10Group); // Hide minor children ages if count is hidden
+                            hideQuestionGroup(q10Group);
+                            hideQuestionGroup(q11Group); // Hide minor children ages if count is hidden
                         }
 
-                        // Toggle Q11 (adult children status) based on adult_children selection in Q8
+                        // Toggle Q12 (adult children status) based on adult_children selection in Q9
                         if (adultChildrenSelected) {
-                            showQuestionGroup(q11Group);
+                            showQuestionGroup(q12Group);
                         } else {
-                            hideQuestionGroup(q11Group);
-                            hideQuestionGroup(q12Group); // Hide adult children ages if status is hidden
+                            hideQuestionGroup(q12Group);
+                            hideQuestionGroup(q13Group); // Hide adult children ages if status is hidden
                         }
                     });
                 });
 
-                // Event listener for Question 9 (minor children count) - triggers Q10 (minor children ages)
+                // Event listener for Question 10 (minor children count) - triggers Q11 (minor children ages)
                 document.querySelectorAll('input[name="minor_children_count"]').forEach(radio => {
                     radio.addEventListener('change', function() {
                         if (this.checked) {
-                            showQuestionGroup(q10Group);
+                            showQuestionGroup(q11Group);
                         }
                     });
                 });
 
-                // Event listener for Question 11 (adult children status) - triggers Q12 (adult children ages/status)
+                // Event listener for Question 12 (adult children status) - triggers Q13 (adult children ages/status)
                 // This needs to check if ANY of the adult children status checkboxes are checked
                 document.querySelectorAll('input[name="adult_children_status"]').forEach(checkbox => {
                     checkbox.addEventListener('change', function() {
                         const anyAdultStatusSelected = Array.from(document.querySelectorAll('input[name="adult_children_status"]:checked')).some(cb => cb.checked);
                         if (anyAdultStatusSelected) {
-                            showQuestionGroup(q12Group);
+                            showQuestionGroup(q13Group);
                         } else {
-                            hideQuestionGroup(q12Group);
+                            hideQuestionGroup(q13Group);
                         }
                     });
                 });
@@ -1649,34 +1637,34 @@
 
                 // Initial state setup on load
                 // Hide all conditional groups initially
-                hideQuestionGroup(q8Group);
                 hideQuestionGroup(q9Group);
                 hideQuestionGroup(q10Group);
                 hideQuestionGroup(q11Group);
                 hideQuestionGroup(q12Group);
+                hideQuestionGroup(q13Group);
 
                 // Re-evaluate visibility if user navigates back or refreshes with previous selections
                 // This part needs to be robust for all nested conditions.
                 const initialFamilyPresent = document.querySelector('input[name="family_present"]:checked');
                 if (initialFamilyPresent && initialFamilyPresent.value === 'yes') {
-                    showQuestionGroup(q8Group);
+                    showQuestionGroup(q9Group);
 
-                    // Check Q8 selections to reveal Q9/Q11
+                    // Check Q9 selections to reveal Q10/Q12
                     const initialMinorChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="minor_children"]').checked;
                     const initialAdultChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="adult_children"]').checked;
 
                     if (initialMinorChildrenSelected) {
-                        showQuestionGroup(q9Group);
+                        showQuestionGroup(q10Group);
                         const initialMinorChildrenCountSelected = document.querySelector('input[name="minor_children_count"]:checked');
                         if (initialMinorChildrenCountSelected) {
-                            showQuestionGroup(q10Group);
+                            showQuestionGroup(q11Group);
                         }
                     }
                     if (initialAdultChildrenSelected) {
-                        showQuestionGroup(q11Group);
+                        showQuestionGroup(q12Group);
                         const anyInitialAdultStatusSelected = Array.from(document.querySelectorAll('input[name="adult_children_status"]:checked')).some(cb => cb.checked);
                         if (anyInitialAdultStatusSelected) {
-                            showQuestionGroup(q12Group);
+                            showQuestionGroup(q13Group);
                         }
                     }
                 }
