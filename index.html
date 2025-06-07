@@ -194,7 +194,7 @@
         /* Auto-save message styling */
         .auto-save-message {
             /* Applying flex for perfect centering */
-            @apply flex flex-col items-center justify-center bg-blue-100 text-blue-800 p-4 rounded-xl shadow-md my-16 mx-auto max-w-3xl;
+            @apply flex flex-col items-center justify-center bg-blue-100 text-blue-800 p-4 rounded-xl shadow-md mt-16 mb-24 mx-auto max-w-3xl; /* Changed my-16 to mt-16 mb-24 */
             font-size: 16px;
             letter-spacing: 0.02rem;
             line-height: 1.5;
@@ -2192,6 +2192,7 @@
 
             // Form submission handler (for logging data and Formspree submission)
             document.getElementById('immigrationQuestionnaire').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission to handle with custom message box
                 const formData = new FormData(event.target);
                 const data = {};
                 for (let [key, value] of formData.entries()) {
@@ -2207,13 +2208,33 @@
                 console.log('问卷提交数据:', data);
                 localStorage.removeItem('immigrationFormData');
 
-                // Show custom message box instead of alert
-                document.getElementById('messageBox').classList.remove('hidden');
+                // Send data to Formspree
+                fetch(event.target.action, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        document.getElementById('messageBox').classList.remove('hidden');
+                    } else {
+                        console.error('Form submission failed');
+                        // Optionally show an error message to the user
+                    }
+                }).catch(error => {
+                    console.error('Network error or Formspree submission issue:', error);
+                    // Optionally show an error message to the user
+                });
             });
 
             // Event listener for closing the custom message box
             document.getElementById('closeMessageBox').addEventListener('click', function() {
                 document.getElementById('messageBox').classList.add('hidden');
+                // Optionally redirect or reset form after closing message box
+                form.reset(); // Reset the form after successful submission
+                showPage(0); // Go back to the first page
             });
         </script>
     </div>
