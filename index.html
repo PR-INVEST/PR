@@ -13,6 +13,7 @@
             /* More sophisticated gradient background */
             @apply bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 text-gray-800;
             line-height: 1.8; /* Increased base line height for overall readability */
+            letter-spacing: 0.035rem; /* Global letter spacing */
         }
         /* Custom scrollbar for better aesthetics */
         body::-webkit-scrollbar {
@@ -36,12 +37,11 @@
         input[type="checkbox"] {
             @apply mr-4; /* Increased margin for better spacing */
             accent-color: #2563eb; /* Tailwind blue-600 for a deeper blue */
-            width: 0.85rem; /* ~13.6px, roughly 75% of 18px text */
-            height: 0.85rem;
-            min-width: 0.85rem; /* Ensure minimum size */
-            /* Vertical alignment to top of text, adjusted for smaller size */
-            margin-top: 0.4em;
-            vertical-align: top;
+            width: 1.1em; /* Make them slightly larger to be more prominent and easier to tap */
+            height: 1.1em;
+            min-width: 1.1em; /* Ensure minimum size */
+            margin-top: 0; /* Let flexbox handle vertical alignment */
+            vertical-align: middle; /* Ensure vertical alignment to middle of text */
         }
         /* Custom styling for labels when input is checked - visual feedback */
         input[type="radio"]:checked + label,
@@ -50,31 +50,42 @@
         }
         /* Consistent padding and margin for sections */
         .question-section {
+            /* This is the main content box for each part (e.g., "第一部分") */
             @apply bg-white p-8 md:p-12 rounded-3xl shadow-2xl mb-12 border border-blue-200; /* More rounded, stronger shadow, subtle border */
         }
         /* Styling for each individual question group */
         .question-group {
-            @apply bg-gray-50 p-6 rounded-lg shadow-md; /* Light gray background, rounded, shadow */
+            /* Applied background, padding, rounded corners, and shadow for each question card */
+            @apply bg-gray-50 p-6 md:p-8 rounded-xl shadow-lg;
             margin-bottom: 2rem; /* Explicit margin-bottom for question groups (32px) */
         }
         .question-group label {
-            /* Updated font size for question labels: 36px for md screens, 30px for small screens */
-            @apply block text-3xl md:text-4xl font-bold mb-6 text-gray-800 leading-normal; /* Basic styling from Tailwind */
-            /* Adjusted letter-spacing for better readability */
-            letter-spacing: 0.025rem;
+            /* Font size for question labels: 20px for larger screens, 18px for small screens */
+            @apply block font-bold mb-6 text-gray-800 leading-normal;
+            font-size: 20px; /* Default for larger screens */
+            letter-spacing: 0.035rem; /* Adjusted letter spacing */
         }
         .option-group {
             @apply space-y-4; /* More space between options */
         }
         .option-item {
-            @apply flex items-start p-4 md:p-5 border border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-all duration-300 cursor-pointer; /* Enhanced hover, more padding, softer corners */
+            /* Use items-center to vertically align input with text */
+            @apply flex items-center p-4 md:p-5 border border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-all duration-300 cursor-pointer; /* Enhanced hover, more padding, softer corners */
         }
         .option-item label {
-            /* Updated font size for option labels: 36px for md screens, 30px for small screens */
-            @apply text-3xl md:text-4xl font-normal mb-0 cursor-pointer flex-grow leading-relaxed; /* Basic styling from Tailwind */
-            /* Adjusted letter-spacing for better readability */
-            letter-spacing: 0.025rem;
+            /* Font size for option labels: 20px for larger screens, 18px for small screens */
+            @apply font-normal mb-0 cursor-pointer flex-grow leading-relaxed;
+            font-size: 20px; /* Default for larger screens */
+            letter-spacing: 0.035rem; /* Adjusted letter spacing */
         }
+        /* Media query for small screens (up to 768px, Tailwind's 'md' breakpoint) */
+        @media (max-width: 768px) {
+            .question-group label,
+            .option-item label {
+                font-size: 18px; /* 18px for small screens */
+            }
+        }
+
         /* Styling for hidden questions */
         .hidden-question {
             display: none;
@@ -82,54 +93,80 @@
         /* Text area and number input styling */
         textarea,
         input[type="number"] {
-            @apply w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-y;
-            letter-spacing: 0.025rem; /* Apply letter spacing to textareas and number inputs */
+            @apply w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 resize-y;
+            letter-spacing: 0.035rem; /* Apply letter spacing to textareas and number inputs */
         }
 
         /* Specific styling for Q1 input (number) */
         #q1_age_input {
-            width: 50%; /* Adjusted width as requested (approx 3-5 times wider than original min-width) */
-            margin-top: 1rem; /* Smaller margin to bring it closer to label */
-            min-height: 4rem; /* Ensure sufficient height for the input box */
+            display: block; /* Ensure it's on its own line below the label */
+            width: 140px; /* Width for approximately 8 characters (8 * 14px + padding) */
+            height: 32px; /* Fixed height, similar to text line height */
+            margin-top: 0.75rem; /* Keep some margin from label */
+            font-size: 1rem; /* Adjust font size within the input itself */
+            padding: 0.25rem 0.5rem; /* Adjust padding for height and internal spacing */
         }
 
         /* Specific styling for Q11 input (textarea) */
         #q11_minor_children_ages {
+            display: block; /* Explicitly ensure it's on a new line below the label */
+            max-width: 320px; /* Max-width for a more controlled appearance, but still usable for text */
             min-height: 4rem; /* Consistent height for the textarea */
-            margin-top: 1rem; /* Smaller margin to bring it closer to label */
+            margin-top: 0.75rem; /* Smaller margin to bring it closer to label */
+            font-size: 1.125rem; /* Adjust font size within the textarea */
+            padding: 0.5rem 0.75rem; /* Add specific padding like Q1 */
         }
 
         /* Specific styling for Q13 input (textarea) */
         #q13_adult_children_ages_status {
             min-height: 4rem; /* Consistent height for the textarea */
-            margin-top: 1rem; /* Smaller margin to bring it closer to label */
+            margin-top: 0.75rem; /* Smaller margin to bring it closer to label */
+            font-size: 1.125rem; /* Adjust font size within the textarea */
         }
 
         /* Button styling */
         .submit-button {
             /* Enhanced button styling */
             @apply bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white
-                   font-extrabold text-2xl py-5 px-16 rounded-full shadow-2xl
+                   font-extrabold text-xl py-4 px-12 rounded-full shadow-2xl /* Adjusted font size and padding */
                    transition-all duration-300 transform hover:scale-105
                    focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-75
                    border border-white border-opacity-30; /* Added more padding, bolder font, text-2xl */
-            letter-spacing: 0.025rem; /* Apply letter spacing to button text */
+            letter-spacing: 0.035rem; /* Apply letter spacing to button text */
         }
         /* Section heading specific styling */
         .question-section h2 {
-            /* Now matching header p and question labels font size (36px for md, 30px for sm) */
-            @apply text-3xl md:text-4xl font-bold text-blue-800 border-b-4 border-blue-500 pb-4 mb-10; /* Darker blue, thicker border, more margin below */
+            /* Now matching header p and question labels font size */
+            @apply font-bold text-blue-800 border-b-4 border-blue-500 pb-4 mb-10; /* Darker blue, thicker border, more margin below */
+            font-size: 20px; /* Default for small screens */
             line-height: 1.2;
-            letter-spacing: 0.025rem; /* Apply letter spacing to H2 titles, overriding previous tighter spacing */
+            letter-spacing: 0.035rem; /* Apply letter spacing to H2 titles */
+        }
+        @media (min-width: 768px) { /* On medium screens and up */
+            .question-section h2 {
+                font-size: 24px; /* 24px for larger screens */
+            }
         }
         /* Header H1 styling */
         header h1 {
-            letter-spacing: 0.025rem; /* Apply letter spacing to H1 title, overriding previous tighter spacing */
+            font-size: 36px; /* Default for small screens */
+            letter-spacing: 0.035rem; /* Apply letter spacing to H1 title */
         }
+        @media (min-width: 768px) { /* On medium screens and up */
+            header h1 {
+                font-size: 48px; /* 48px for larger screens */
+            }
+        }
+        /* Header P styling */
         header p {
-            /* Updated font size for header paragraph */
-            @apply text-3xl md:text-4xl text-gray-700 leading-relaxed max-w-3xl mx-auto;
-            letter-spacing: 0.025rem; /* Apply letter spacing to header paragraph */
+            font-size: 20px; /* Default for small screens */
+            letter-spacing: 0.035rem; /* Apply letter spacing to header paragraph */
+            @apply text-gray-700 leading-relaxed max-w-3xl mx-auto;
+        }
+        @media (min-width: 768px) { /* On medium screens and up */
+            header p {
+                font-size: 24px; /* 24px for larger screens */
+            }
         }
     </style>
 </head>
@@ -137,10 +174,10 @@
     <div class="max-w-5xl mx-auto">
         <!-- Header Section -->
         <header class="text-center mb-16 mt-10 p-8 bg-white rounded-3xl shadow-xl border border-blue-200">
-            <h1 class="text-5xl md:text-6xl font-extrabold text-blue-800 mb-5 tracking-tight leading-tight">
+            <h1 class="font-extrabold text-blue-800 mb-5 tracking-tight leading-tight">
                 投资移民意向评估问卷
             </h1>
-            <p class="text-3xl md:text-4xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
+            <p class="text-gray-700 leading-relaxed max-w-3xl mx-auto">
                 尊敬的客户，请您花几分钟时间完成这份详细问卷，以便我们深入了解您的个性化需求，为您量身定制最精准、高效的投资移民方案。您的信息将严格保密。
             </p>
         </header>
@@ -149,12 +186,12 @@
         <form id="immigrationQuestionnaire" class="space-y-12">
             <!-- Section 1: 个人背景与移民目标 -->
             <div class="question-section">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
+                <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第一部分：个人背景与移民目标
                 </h2>
 
                 <div class="question-group">
-                    <label for="q1_age_input">1. 您的具体年龄是？</label>
+                    <label for="q1_age_input">1. 您的年龄是？</label>
                     <!-- Adjusted spacing and width for Q1 input, simplified placeholder -->
                     <input type="number" id="q1_age_input" name="age" placeholder="请这里输入" min="18" max="120" required>
                 </div>
@@ -259,11 +296,11 @@
                             <label for="q6_citizenship_goal_1">A. 强烈希望，最终目标是获得公民身份，不介意等待时间</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q6_citizenship_goal_2" name="citizenship_goal" value="permanent_residency_sufficient">
+                            <input type="radio" id="q6_citizenship_2" name="citizenship_goal" value="permanent_residency_sufficient">
                             <label for="q6_citizenship_2">B. 有永居身份即可满足需求，不强制要求入籍</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q6_citizenship_goal_3" name="citizenship_goal" value="open_to_citizenship">
+                            <input type="radio" id="q6_citizenship_3" name="citizenship_goal" value="open_to_citizenship">
                             <label for="q6_citizenship_3">C. 持开放态度，若条件允许且流程便捷可考虑入籍</label>
                         </div>
                     </div>
@@ -309,7 +346,6 @@
                     </div>
                 </div>
 
-                <!-- Conditional question group: depends on q8_family_present_yes -->
                 <div class="question-group hidden-question" id="q9_group">
                     <label>9. 若有随行家属，您的随行家属包括？(可多选)</label>
                     <div class="option-group">
@@ -336,7 +372,6 @@
                     </div>
                 </div>
 
-                <!-- Conditional question group: depends on q9_family_type_2 (minor_children) -->
                 <div class="question-group hidden-question" id="q10_group">
                     <label>10. 若有未成年子女随行，大致数量是？</label>
                     <div class="option-group">
@@ -359,14 +394,11 @@
                     </div>
                 </div>
 
-                <!-- Conditional question group: depends on q10_group being visible -->
                 <div class="question-group hidden-question" id="q11_group">
                     <label>11. 请填写所有随行**未成年子女**的具体年龄（例如：5岁, 12岁）。</label>
-                    <!-- Adjusted spacing for Q11 textarea, simplified placeholder -->
                     <textarea id="q11_minor_children_ages" name="minor_children_ages" placeholder="请这里输入"></textarea>
                 </div>
 
-                <!-- Conditional question group: depends on q9_family_type_3 (adult_children) -->
                 <div class="question-group hidden-question" id="q12_group">
                     <label>12. 若有成年子女随行，他们目前主要状态是？(可多选，可根据子女的实际情况多选)</label>
                     <div class="option-group">
@@ -389,10 +421,8 @@
                     </div>
                 </div>
 
-                <!-- Conditional question group: depends on q12_group being visible -->
                 <div class="question-group hidden-question" id="q13_group">
                     <label>13. 请填写所有随行**成年子女**的具体年龄及主要状态（例如：22岁在读大学, 28岁在职）。</label>
-                    <!-- Adjusted spacing for Q13 textarea, simplified placeholder -->
                     <textarea id="q13_adult_children_ages_status" name="adult_children_ages_status" placeholder="请这里输入"></textarea>
                 </div>
 
@@ -666,9 +696,8 @@
 
             </div>
 
-            <!-- Section 2: 财务状况与投资偏好 -->
             <div class="question-section">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
+                <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第二部分：财务状况与投资偏好
                 </h2>
 
@@ -976,9 +1005,8 @@
 
             </div>
 
-            <!-- Section 3: 居住与生活偏好 -->
             <div class="question-section">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
+                <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第三部分：居住与生活偏好
                 </h2>
 
@@ -1163,11 +1191,11 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q47_life_pace_2" name="desired_life_pace" value="medium_paced_city">
-                            <label for="q47_life_2">B. 中等节奏城市，兼具城市便利与生活舒适度</label>
+                            <label for="q47_life_pace_2">B. 中等节奏城市，兼具城市便利与生活舒适度</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q47_life_pace_3" name="desired_life_pace" value="slow_paced_town_rural">
-                            <label for="q47_life_3">C. 慢节奏小镇或乡村，追求宁静自然的生活</label>
+                            <label for="q47_life_pace_3">C. 慢节奏小镇或乡村，追求宁静自然的生活</label>
                         </div>
                     </div>
                 </div>
@@ -1181,11 +1209,11 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q48_nature_env_2" name="nature_environment_importance" value="important_good_quality">
-                            <label for="q48_nature_2">B. 重要考量，希望有良好的环境基础</label>
+                            <label for="q48_nature_env_2">B. 重要考量，希望有良好的环境基础</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q48_nature_env_3" name="nature_environment_importance" value="general_consideration_acceptable">
-                            <label for="q48_nature_3">C. 一般考量，只要环境可接受即可</label>
+                            <label for="q48_nature_env_3">C. 一般考量，只要环境可接受即可</label>
                         </div>
                     </div>
                 </div>
@@ -1199,11 +1227,11 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q49_travel_convenience_2" name="travel_convenience" value="important_reasonable_travel">
-                            <label for="q49_travel_2">B. 重要考量，可接受中等距离和转机</label>
+                            <label for="q49_travel_convenience_2">B. 重要考量，可接受中等距离和转机</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q49_travel_convenience_3" name="travel_convenience" value="not_important_long_travel_ok">
-                            <label for="q49_travel_3">C. 不重要，可接受长途旅行和多次转机</label>
+                            <label for="q49_travel_convenience_3">C. 不重要，可接受长途旅行和多次转机</label>
                         </div>
                     </div>
                 </div>
@@ -1221,7 +1249,7 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q50_growth_potential_3" name="future_growth_potential" value="not_primary_focus_on_growth">
-                            <label for="q50_growth_3">C. 非主要关注点，更侧重生活品质或身份价值</label>
+                            <label for="q50_growth_potential_3">C. 非主要关注点，更侧重生活品质或身份价值</label>
                         </div>
                     </div>
                 </div>
@@ -1235,7 +1263,7 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q51_religious_cultural_2" name="religious_cultural_preference" value="no_flexible_acceptance">
-                            <label for="q51_religious_2">B. 否，对宗教和文化环境持开放和包容态度</label>
+                            <label for="q51_religious_cultural_2">B. 否，对宗教和文化环境持开放和包容态度</label>
                         </div>
                     </div>
                 </div>
@@ -1249,15 +1277,15 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q52_food_pref_2" name="food_preference" value="authentic_local_cuisine">
-                            <label for="q52_food_2">B. 偏好地道的当地美食，希望深入体验本土文化</label>
+                            <label for="q52_food_pref_2">B. 偏好地道的当地美食，希望深入体验本土文化</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q52_food_pref_3" name="food_preference" value="familiar_asian_cuisine">
-                            <label for="q52_food_3">C. 偏好能够方便找到中餐或其他亚洲美食</label>
+                            <label for="q52_food_pref_3">C. 偏好能够方便找到中餐或其他亚洲美食</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q52_food_pref_4" name="food_preference" value="not_food_focused">
-                            <label for="q52_food_4">D. 对美食无特别要求，能满足日常所需即可</label>
+                            <label for="q52_food_pref_4">D. 对美食无特别要求，能满足日常所需即可</label>
                         </div>
                     </div>
                 </div>
@@ -1271,11 +1299,11 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q53_sport_habit_2" name="sport_habit" value="moderately_active_some_sports">
-                            <label for="q53_sport_2">B. 适度活跃，偶尔参与体育活动，有基本设施即可</label>
+                            <label for="q53_sport_habit_2">B. 适度活跃，偶尔参与体育活动，有基本设施即可</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q53_sport_habit_3" name="sport_habit" value="sedentary_no_specific_sports">
-                            <label for="q53_3">C. 较少运动，无特定体育活动偏好</label>
+                            <label for="q53_sport_habit_3">C. 较少运动，无特定体育活动偏好</label>
                         </div>
                     </div>
                 </div>
@@ -1329,16 +1357,15 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q56_shopping_pref_3" name="shopping_preference" value="cost_effective_shopping">
-                            <label for="q56_shopping_3">C. 追求性价比，希望购物消费相对经济实惠</label>
+                            <label for="q56_shopping_pref_3">C. 追求性价比，希望购物消费相对经济实惠</label>
                         </div>
                     </div>
                 </div>
 
             </div>
 
-            <!-- Section 4: 区域与国家偏好 -->
             <div class="question-section">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
+                <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第四部分：区域与国家偏好
                 </h2>
 
@@ -1543,7 +1570,6 @@
                 </div>
             </div>
 
-            <!-- Submit Button -->
             <div class="text-center mt-14 pb-12">
                 <button type="submit" class="submit-button">
                     提交问卷
@@ -1551,7 +1577,6 @@
             </div>
         </form>
 
-        <!-- JavaScript for conditional display and form handling -->
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const familyPresentRadios = document.querySelectorAll('input[name="family_present"]');
@@ -1692,14 +1717,10 @@
                     const inputElement = event.target.querySelector(`[name="${key}"][value="${value}"]`) || event.target.querySelector(`[name="${key}"]`); // Handle textareas and number inputs too
                     if (inputElement && (inputElement.type === 'checkbox' || inputElement.tagName === 'TEXTAREA' || inputElement.type === 'number')) {
                         // For checkboxes, collect all selected values into an array
-                        if (inputElement.type === 'checkbox') {
-                            if (!data[key]) {
-                                data[key] = [];
-                            }
-                            data[key].push(value);
-                        } else {
-                            data[key] = value; // For textareas and number inputs, just take the value
+                        if (!data[key]) {
+                            data[key] = [];
                         }
+                        data[key].push(value);
                     } else {
                         data[key] = value; // For radio buttons, direct value
                     }
