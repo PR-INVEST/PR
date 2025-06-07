@@ -104,8 +104,13 @@
             box-sizing: border-box; /* Ensure padding doesn't increase total height */
         }
 
-        /* Specific styling for Q1 inputs to ensure they are below the label and have a fixed height */
-        #q1_name, #q1_email, #q1_phone, #q4_wechat_id, #q4_whatsapp_number, #q4_line_id {
+        /* Specific styling for Q1, Q4 inputs to ensure they are below the label and have a fixed height */
+        #q1_name, #q1_email, #q1_phone,
+        #q4_wechat_id, #q4_whatsapp_number, #q4_line_id,
+        /* NEW: Q17 and Q19 inputs */
+        #q17_language_exam_score, #q19_work_experience_years,
+        /* NEW: Q21 input */
+        #q21_certification_details {
             max-width: 320px; /* Constrain width for better form aesthetics */
             margin-top: 0.75rem; /* Margin below label */
             display: block; /* Ensure it's a block element */
@@ -149,9 +154,9 @@
         /* Button styling */
         .submit-button {
             /* Enhanced button styling */
-            @apply bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white
-                   font-extrabold text-2xl py-4 px-12 rounded-full shadow-2xl /* Increased font size to text-2xl (24px) */
-                   transition-all duration-300 transform hover:scale-105
+            @apply bg-gradient-to-r from-blue-700 to-indigo-800 hover:from-blue-800 hover:to-indigo-900 text-white
+                   font-extrabold text-3xl py-5 px-14 rounded-full shadow-2xl /* Increased font size to text-3xl (30px), more padding */
+                   transition-all duration-300 transform hover:scale-105 hover:shadow-3xl /* More aggressive hover effect */
                    focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-75
                    border border-white border-opacity-30; /* Added more padding, bolder font, text-2xl */
             letter-spacing: 0.035rem; /* Apply letter spacing to button text */
@@ -627,7 +632,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>17. 您是否参加过雅思/托福/其他语言考试？如有，请提供分数。</label>
+                    <label for="q17_language_exam_score">17. 您是否参加过雅思/托福/其他语言考试？如有，请提供分数。</label>
                     <input type="text" id="q17_language_exam_score" name="language_exam_score" placeholder="例如：雅思总分6.5">
                 </div>
 
@@ -693,12 +698,17 @@
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q21_professional_cert_yes" name="professional_certification" value="yes">
-                            <label for="q21_professional_cert_yes">A. 是 (请在后续说明具体)</label>
+                            <label for="q21_professional_cert_yes">A. 是</label> <!-- Removed " (请在后续说明具体)" -->
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q21_professional_cert_no" name="professional_certification" value="no">
                             <label for="q21_professional_cert_no">B. 否</label>
                         </div>
+                    </div>
+                    <!-- NEW: Conditional input for Q21 details -->
+                    <div class="hidden-question mt-4" id="q21_certification_details_group">
+                        <label for="q21_certification_details" class="text-base font-normal mb-2">请说明具体的专业资格认证：</label>
+                        <input type="text" id="q21_certification_details" name="professional_certification_details" placeholder="例如：注册会计师，医生执照">
                     </div>
                 </div>
 
@@ -1498,24 +1508,24 @@
                     <label>58. 您对哪个大洲的投资移民项目更感兴趣？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q58_continent_interest_1" name="continent_interest" value="europe_eu" required>
+                            <input type="checkbox" id="q58_continent_interest_1" name="continent_interest" value="europe_eu">
                             <label for="q58_continent_interest_1">A. 欧洲 (欧盟成员国)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q58_continent_interest_2" name="continent_interest" value="north_america_usa_canada">
-                            <label for="q58_continent_2">B. 北美 (美国/加拿大)</label>
+                            <input type="checkbox" id="q58_continent_interest_2" name="continent_interest" value="north_america_usa_canada">
+                            <label for="q58_continent_interest_2">B. 北美 (美国/加拿大)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q58_continent_interest_3" name="continent_interest" value="oceania_australia_nz">
-                            <label for="q58_continent_3">C. 大洋洲 (澳大利亚/新西兰)</label>
+                            <input type="checkbox" id="q58_continent_interest_3" name="continent_interest" value="oceania_australia_nz">
+                            <label for="q58_continent_interest_3">C. 大洋洲 (澳大利亚/新西兰)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q58_continent_interest_4" name="continent_interest" value="caribbean_or_asia_etc">
-                            <label for="q58_continent_4">D. 其他 (如加勒比海国家、亚洲、中东等，追求护照便利性)</label>
+                            <input type="checkbox" id="q58_continent_interest_4" name="continent_interest" value="caribbean_or_asia_etc">
+                            <label for="q58_continent_interest_4">D. 其他 (如加勒比海国家、亚洲、中东等，追求护照便利性)</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q58_continent_interest_5" name="continent_interest" value="open_to_all_continents">
-                            <label for="q58_continent_5">E. 暂无明确偏好，希望全面了解并寻求最优解</label>
+                            <input type="checkbox" id="q58_continent_interest_5" name="continent_interest" value="open_to_all_continents">
+                            <label for="q58_continent_interest_5">E. 暂无明确偏好，希望全面了解并寻求最优解</label>
                         </div>
                     </div>
                 </div>
@@ -1721,8 +1731,10 @@
                 const form = document.getElementById('immigrationQuestionnaire');
                 const familyPresentRadios = document.querySelectorAll('input[name="family_present"]');
                 const accompanyingFamilyTypesCheckboxes = document.querySelectorAll('input[name="accompanying_family_types"]');
+                const q21ProfessionalCertRadios = document.querySelectorAll('input[name="professional_certification"]');
 
-                // Element references for all conditional groups (NEW IDs)
+
+                // Element references for all conditional groups
                 const q4_wechat_group = document.getElementById('q4_wechat_group');
                 const q4_whatsapp_group = document.getElementById('q4_whatsapp_group');
                 const q4_line_group = document.getElementById('q4_line_group');
@@ -1733,6 +1745,9 @@
                 const q8_4_group = document.getElementById('q8_4_group'); // "8.4. 若有成年子女随行，大致数量是？"
                 const q8_5_group = document.getElementById('q8_5_group'); // "8.5. 若有成年子女随行，他们目前主要状态是？"
                 const q8_6_group = document.getElementById('q8_6_group'); // "8.6. 请填写所有随行成年子女的具体年龄及主要状态" (textarea)
+
+                // NEW: Q21 conditional group
+                const q21_certification_details_group = document.getElementById('q21_certification_details_group');
 
                 /**
                  * Clears inputs and hides a question group.
@@ -1851,6 +1866,18 @@
                     });
                 });
 
+                // NEW: Event listener for Q21 (professional certification)
+                q21ProfessionalCertRadios.forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        if (this.value === 'yes' && this.checked) {
+                            showQuestionGroup(q21_certification_details_group);
+                        } else {
+                            hideQuestionGroup(q21_certification_details_group);
+                        }
+                        saveFormData(); // Save data after change
+                    });
+                });
+
                 // Event listeners for Q4 contact method checkboxes
                 document.getElementById('q4_contact_wechat').addEventListener('change', function() { handleQ4Visibility(); saveFormData(); });
                 document.getElementById('q4_contact_whatsapp').addEventListener('change', function() { handleQ4Visibility(); saveFormData(); });
@@ -1956,6 +1983,14 @@
 
                     // Re-evaluate Q4 contact methods
                     handleQ4Visibility();
+
+                    // NEW: Re-evaluate Q21 professional certification
+                    const professionalCertYes = document.getElementById('q21_professional_cert_yes');
+                    if (professionalCertYes && professionalCertYes.checked) {
+                        showQuestionGroup(q21_certification_details_group);
+                    } else {
+                        hideQuestionGroup(q21_certification_details_group);
+                    }
                 }
 
 
@@ -1974,6 +2009,7 @@
                 hideQuestionGroup(q8_4_group);
                 hideQuestionGroup(q8_5_group);
                 hideQuestionGroup(q8_6_group);
+                hideQuestionGroup(q21_certification_details_group); // NEW: Hide Q21 details initially
 
                 loadFormData(); // Attempt to load saved data and set initial visibility
             });
