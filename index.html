@@ -45,12 +45,13 @@
         }
 
         /* Enhanced styling for input focus and invalid states */
-        /* For radio and checkbox inputs */
+        /* For radio and checkbox inputs, apply outline to the input directly */
         input[type="radio"]:focus,
         input[type="checkbox"]:focus {
             outline: none; /* Remove default browser outline */
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.4); /* Custom blue glow on focus */
         }
+        /* Apply invalid styling to the input directly */
         input[type="radio"]:invalid,
         input[type="checkbox"]:invalid {
             box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.4); /* Custom red glow for invalid state */
@@ -121,8 +122,6 @@
         input[type="tel"] {
             /* Full width on small screens */
             @apply w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200;
-            /* Constrained on larger screens to approximately 6 Chinese characters width */
-            @apply md:max-w-[12ch]; /* Approximate width for 6 Chinese characters (varies by font/char) */
             letter-spacing: 0.035rem; /* Apply letter spacing to textareas and number inputs */
             height: 38px; /* Fixed height for consistency */
             padding: 0.5rem 0.75rem; /* Consistent padding */
@@ -137,6 +136,11 @@
             resize: vertical; /* Allow vertical resizing */
             min-height: 38px; /* Minimum height */
             max-height: 120px; /* Maximum height to prevent excessive expansion */
+        }
+
+        /* Specific width for the new Q16 input */
+        #q16_enterprise_name {
+            @apply md:w-3/4 lg:w-1/2; /* Adjust width for medium and large screens */
         }
 
         /* Button styling for Submit button */
@@ -608,13 +612,32 @@
                     </div>
                 </div>
 
-                <div class="question-group">
+                <!-- Removed Q1.13 based on user request -->
+                <!-- <div class="question-group">
                     <label for="q1_19_language_exam_score">13. 您是否参加过雅思/托福/其他语言考试？如有，请提供分数。</label>
                     <input type="text" id="q1_13_language_exam_score" name="language_exam_score" placeholder="例如：雅思总分6.5">
+                </div> -->
+
+                <div class="question-group">
+                    <label>13. 您对新环境的适应能力如何？</label>
+                    <div class="option-group">
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_adaptability_1" name="adaptability_to_new_environments" value="highly_adaptable" required>
+                            <label for="q1_15_adaptability_1">A. 适应能力强，乐于接受并融入新环境</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_adaptability_2" name="adaptability_to_new_environments" value="moderately_adaptable">
+                            <label for="q1_15_adaptability_2">B. 适度活跃，需要时间适应</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_adaptability_3" name="adaptability_to_new_environments" value="less_adaptable">
+                            <label for="q1_15_adaptability_3">C. 适应能力较弱，更倾向于熟悉的环境</label>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="question-group">
-                    <label>14. 您的最高职业背景是？ (请选择最符合您情况的一项)</label>
+                    <label>14. 您的职业是？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_20_profession_1" name="occupation_category" value="management_executive" required>
@@ -642,18 +665,77 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q1_20_profession_7" name="occupation_category" value="other_occupation">
-                            <label for="q1_20_profession_7">G. 其他（请在后续详细说明）</label>
+                            <label for="q1_20_profession_7">G. 其他</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="question-group">
-                    <label for="q1_21_work_experience_years">15. 您的工作经验总年限是？</label>
-                    <input type="number" id="q1_15_work_experience_years" name="work_experience_years" placeholder="请这里输入年限" min="0" max="60">
+                    <label>15. 您所处的行业是？</label>
+                    <div class="option-group">
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_industry_1" name="industry_sector" value="finance_investment_insurance" required>
+                            <label for="q1_15_industry_1">A. 金融/投资/保险</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_industry_2" name="industry_sector" value="it_internet">
+                            <label for="q1_15_industry_2">B. 信息技术/互联网</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_industry_3" name="industry_sector" value="real_estate_construction">
+                            <label for="q1_15_industry_3">C. 房地产/建筑</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_industry_4" name="industry_sector" value="manufacturing">
+                            <label for="q1_15_industry_4">D. 制造业</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_industry_5" name="industry_sector" value="education_research">
+                            <label for="q1_15_industry_5">E. 教育/科研</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_industry_6" name="industry_sector" value="healthcare_medical">
+                            <label for="q1_15_industry_6">F. 医疗/健康</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_industry_7" name="industry_sector" value="trade_retail">
+                            <label for="q1_15_industry_7">G. 贸易/零售</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_industry_8" name="industry_sector" value="legal_accounting">
+                            <label for="q1_15_industry_8">H. 法律/会计</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_industry_9" name="industry_sector" value="energy_environmental">
+                            <label for="q1_15_industry_9">I. 能源/环保</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_industry_10" name="industry_sector" value="agriculture_forestry_fishery">
+                            <label for="q1_15_industry_10">J. 农林牧渔</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_industry_11" name="industry_sector" value="government_public_services">
+                            <label for="q1_15_industry_11">K. 政府/公共事业</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_industry_12" name="industry_sector" value="culture_media_entertainment">
+                            <label for="q1_15_industry_12">L. 文化/传媒/娱乐</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="q1_15_industry_13" name="industry_sector" value="other_industry">
+                            <label for="q1_15_industry_13">M. 其他</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Question after Q15 -->
+                <div class="question-group">
+                    <label for="q16_enterprise_name">16. 您现在持有的主要企业名称：</label>
+                    <input type="text" id="q16_enterprise_name" name="main_enterprise_name" placeholder="请这里输入企业名称">
                 </div>
 
                 <div class="question-group">
-                    <label>16. 您的职业是否在目标国家的紧缺职业列表中？</label>
+                    <label>17. 您的职业是否在目标国家的紧缺职业列表中？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_22_skill_list_yes" name="on_skill_list" value="yes">
@@ -671,7 +753,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>17. 您是否拥有专业资格认证（如注册会计师、医生执照等）？</label>
+                    <label>18. 您是否拥有专业资格认证（如注册会计师、医生执照等）？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_23_professional_cert_yes" name="professional_certification" value="yes">
@@ -690,7 +772,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>18. 您的当前国籍是？(这可能影响部分项目的适用性和排期)</label>
+                    <label>19. 您的当前国籍是？(这可能影响部分项目的适用性和排期)</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_24_nationality_1" name="current_nationality" value="china_mainland" required>
@@ -716,7 +798,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>19. 您目前的主要居住国家是？</label>
+                    <label>20. 您目前的主要居住国家是？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_25_residence_1" name="current_residence" value="china_mainland" required>
@@ -750,7 +832,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>20. 您对保留原国籍的偏好是？</label>
+                    <label>21. 您对保留原国籍的偏好是？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_26_dual_nationality_1" name="dual_nationality_preference" value="must_retain_original" required>
@@ -768,7 +850,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>21. 您的婚姻状况是？</label>
+                    <label>22. 您的婚姻状况是？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_27_marital_1" name="marital_status" value="married" required>
@@ -834,7 +916,7 @@
                             <label for="q2_2_budget_2">B. 5 万 - 10 万美元</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q2_2_budget_3" name="investment_budget_3" value="100k_300k_usd">
+                            <input type="radio" id="q2_2_budget_3" name="investment_budget_range" value="100k_300k_usd">
                             <label for="q2_2_budget_3">C. 10 万 - 30 万美元</label>
                         </div>
                         <div class="option-item">
@@ -926,7 +1008,7 @@
                             <label for="q2_6_risk_tolerance_1">A. 极低风险，资金绝对安全是首要考量，宁可回报低</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q2_6_risk_tolerance_2" name="risk_tolerance_2" value="low_to_medium_risk_minor_fluctuations">
+                            <input type="radio" id="q2_6_risk_tolerance_2" name="risk_tolerance_level" value="low_to_medium_risk_minor_fluctuations">
                             <label for="q2_6_risk_tolerance_2">B. 中低风险，可以接受少量市场波动，但本金安全是底线</label>
                         </div>
                         <div class="option-item">
@@ -1787,7 +1869,7 @@
                 const q1_9_group = document.getElementById('q1_9_group');
                 const q1_10_group = document.getElementById('q1_10_group');
 
-                // Q1.17 (original Q1.23) conditional group
+                // Q1.17 (now Q1.18) conditional group
                 const q1_23_certification_details_group = document.getElementById('q1_23_certification_details_group');
 
                 // Q3.18 conditional group
@@ -1916,7 +1998,7 @@
                     });
                 });
 
-                // Event listener for Q1.17 (professional certification)
+                // Event listener for Q1.18 (professional certification)
                 q1_23_ProfessionalCertRadios.forEach(radio => {
                     radio.addEventListener('change', function() {
                         if (this.value === 'yes' && this.checked) {
@@ -1941,6 +2023,8 @@
                 });
 
                 // Event listeners for Q5.4 contact method checkboxes
+                document.getElementById('q5_4_contact_email').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
+                document.getElementById('q5_4_contact_phone').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
                 document.getElementById('q5_4_contact_wechat').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
                 document.getElementById('q5_4_contact_whatsapp').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
                 document.getElementById('q5_4_contact_line').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
@@ -2042,7 +2126,7 @@
                         hideQuestionGroup(q1_10_group);
                     }
 
-                    // Re-evaluate Q1.17 (original Q1.23) professional certification
+                    // Re-evaluate Q1.18 (professional certification)
                     const professionalCertYes = document.getElementById('q1_23_professional_cert_yes');
                     if (professionalCertYes && professionalCertYes.checked) {
                         showQuestionGroup(q1_23_certification_details_group);
@@ -2091,6 +2175,12 @@
                     // If validation fails, prevent default submission and stop further execution
                     event.preventDefault();
                     console.log('Form validation failed. Please fill in all required fields.');
+                    // Optional: Scroll to the first invalid field for better UX
+                    const firstInvalid = document.querySelector(':invalid');
+                    if (firstInvalid) {
+                        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        firstInvalid.focus();
+                    }
                     return; // Stop the script
                 }
 
