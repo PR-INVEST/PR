@@ -42,8 +42,30 @@
             width: 1.1em; /* Make them slightly larger to be more prominent and easier to tap */
             height: 1.1em;
             min-width: 1.1em; /* Ensure minimum size */
-            /* Removed margin-top and vertical-align, relying on parent flexbox for centering */
         }
+
+        /* Enhanced styling for input focus and invalid states */
+        /* For radio and checkbox inputs */
+        input[type="radio"]:focus,
+        input[type="checkbox"]:focus {
+            outline: none; /* Remove default browser outline */
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.4); /* Custom blue glow on focus */
+        }
+        input[type="radio"]:invalid,
+        input[type="checkbox"]:invalid {
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.4); /* Custom red glow for invalid state */
+        }
+        /* For text, number, email, tel, textarea inputs */
+        input:not([type="radio"]):not([type="checkbox"]):focus,
+        textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.4); /* Consistent blue glow */
+        }
+        input:not([type="radio"]):not([type="checkbox"]):invalid,
+        textarea:invalid {
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.4); /* Consistent red glow */
+        }
+
         /* Custom styling for labels when input is checked - visual feedback */
         input[type="radio"]:checked + label,
         input[type="checkbox"]:checked + label {
@@ -180,39 +202,6 @@
             }
         }
 
-        /* Progress Bar Styles - Removed as per user request */
-        /* .progress-bar-container {
-            @apply w-full bg-gray-700 rounded-full h-8 relative shadow-inner;
-            margin-top: 32px;
-            margin-bottom: 20px;
-        }
-        @media (min-width: 768px) {
-            .progress-bar-container {
-                margin-bottom: 24px;
-            }
-        }
-        .progress-bar-fill {
-            @apply h-full bg-blue-600 rounded-full transition-all duration-500 ease-in-out shadow-md;
-            width: 0%;
-        }
-        .progress-text {
-            @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-white text-shadow-md;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-            font-size: 18px;
-        }
-        @media (min-width: 768px) {
-            .progress-text {
-                font-size: 22px;
-            }
-        }
-        .progress-bar-fill + .progress-text {
-            color: #fff;
-        }
-        .progress-bar-fill[style*="width: 0%"] + .progress-text {
-            color: #e2e8f0;
-        } */
-
-
         /* Navigation Buttons Styles */
         .navigation-buttons {
             /* Changed to justify-end to align submit button to the right */
@@ -269,12 +258,6 @@
                 </label>
             </div>
         </div>
-
-        <!-- Progress Bar - REMOVED -->
-        <!-- <div class="progress-bar-container">
-            <div id="progressBarFill" class="progress-bar-fill"></div>
-            <span id="progressText" class="progress-text">进度: 0 / 0</span>
-        </div> -->
 
         <!-- Questionnaire Form -->
         <form id="immigrationQuestionnaire" action="https://formspree.io/f/xldngdge" method="POST" class="space-y-12">
@@ -808,7 +791,6 @@
             </div>
 
             <!-- Section 2: 财务状况与投资偏好 -->
-            <!-- Removed 'hidden' class from all page divs -->
             <div id="page2" class="page question-section" data-page-index="1">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第二部分：财务状况与投资偏好
@@ -1137,7 +1119,6 @@
             </div>
 
             <!-- Section 3: 居住与生活偏好 -->
-            <!-- Removed 'hidden' class from all page divs -->
             <div id="page3" class="page question-section" data-page-index="2">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第三部分：居住与生活偏好
@@ -1502,7 +1483,6 @@
             </div>
 
             <!-- Section 4: 区域与国家偏好 -->
-            <!-- Removed 'hidden' class from all page divs -->
             <div id="page4" class="page question-section" data-page-index="3">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第四部分：区域与国家偏好
@@ -1710,7 +1690,6 @@
             </div>
 
             <!-- Section 5: 个人联系方式 (Moved from original Q1-4) -->
-            <!-- Removed 'hidden' class from all page divs -->
             <div id="page5" class="page question-section" data-page-index="4">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第五部分：个人联系方式
@@ -1819,17 +1798,6 @@
                 const q5_4_whatsapp_group = document.getElementById('q5_4_whatsapp_group');
                 const q5_4_line_group = document.getElementById('q5_4_line_group');
 
-                // Pagination elements - REMOVED, but keeping variables for clarity and easier removal of other references
-                // const pages = document.querySelectorAll('.page');
-                // const prevBtn = document.getElementById('prevBtn');
-                // const nextBtn = document.getElementById('nextBtn');
-                // const submitBtn = document.getElementById('submitBtn'); // Still needed
-                // const progressBarFill = document.getElementById('progressBarFill'); // Removed
-                // const progressText = document.getElementById('progressText'); // Removed
-
-                // let currentPageIndex = 0; // Removed
-                // const totalPages = pages.length; // Removed
-
 
                 /**
                  * Clears inputs and hides a question group.
@@ -1864,7 +1832,6 @@
                     document.getElementById('q5_4_contact_line').checked ? showQuestionGroup(q5_4_line_group) : hideQuestionGroup(q5_4_line_group);
                 }
 
-                // Removed showPage, updateProgressBar, nextPage, prevPage functions.
 
                 // Event listener for Question 1.4 (family present)
                 familyPresentRadios.forEach(radio => {
@@ -1978,10 +1945,6 @@
                 document.getElementById('q5_4_contact_whatsapp').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
                 document.getElementById('q5_4_contact_line').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
 
-                // Navigation button event listeners - REMOVED
-                // prevBtn.addEventListener('click', prevPage);
-                // nextBtn.addEventListener('click', nextPage);
-
                 /**
                  * Saves form data to LocalStorage.
                  */
@@ -2010,6 +1973,7 @@
                     const savedData = localStorage.getItem('immigrationFormData');
                     if (savedData) {
                         const data = JSON.parse(savedData);
+                        console.log('Loading data from LocalStorage:', data); // Log loaded data for debugging
                         for (const key in data) {
                             const value = data[key];
                             const inputElements = form.querySelectorAll(`[name="${key}"]`);
@@ -2036,7 +2000,7 @@
                                 }
                             }
                         }
-                        console.log('Form data loaded from LocalStorage.');
+                        console.log('Form data loaded from LocalStorage and applied.');
                         // After loading data, re-evaluate visibility of conditional questions
                         reEvaluateConditionalVisibility();
                     }
@@ -2114,21 +2078,10 @@
                 hideQuestionGroup(q3_18_details_group); // Hide new Q3.18 conditional input
                 hideQuestionGroup(q5_4_wechat_group);
                 hideQuestionGroup(q5_4_whatsapp_group);
-                hide54LineGroup(); // Explicitly hide the line group
+                hideQuestionGroup(q5_4_line_group); // Explicitly hide the line group
 
-                // Initial display logic for pages - REMOVED (all pages are now visible by default in HTML)
-                // showPage(currentPageIndex);
                 loadFormData(); // Attempt to load saved data and set initial visibility
 
-                // Function to explicitly hide q5_4_line_group inputs if they are not selected.
-                // This is a local helper function for initial state setup.
-                function hide54LineGroup() {
-                    const lineCheckbox = document.getElementById('q5_4_contact_line');
-                    if (!lineCheckbox.checked) {
-                        hideQuestionGroup(q5_4_line_group);
-                    }
-                }
-                hide54LineGroup(); // Call once on DOMContentLoaded
             });
 
             // Form submission handler (for logging data and Formspree submission)
@@ -2145,17 +2098,18 @@
                 const formData = new FormData(event.target);
                 const data = {};
                 for (let [key, value] of formData.entries()) {
+                    // Collect all values for checkboxes (as they can have multiple selected)
                     if (event.target.querySelectorAll(`[name="${key}"][type="checkbox"]`).length > 0) {
                         if (!data[key]) {
                             data[key] = [];
                         }
                         data[key].push(value);
                     } else {
-                        data[key] = value;
+                        data[key] = value; // For radio buttons, text inputs, number inputs
                     }
                 }
                 console.log('问卷提交数据:', data);
-                localStorage.removeItem('immigrationFormData');
+                localStorage.removeItem('immigrationFormData'); // Clear saved data on successful submission
 
                 // Send data to Formspree
                 fetch(event.target.action, {
@@ -2167,24 +2121,22 @@
                     }
                 }).then(response => {
                     if (response.ok) {
-                        document.getElementById('messageBox').classList.remove('hidden');
+                        document.getElementById('messageBox').classList.remove('hidden'); // Show success message
                     } else {
                         console.error('Form submission failed');
-                        // Optionally show a more detailed error message to the user
+                        // Optionally show a more detailed error message to the user if Formspree returns an error
                     }
                 }).catch(error => {
                     console.error('Network error or Formspree submission issue:', error);
-                    // Optionally show a more detailed error message to the user
+                    // Optionally show a more detailed error message to the user for network issues
                 });
             });
 
             // Event listener for closing the custom message box
             document.getElementById('closeMessageBox').addEventListener('click', function() {
                 document.getElementById('messageBox').classList.add('hidden');
-                // Optionally redirect or reset form after closing message box
                 form.reset(); // Reset the form after successful submission
-                // No need to showPage(0) as it's a single page now, just scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top of the page
             });
         </script>
     </div>
