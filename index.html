@@ -105,35 +105,20 @@
         }
 
         /* Specific styling for inputs to ensure they are below the label and have a fixed height */
-        #q1_1_name, #q1_2_email, #q1_3_phone,
-        #q1_4_wechat_id, #q1_4_whatsapp_number, #q1_4_line_id,
-        /* Q17 and Q19 inputs (now renumbered) */
-        #q1_13_language_exam_score, #q1_15_work_experience_years,
-        /* Q21 input (now renumbered) */
-        #q1_17_certification_details,
-        /* New Part 5 inputs */
-        #q5_1_name, #q5_2_email, #q5_3_phone, #q5_4_wechat_id, #q5_4_whatsapp_number, #q5_4_line_id,
-        /* Q3.18 conditional input */
-        #q3_18_religious_cultural_details {
+        /* All single line inputs (text, number, email, tel) */
+        input[type="number"],
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
             max-width: 320px; /* Constrain width for better form aesthetics */
             margin-top: 0.75rem; /* Margin below label */
             display: block; /* Ensure it's a block element */
             height: 38px; /* Ensure fixed height */
             box-sizing: border-box; /* Include padding in height */
         }
-        /* Corrected ID for Q1.1 Age input */
-        #q1_1_age_input {
-            display: block; /* Ensure it's on its own line below the label */
-            width: 140px; /* Width for approximately 8 characters (8 * 14px + padding) */
-            height: 38px; /* Fixed height, consistent with text areas */
-            margin-top: 0.75rem; /* Keep some margin from label */
-            font-size: 1.125rem; /* Adjust font size within the input itself */
-            padding: 0.5rem 0.75rem; /* Adjusted padding for height and internal spacing */
-            box-sizing: border-box; /* Ensure padding doesn't increase total height */
-        }
 
-        /* Specific styling for Q8_3 input (now renumbered) - Fixed height and no resize */
-        #q1_9_minor_children_ages {
+        /* Specific styling for textareas - Fixed height and no resize */
+        textarea {
             display: block; /* Explicitly ensure it's on a new line below the label */
             max-width: 320px; /* Max-width for a more controlled appearance */
             height: 38px; /* Fixed height */
@@ -144,21 +129,8 @@
             box-sizing: border-box; /* Ensure padding doesn't increase total height */
         }
 
-        /* Specific styling for Q8_6 input (now renumbered) - Fixed height and no resize */
-        #q1_12_adult_children_ages_status {
-            display: block; /* Explicitly ensure it's on a new line below the label */
-            max-width: 320px; /* Max-width for a more controlled appearance */
-            height: 38px; /* Fixed height */
-            margin-top: 0.75rem; /* Smaller margin to bring it closer to label */
-            font-size: 1.125rem; /* Adjust font size within the textarea */
-            padding: 0.5rem 0.75rem; /* Add specific padding */
-            resize: none; /* Disable resizing */
-            box-sizing: border-box; /* Ensure padding doesn't increase total height */
-        }
-
-        /* Button styling */
+        /* Button styling for Submit button */
         .submit-button {
-            /* Enhanced button styling with !important for overriding and explicit properties */
             background: linear-gradient(to right, #2563eb, #4f46e5) !important; /* blue-700 to indigo-800 */
             color: white !important;
             font-weight: 800 !important; /* font-extrabold */
@@ -221,34 +193,58 @@
         }
         /* Auto-save message styling */
         .auto-save-message {
-            /* Adjusted margins for specific vertical centering based on user feedback */
-            @apply bg-blue-100 text-blue-800 p-4 rounded-xl shadow-md my-16 text-center font-medium mx-auto max-w-3xl; /* Changed from mt-2 mb-18 to my-16 (64px top/bottom), increased max-w for wider appearance */
+            /* Applying flex for perfect centering */
+            @apply flex flex-col items-center justify-center bg-blue-100 text-blue-800 p-4 rounded-xl shadow-md my-16 mx-auto max-w-3xl;
             font-size: 16px;
             letter-spacing: 0.02rem;
             line-height: 1.5;
         }
+        .auto-save-message .fas {
+            @apply mb-2; /* Add some space below the icon */
+        }
 
         /* Progress Bar Styles */
         .progress-bar-container {
-            @apply w-full bg-gray-200 rounded-full h-4 mb-6 relative;
+            @apply w-full bg-gray-200 rounded-full h-8 mb-8 relative shadow-inner; /* Taller, more prominent, inner shadow */
         }
         .progress-bar-fill {
-            @apply h-full bg-blue-600 rounded-full transition-all duration-500 ease-in-out;
+            @apply h-full bg-blue-600 rounded-full transition-all duration-500 ease-in-out shadow-md; /* Deeper blue, subtle shadow */
             width: 0%; /* Initial width */
         }
         .progress-text {
-            @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs font-semibold text-gray-700;
+            @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-bold text-white text-shadow-md; /* Text over bar, white, bold, shadow */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Custom text shadow for readability */
         }
+        /* For browsers that don't support text-shadow, ensure contrast */
+        .progress-bar-fill + .progress-text {
+            /* This targets the text when the bar is filled to ensure contrast */
+            color: #fff; /* Ensure white text on blue background */
+        }
+        .progress-bar-fill[style*="width: 0%"] + .progress-text {
+            /* When the bar is empty, ensure text is visible on gray background */
+            color: #4b5563; /* Tailwind gray-700 for contrast */
+        }
+
 
         /* Navigation Buttons Styles */
         .navigation-buttons {
-            @apply flex justify-between mt-8 mb-12 max-w-2xl mx-auto; /* Centered, spaced buttons */
+            @apply flex justify-between mt-8 mb-12 max-w-2xl mx-auto space-x-4; /* Centered, spaced buttons */
         }
         .nav-button {
-            @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors duration-200;
+            @apply flex-1 flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105;
+            background: linear-gradient(to right, #3b82f6, #4f46e5); /* blue-500 to indigo-600 */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 1.125rem; /* text-lg */
+            letter-spacing: 0.025rem;
+            min-width: 120px; /* Ensure a minimum width for consistent appearance */
+        }
+        .nav-button:hover {
+            background: linear-gradient(to right, #2563eb, #3730a3); /* blue-600 to indigo-800 darker on hover */
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
         }
         .nav-button:disabled {
-            @apply bg-gray-300 cursor-not-allowed;
+            @apply bg-gray-300 text-gray-500 cursor-not-allowed shadow-none transform-none;
+            background: #d1d5db; /* gray-300 */
         }
     </style>
 </head>
@@ -266,7 +262,8 @@
 
         <!-- Auto-save Message -->
         <div class="auto-save-message">
-            <i class="fas fa-info-circle mr-2"></i> 本问卷共计69个问题，支持自动保存，您可随时离开，无需担心进度丢失。
+            <i class="fas fa-info-circle mr-2"></i>
+            <span>本问卷支持同一浏览器下自动保存，您可随时离开，无需担心进度丢失。</span>
         </div>
 
         <!-- Privacy Policy Statement and Consent -->
@@ -288,7 +285,7 @@
         <!-- Progress Bar -->
         <div class="progress-bar-container">
             <div id="progressBarFill" class="progress-bar-fill"></div>
-            <span id="progressText" class="progress-text"></span>
+            <span id="progressText" class="progress-text">进度: 0 / 0</span>
         </div>
 
         <!-- Questionnaire Form -->
@@ -355,7 +352,7 @@
                 </div>
 
                 <div class="question-group hidden-question" id="q1_5_group">
-                    <label>5. 若有随行家属，您的随行家属包括？(可多选)</label>
+                    <label>4.1. 若有随行家属，您的随行家属包括？(可多选)</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="checkbox" id="q1_5_family_type_1" name="accompanying_family_types" value="spouse">
@@ -381,7 +378,7 @@
                 </div>
 
                 <div class="question-group hidden-question" id="q1_6_group">
-                    <label>6. 若有未成年子女随行，大致数量是？</label>
+                    <label>4.2. 若有未成年子女随行，大致数量是？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_6_minor_children_count_1" name="minor_children_count" value="1">
@@ -403,12 +400,12 @@
                 </div>
 
                 <div class="question-group hidden-question" id="q1_7_group">
-                    <label>7. 请填写所有随行**未成年子女**的具体年龄（例如：5岁, 12岁）。</label>
+                    <label>4.3. 请填写所有随行**未成年子女**的具体年龄（例如：5岁, 12岁）。</label>
                     <textarea id="q1_9_minor_children_ages" name="minor_children_ages" placeholder="请这里输入"></textarea>
                 </div>
 
                 <div class="question-group hidden-question" id="q1_8_group">
-                    <label>8. 若有成年子女随行，大致数量是？</label>
+                    <label>4.4. 若有成年子女随行，大致数量是？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_8_adult_children_count_1" name="adult_children_count" value="1">
@@ -430,7 +427,7 @@
                 </div>
 
                 <div class="question-group hidden-question" id="q1_9_group">
-                    <label>9. 若有成年子女随行，他们目前主要状态是？(可多选，可根据子女的实际情况多选)</label>
+                    <label>4.5. 若有成年子女随行，他们目前主要状态是？(可多选，可根据子女的实际情况多选)</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="checkbox" id="q1_9_adult_children_status_1" name="adult_children_status" value="studying_secondary_university">
@@ -452,12 +449,12 @@
                 </div>
 
                 <div class="question-group hidden-question" id="q1_10_group">
-                    <label>10. 请填写所有随行**成年子女**的具体年龄及主要状态（例如：22岁在读大学, 28岁在职）。</label>
+                    <label>4.6. 请填写所有随行**成年子女**的具体年龄及主要状态（例如：22岁在读大学, 28岁在职）。</label>
                     <textarea id="q1_12_adult_children_ages_status" name="adult_children_ages_status" placeholder="请这里输入"></textarea>
                 </div>
 
                 <div class="question-group">
-                    <label>11. 您的主要移民目的是？ (请选择最主要的一项)</label>
+                    <label>5. 您的主要移民目的是？ (请选择最主要的一项)</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_11_purpose_1" name="primary_purpose" value="global_mobility" required>
@@ -491,7 +488,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>12. 您期望首先获得的身份类型是？</label>
+                    <label>6. 您期望首先获得的身份类型是？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_12_identity_1" name="desired_identity_type" value="residency_permit_temp" required>
@@ -513,7 +510,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>13. 您对最终获得移民国公民身份（入籍）的意愿是？</label>
+                    <label>7. 您对最终获得移民国公民身份（入籍）的意愿是？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_13_citizenship_goal_1" name="citizenship_goal" value="must_achieve_citizenship" required>
@@ -531,7 +528,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>14. 您预计何时启动移民申请流程？</label>
+                    <label>8. 您预计何时启动移民申请流程？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_14_timeline_1" name="application_timeline" value="within_3_months" required>
@@ -557,7 +554,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>15. 您对新环境的适应能力如何？</label>
+                    <label>9. 您对新环境的适应能力如何？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_15_adaptability_1" name="adaptability_to_new_environments" value="highly_adaptable" required>
@@ -575,7 +572,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>16. 您偏好的社交方式是？</label>
+                    <label>10. 您偏好的社交方式是？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_16_social_pref_1" name="social_style" value="extrovert_large_groups" required>
@@ -593,7 +590,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>17. 您的国际旅行经验如何？</label>
+                    <label>11. 您的国际旅行经验如何？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_17_travel_exp_1" name="international_travel_experience" value="limited_rarely_traveled" required>
@@ -611,7 +608,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>18. 您的英语或其他外语水平如何？(请选择您最熟练的语言水平)</label>
+                    <label>12. 您的英语或其他外语水平如何？(请选择您最熟练的语言水平)</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_18_lang_1" name="language_proficiency" value="native_fluent_english" required>
@@ -641,12 +638,12 @@
                 </div>
 
                 <div class="question-group">
-                    <label for="q1_19_language_exam_score">19. 您是否参加过雅思/托福/其他语言考试？如有，请提供分数。</label>
+                    <label for="q1_19_language_exam_score">13. 您是否参加过雅思/托福/其他语言考试？如有，请提供分数。</label>
                     <input type="text" id="q1_13_language_exam_score" name="language_exam_score" placeholder="例如：雅思总分6.5">
                 </div>
 
                 <div class="question-group">
-                    <label>20. 您的最高职业背景是？ (请选择最符合您情况的一项)</label>
+                    <label>14. 您的最高职业背景是？ (请选择最符合您情况的一项)</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_20_profession_1" name="occupation_category" value="management_executive" required>
@@ -680,12 +677,12 @@
                 </div>
 
                 <div class="question-group">
-                    <label for="q1_21_work_experience_years">21. 您的工作经验总年限是？</label>
+                    <label for="q1_21_work_experience_years">15. 您的工作经验总年限是？</label>
                     <input type="number" id="q1_15_work_experience_years" name="work_experience_years" placeholder="请这里输入年限" min="0" max="60">
                 </div>
 
                 <div class="question-group">
-                    <label>22. 您的职业是否在目标国家的紧缺职业列表中？</label>
+                    <label>16. 您的职业是否在目标国家的紧缺职业列表中？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_22_skill_list_yes" name="on_skill_list" value="yes">
@@ -703,7 +700,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>23. 您是否拥有专业资格认证（如注册会计师、医生执照等）？</label>
+                    <label>17. 您是否拥有专业资格认证（如注册会计师、医生执照等）？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_23_professional_cert_yes" name="professional_certification" value="yes">
@@ -714,7 +711,7 @@
                             <label for="q1_23_professional_cert_no">B. 否</label>
                         </div>
                     </div>
-                    <!-- Conditional input for Q23 details -->
+                    <!-- Conditional input for Q17 details -->
                     <div class="hidden-question mt-4" id="q1_23_certification_details_group">
                         <label for="q1_17_certification_details" class="text-base font-normal mb-2">请说明具体的专业资格认证：</label>
                         <input type="text" id="q1_17_certification_details" name="professional_certification_details" placeholder="例如：注册会计师，医生执照">
@@ -722,7 +719,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>24. 您的当前国籍是？(这可能影响部分项目的适用性和排期)</label>
+                    <label>18. 您的当前国籍是？(这可能影响部分项目的适用性和排期)</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_24_nationality_1" name="current_nationality" value="china_mainland" required>
@@ -748,7 +745,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>25. 您目前的主要居住国家是？</label>
+                    <label>19. 您目前的主要居住国家是？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_25_residence_1" name="current_residence" value="china_mainland" required>
@@ -782,7 +779,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>26. 您对保留原国籍的偏好是？</label>
+                    <label>20. 您对保留原国籍的偏好是？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_26_dual_nationality_1" name="dual_nationality_preference" value="must_retain_original" required>
@@ -800,7 +797,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>27. 您的婚姻状况是？</label>
+                    <label>21. 您的婚姻状况是？</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="radio" id="q1_27_marital_1" name="marital_status" value="married" required>
@@ -1005,7 +1002,7 @@
                 </div>
 
                 <div class="question-group">
-                    <label>9. 您的主要财富积累方式是？ (可多选，有助于了解您的资产构成和风险偏好)</label>
+                    <label>9. 您的主要财富积累方式是？(可多选，有助于了解您的资产构成和风险偏好)</label>
                     <div class="option-group">
                         <div class="option-item">
                             <input type="checkbox" id="q2_9_wealth_source_1" name="wealth_accumulation_method" value="business_operations">
@@ -1809,18 +1806,18 @@
                 // Updated references for re-numbered questions
                 const familyPresentRadios = document.querySelectorAll('input[name="family_present"]');
                 const accompanyingFamilyTypesCheckboxes = document.querySelectorAll('input[name="accompanying_family_types"]');
-                const q1_23_ProfessionalCertRadios = document.querySelectorAll('input[name="professional_certification"]'); // Renumbered to Q1.23
-                const q3_18_ReligiousCulturalRadios = document.querySelectorAll('input[name="religious_cultural_preference"]'); // Q3.18 for conditional input
+                const q1_23_ProfessionalCertRadios = document.querySelectorAll('input[name="professional_certification"]'); // Renumbered to Q1.17 now
+                const q3_18_ReligiousCulturalRadios = document.querySelectorAll('input[name="religious_cultural_preference"]');
 
-                // Element references for all conditional groups (updated IDs)
-                const q1_5_group = document.getElementById('q1_5_group'); // "1.5. 若有随行家属..."
-                const q1_6_group = document.getElementById('q1_6_group'); // "1.6. 若有未成年子女随行..."
-                const q1_7_group = document.getElementById('q1_7_group'); // "1.7. 请填写所有随行未成年子女..." (textarea)
-                const q1_8_group = document.getElementById('q1_8_group'); // "1.8. 若有成年子女随行..."
-                const q1_9_group = document.getElementById('q1_9_group'); // "1.9. 若有成年子女随行，他们目前主要状态..."
-                const q1_10_group = document.getElementById('q1_10_group'); // "1.10. 请填写所有随行成年子女..." (textarea)
+                // Element references for all conditional groups (IDs remain unchanged as they are internal)
+                const q1_5_group = document.getElementById('q1_5_group');
+                const q1_6_group = document.getElementById('q1_6_group');
+                const q1_7_group = document.getElementById('q1_7_group');
+                const q1_8_group = document.getElementById('q1_8_group');
+                const q1_9_group = document.getElementById('q1_9_group');
+                const q1_10_group = document.getElementById('q1_10_group');
 
-                // Q1.23 conditional group
+                // Q1.17 (original Q1.23) conditional group
                 const q1_23_certification_details_group = document.getElementById('q1_23_certification_details_group');
 
                 // Q3.18 conditional group
@@ -1906,6 +1903,15 @@
                     const progress = ((currentPageIndex + 1) / totalPages) * 100;
                     progressBarFill.style.width = `${progress}%`;
                     progressText.textContent = `进度: ${currentPageIndex + 1} / ${totalPages}`;
+
+                    // Adjust text color based on progress for better contrast
+                    if (progress < 50) { // If progress bar is less than halfway, use dark text
+                        progressText.classList.remove('text-white');
+                        progressText.classList.add('text-gray-700');
+                    } else { // If progress bar is more than halfway, use white text
+                        progressText.classList.remove('text-gray-700');
+                        progressText.classList.add('text-white');
+                    }
                 }
 
                 /**
@@ -1933,7 +1939,7 @@
                 familyPresentRadios.forEach(radio => {
                     radio.addEventListener('change', function() {
                         if (this.value === 'yes' && this.checked) {
-                            showQuestionGroup(q1_5_group); // Show 1.5 (accompanying family types)
+                            showQuestionGroup(q1_5_group); // Show 4.1 (accompanying family types)
                         } else {
                             // If no family, hide all conditional family-related questions
                             hideQuestionGroup(q1_5_group);
@@ -1947,13 +1953,13 @@
                     });
                 });
 
-                // Event listener for Question 1.5 (accompanying family types)
+                // Event listener for Question 4.1 (accompanying family types)
                 accompanyingFamilyTypesCheckboxes.forEach(checkbox => {
                     checkbox.addEventListener('change', function() {
                         const minorChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="minor_children"]').checked;
                         const adultChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="adult_children"]').checked;
 
-                        // Toggle 1.6 (minor children count) based on minor_children selection in 1.5
+                        // Toggle 4.2 (minor children count) based on minor_children selection in 4.1
                         if (minorChildrenSelected) {
                             showQuestionGroup(q1_6_group);
                         } else {
@@ -1961,7 +1967,7 @@
                             hideQuestionGroup(q1_7_group); // Hide minor children ages if count is hidden
                         }
 
-                        // Toggle 1.8 (adult children count) based on adult_children selection in 1.5
+                        // Toggle 4.4 (adult children count) based on adult_children selection in 4.1
                         if (adultChildrenSelected) {
                             showQuestionGroup(q1_8_group);
                         } else {
@@ -1973,7 +1979,7 @@
                     });
                 });
 
-                // Event listener for Question 1.6 (minor children count) - triggers 1.7 (minor children ages)
+                // Event listener for Question 4.2 (minor children count) - triggers 4.3 (minor children ages)
                 document.querySelectorAll('input[name="minor_children_count"]').forEach(radio => {
                     radio.addEventListener('change', function() {
                         if (this.checked) {
@@ -1983,7 +1989,7 @@
                     });
                 });
 
-                // Event listener for Question 1.8 (adult children count) - triggers 1.9 and 1.10
+                // Event listener for Question 4.4 (adult children count) - triggers 4.5 and 4.6
                 document.querySelectorAll('input[name="adult_children_count"]').forEach(radio => {
                     radio.addEventListener('change', function() {
                         if (this.checked) {
@@ -1997,12 +2003,12 @@
                     });
                 });
 
-                // The logic for 1.9 triggering 1.10: keep it for robustness
+                // The logic for 4.5 triggering 4.6: keep it for robustness
                 document.querySelectorAll('input[name="adult_children_status"]').forEach(checkbox => {
                     checkbox.addEventListener('change', function() {
                         const anyAdultStatusSelected = Array.from(document.querySelectorAll('input[name="adult_children_status"]:checked')).some(cb => cb.checked);
-                        // If 1.8 (count) is visible AND an adult status is selected in 1.9, show 1.10.
-                        // Otherwise, hide 1.10.
+                        // If 4.4 (count) is visible AND an adult status is selected in 4.5, show 4.6.
+                        // Otherwise, hide 4.6.
                         if (q1_8_group.classList.contains('hidden-question') || !anyAdultStatusSelected) {
                             hideQuestionGroup(q1_10_group);
                         } else {
@@ -2012,7 +2018,7 @@
                     });
                 });
 
-                // Event listener for Q1.23 (professional certification)
+                // Event listener for Q1.17 (professional certification)
                 q1_23_ProfessionalCertRadios.forEach(radio => {
                     radio.addEventListener('change', function() {
                         if (this.value === 'yes' && this.checked) {
@@ -2112,23 +2118,23 @@
                     // Re-evaluate Q1.4 family present
                     const currentFamilyPresent = document.querySelector('input[name="family_present"]:checked');
                     if (currentFamilyPresent && currentFamilyPresent.value === 'yes') {
-                        showQuestionGroup(q1_5_group);
+                        showQuestionGroup(q1_5_group); // 4.1
                         const minorChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="minor_children"]').checked;
                         const adultChildrenSelected = document.querySelector('input[name="accompanying_family_types"][value="adult_children"]').checked;
 
                         if (minorChildrenSelected) {
-                            showQuestionGroup(q1_6_group);
+                            showQuestionGroup(q1_6_group); // 4.2
                             if (document.querySelector('input[name="minor_children_count"]:checked')) {
-                                showQuestionGroup(q1_7_group);
+                                showQuestionGroup(q1_7_group); // 4.3
                             }
                         }
                         if (adultChildrenSelected) {
-                            showQuestionGroup(q1_8_group);
+                            showQuestionGroup(q1_8_group); // 4.4
                             if (document.querySelector('input[name="adult_children_count"]:checked')) {
-                                showQuestionGroup(q1_9_group);
+                                showQuestionGroup(q1_9_group); // 4.5
                                 const anyAdultStatusSelected = Array.from(document.querySelectorAll('input[name="adult_children_status"]:checked')).some(cb => cb.checked);
                                 if (anyAdultStatusSelected) {
-                                    showQuestionGroup(q1_10_group);
+                                    showQuestionGroup(q1_10_group); // 4.6
                                 }
                             }
                         }
@@ -2141,7 +2147,7 @@
                         hideQuestionGroup(q1_10_group);
                     }
 
-                    // Re-evaluate Q1.23 professional certification
+                    // Re-evaluate Q1.17 (original Q1.23) professional certification
                     const professionalCertYes = document.getElementById('q1_23_professional_cert_yes');
                     if (professionalCertYes && professionalCertYes.checked) {
                         showQuestionGroup(q1_23_certification_details_group);
