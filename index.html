@@ -112,14 +112,17 @@
         /* Q21 input (now renumbered) */
         #q1_17_certification_details,
         /* New Part 5 inputs */
-        #q5_1_name, #q5_2_email, #q5_3_phone, #q5_4_wechat_id, #q5_4_whatsapp_number, #q5_4_line_id {
+        #q5_1_name, #q5_2_email, #q5_3_phone, #q5_4_wechat_id, #q5_4_whatsapp_number, #q5_4_line_id,
+        /* Q3.18 conditional input */
+        #q3_18_religious_cultural_details {
             max-width: 320px; /* Constrain width for better form aesthetics */
             margin-top: 0.75rem; /* Margin below label */
             display: block; /* Ensure it's a block element */
             height: 38px; /* Ensure fixed height */
             box-sizing: border-box; /* Include padding in height */
         }
-        #q1_5_age_input {
+        /* Corrected ID for Q1.1 Age input */
+        #q1_1_age_input {
             display: block; /* Ensure it's on its own line below the label */
             width: 140px; /* Width for approximately 8 characters (8 * 14px + padding) */
             height: 38px; /* Fixed height, consistent with text areas */
@@ -218,10 +221,34 @@
         }
         /* Auto-save message styling */
         .auto-save-message {
-            @apply bg-blue-100 text-blue-800 p-4 rounded-xl shadow-md mb-8 text-center font-medium;
+            /* Adjusted margins for specific vertical centering based on user feedback */
+            @apply bg-blue-100 text-blue-800 p-4 rounded-xl shadow-md my-16 text-center font-medium mx-auto max-w-3xl; /* Changed from mt-2 mb-18 to my-16 (64px top/bottom), increased max-w for wider appearance */
             font-size: 16px;
             letter-spacing: 0.02rem;
             line-height: 1.5;
+        }
+
+        /* Progress Bar Styles */
+        .progress-bar-container {
+            @apply w-full bg-gray-200 rounded-full h-4 mb-6 relative;
+        }
+        .progress-bar-fill {
+            @apply h-full bg-blue-600 rounded-full transition-all duration-500 ease-in-out;
+            width: 0%; /* Initial width */
+        }
+        .progress-text {
+            @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs font-semibold text-gray-700;
+        }
+
+        /* Navigation Buttons Styles */
+        .navigation-buttons {
+            @apply flex justify-between mt-8 mb-12 max-w-2xl mx-auto; /* Centered, spaced buttons */
+        }
+        .nav-button {
+            @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors duration-200;
+        }
+        .nav-button:disabled {
+            @apply bg-gray-300 cursor-not-allowed;
         }
     </style>
 </head>
@@ -233,35 +260,41 @@
                 投资移民意向<br/>评估问卷
             </h1>
             <p class="text-gray-700 leading-relaxed max-w-3xl mx-auto">
-                尊敬的客户，请您花几分钟时间完成这份详细问卷，以便我们深入了解您的个性化需求，为您量身定制最精准、高效的投资移民方案。您的信息将严格保密。
+                为更精准地为您打造专属的全球身份与资产配置方案，敬请您认真填写以下问卷。所有信息将严格保密，仅用于提升我们的定制服务质量。
             </p>
         </header>
 
         <!-- Auto-save Message -->
         <div class="auto-save-message">
-            <i class="fas fa-info-circle mr-2"></i> 本问卷共计63个问题，页面采用自动缓存技术（须同一浏览器），您可随时离开，页面将自动保存。
+            <i class="fas fa-info-circle mr-2"></i> 本问卷共计69个问题，支持自动保存，您可随时离开，无需担心进度丢失。
+        </div>
+
+        <!-- Privacy Policy Statement and Consent -->
+        <div class="question-section text-center text-sm text-gray-600 mb-8 privacy-policy-section">
+            <p class="mb-4 text-lg font-semibold text-gray-700">
+                <i class="fas fa-lock text-blue-500 mr-2"></i> 隐私政策声明：
+            </p>
+            <p class="mb-4">
+                您的个人信息将严格保密，仅用于提供投资移民咨询服务。我们承诺遵守适用的数据保护法规（如 GDPR/CCPA），不会将您的信息出售或分享给第三方。
+            </p>
+            <div class="flex items-center justify-center mt-6">
+                <input type="checkbox" id="privacy_consent" name="privacy_consent" value="agreed" required class="mr-3">
+                <label for="privacy_consent" class="text-base cursor-pointer">
+                    我已阅读并同意 <a href="#privacy-policy-link" class="text-blue-600 hover:underline">隐私政策</a>，并同意我的信息被用于移民咨询目的。
+                </label>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar-container">
+            <div id="progressBarFill" class="progress-bar-fill"></div>
+            <span id="progressText" class="progress-text"></span>
         </div>
 
         <!-- Questionnaire Form -->
         <form id="immigrationQuestionnaire" action="https://formspree.io/f/xldngdge" method="POST" class="space-y-12">
-            <!-- Privacy Policy Statement and Consent -->
-            <div class="question-section text-center text-sm text-gray-600 mb-8">
-                <p class="mb-4 text-lg font-semibold text-gray-700">
-                    <i class="fas fa-lock text-blue-500 mr-2"></i> 隐私政策声明：
-                </p>
-                <p class="mb-4">
-                    您的个人信息将严格保密，仅用于提供投资移民咨询服务。我们承诺遵守适用的数据保护法规（如 GDPR/CCPA），不会将您的信息出售或分享给第三方。
-                </p>
-                <div class="flex items-center justify-center mt-6">
-                    <input type="checkbox" id="privacy_consent" name="privacy_consent" value="agreed" required class="mr-3">
-                    <label for="privacy_consent" class="text-base cursor-pointer">
-                        我已阅读并同意 <a href="#privacy-policy-link" class="text-blue-600 hover:underline">隐私政策</a>，并同意我的信息被用于移民咨询目的。
-                    </label>
-                </div>
-            </div>
-
             <!-- Section 1: 个人背景与移民目标 -->
-            <div class="question-section">
+            <div id="page1" class="page question-section" data-page-index="0">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第一部分：个人背景与移民目标
                 </h2>
@@ -568,11 +601,11 @@
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q1_17_travel_exp_2" name="international_travel_experience" value="some_casual_travel">
-                            <label for="q1_17_travel_exp_2">B. 较多，有休闲旅游经验，去过几个国家</label>
+                            <label for="q1_17_travel_2">B. 较多，有休闲旅游经验，去过几个国家</label>
                         </div>
                         <div class="option-item">
                             <input type="radio" id="q1_17_travel_exp_3" name="international_travel_experience" value="extensive_business_travel">
-                            <label for="q1_17_travel_exp_3">C. 广泛，有频繁的商务或深度旅行经验，去过很多国家</label>
+                            <label for="q1_17_travel_3">C. 广泛，有频繁的商务或深度旅行经验，去过很多国家</label>
                         </div>
                     </div>
                 </div>
@@ -789,7 +822,8 @@
                 </div>
             </div>
 
-            <div class="question-section">
+            <!-- Section 2: 财务状况与投资偏好 -->
+            <div id="page2" class="page question-section hidden" data-page-index="1">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第二部分：财务状况与投资偏好
                 </h2>
@@ -798,24 +832,24 @@
                     <label>1. 您的家庭总净资产（包含全球范围内的流动资产、不动产、金融资产等，不含自住房产）大概是多少？</label>
                     <div class="option-group">
                         <div class="option-item">
-                            <input type="radio" id="q2_1_net_worth_1" name="total_net_worth" value="below_500k_usd" required>
-                            <label for="q2_1_net_worth_1">A. 低于 50 万美元</label>
+                            <input type="radio" id="q2_1_net_worth_1" name="total_net_worth" value="below_500m_usd" required>
+                            <label for="q2_1_net_worth_1">A. 低于 500 万美元</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q2_1_net_worth_2" name="total_net_worth" value="500k_1m_usd">
-                            <label for="q2_1_net_worth_2">B. 50 万 - 100 万美元</label>
+                            <input type="radio" id="q2_1_net_worth_2" name="total_net_worth" value="500m_1000m_usd">
+                            <label for="q2_1_net_worth_2">B. 500 万 - 1000 万美元</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q2_1_net_worth_3" name="total_net_worth" value="1m_2m_usd">
-                            <label for="q2_1_net_worth_3">C. 101 万 - 200 万美元</label>
+                            <input type="radio" id="q2_1_net_worth_3" name="total_net_worth" value="1001m_3000m_usd">
+                            <label for="q2_1_net_worth_3">C. 1001 万 - 3000 万美元</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q2_1_net_worth_4" name="total_net_worth" value="2m_5m_usd">
-                            <label for="q2_1_net_worth_4">D. 201 万 - 500 万美元</label>
+                            <input type="radio" id="q2_1_net_worth_4" name="total_net_worth" value="3001m_5000m_usd">
+                            <label for="q2_1_net_worth_4">D. 3001 万 - 5000 万美元</label>
                         </div>
                         <div class="option-item">
-                            <input type="radio" id="q2_1_net_worth_5" name="total_net_worth" value="over_5m_usd">
-                            <label for="q2_1_net_worth_5">E. 500 万美元以上</label>
+                            <input type="radio" id="q2_1_net_worth_5" name="total_net_worth" value="over_5000m_usd">
+                            <label for="q2_1_net_worth_5">E. 5000 万美元以上</label>
                         </div>
                     </div>
                 </div>
@@ -1116,7 +1150,8 @@
 
             </div>
 
-            <div class="question-section">
+            <!-- Section 3: 居住与生活偏好 -->
+            <div id="page3" class="page question-section hidden" data-page-index="2">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第三部分：居住与生活偏好
                 </h2>
@@ -1471,10 +1506,16 @@
                             <label for="q3_18_religious_cultural_2">B. 否，对宗教和文化环境持开放和包容态度</label>
                         </div>
                     </div>
+                    <!-- Conditional input for Q3.18 details -->
+                    <div class="hidden-question mt-4" id="q3_18_details_group">
+                        <label for="q3_18_religious_cultural_details" class="text-base font-normal mb-2">请说明具体的宗教信仰或文化习俗偏好：</label>
+                        <input type="text" id="q3_18_religious_cultural_details" name="religious_cultural_details" placeholder="请这里输入">
+                    </div>
                 </div>
             </div>
 
-            <div class="question-section">
+            <!-- Section 4: 区域与国家偏好 -->
+            <div id="page4" class="page question-section hidden" data-page-index="3">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第四部分：区域与国家偏好
                 </h2>
@@ -1681,7 +1722,7 @@
             </div>
 
             <!-- Section 5: 个人联系方式 (Moved from original Q1-4) -->
-            <div class="question-section">
+            <div id="page5" class="page question-section hidden" data-page-index="4">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第五部分：个人联系方式
                 </h2>
@@ -1741,10 +1782,10 @@
                 </div>
             </div>
 
-            <div class="text-center mt-14 pb-12">
-                <button type="submit" class="submit-button">
-                    提交问卷
-                </button>
+            <div class="navigation-buttons">
+                <button type="button" id="prevBtn" class="nav-button hidden">上一页</button>
+                <button type="button" id="nextBtn" class="nav-button">下一页</button>
+                <button type="submit" id="submitBtn" class="submit-button hidden">提交问卷</button>
             </div>
         </form>
 
@@ -1769,6 +1810,7 @@
                 const familyPresentRadios = document.querySelectorAll('input[name="family_present"]');
                 const accompanyingFamilyTypesCheckboxes = document.querySelectorAll('input[name="accompanying_family_types"]');
                 const q1_23_ProfessionalCertRadios = document.querySelectorAll('input[name="professional_certification"]'); // Renumbered to Q1.23
+                const q3_18_ReligiousCulturalRadios = document.querySelectorAll('input[name="religious_cultural_preference"]'); // Q3.18 for conditional input
 
                 // Element references for all conditional groups (updated IDs)
                 const q1_5_group = document.getElementById('q1_5_group'); // "1.5. 若有随行家属..."
@@ -1781,10 +1823,24 @@
                 // Q1.23 conditional group
                 const q1_23_certification_details_group = document.getElementById('q1_23_certification_details_group');
 
+                // Q3.18 conditional group
+                const q3_18_details_group = document.getElementById('q3_18_details_group');
+
                 // New Part 5 contact method groups
                 const q5_4_wechat_group = document.getElementById('q5_4_wechat_group');
                 const q5_4_whatsapp_group = document.getElementById('q5_4_whatsapp_group');
                 const q5_4_line_group = document.getElementById('q5_4_line_group');
+
+                // Pagination elements
+                const pages = document.querySelectorAll('.page');
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                const submitBtn = document.getElementById('submitBtn');
+                const progressBarFill = document.getElementById('progressBarFill');
+                const progressText = document.getElementById('progressText');
+
+                let currentPageIndex = 0;
+                const totalPages = pages.length; // Now 5 pages
 
                 /**
                  * Clears inputs and hides a question group.
@@ -1817,6 +1873,60 @@
                     document.getElementById('q5_4_contact_wechat').checked ? showQuestionGroup(q5_4_wechat_group) : hideQuestionGroup(q5_4_wechat_group);
                     document.getElementById('q5_4_contact_whatsapp').checked ? showQuestionGroup(q5_4_whatsapp_group) : hideQuestionGroup(q5_4_whatsapp_group);
                     document.getElementById('q5_4_contact_line').checked ? showQuestionGroup(q5_4_line_group) : hideQuestionGroup(q5_4_line_group);
+                }
+
+                /**
+                 * Displays the specified page and updates navigation buttons.
+                 * @param {number} index - The index of the page to display.
+                 */
+                function showPage(index) {
+                    pages.forEach((page, i) => {
+                        if (i === index) {
+                            page.classList.remove('hidden');
+                        } else {
+                            page.classList.add('hidden');
+                        }
+                    });
+
+                    // Update button visibility
+                    prevBtn.classList.toggle('hidden', index === 0);
+                    nextBtn.classList.toggle('hidden', index === totalPages - 1);
+                    submitBtn.classList.toggle('hidden', index !== totalPages - 1);
+
+                    // Scroll to top of the form when page changes
+                    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    updateProgressBar();
+                }
+
+                /**
+                 * Updates the progress bar and text.
+                 */
+                function updateProgressBar() {
+                    const progress = ((currentPageIndex + 1) / totalPages) * 100;
+                    progressBarFill.style.width = `${progress}%`;
+                    progressText.textContent = `进度: ${currentPageIndex + 1} / ${totalPages}`;
+                }
+
+                /**
+                 * Goes to the next page.
+                 */
+                function nextPage() {
+                    // Optional: Add validation for current page here before proceeding
+                    if (currentPageIndex < totalPages - 1) {
+                        currentPageIndex++;
+                        showPage(currentPageIndex);
+                    }
+                }
+
+                /**
+                 * Goes to the previous page.
+                 */
+                function prevPage() {
+                    if (currentPageIndex > 0) {
+                        currentPageIndex--;
+                        showPage(currentPageIndex);
+                    }
                 }
 
                 // Event listener for Question 1.4 (family present)
@@ -1914,10 +2024,26 @@
                     });
                 });
 
+                // Event listener for Q3.18 (religious/cultural preference)
+                q3_18_ReligiousCulturalRadios.forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        if (this.value === 'yes_specific_environment_needed' && this.checked) {
+                            showQuestionGroup(q3_18_details_group);
+                        } else {
+                            hideQuestionGroup(q3_18_details_group);
+                        }
+                        saveFormData();
+                    });
+                });
+
                 // Event listeners for Q5.4 contact method checkboxes
                 document.getElementById('q5_4_contact_wechat').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
                 document.getElementById('q5_4_contact_whatsapp').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
                 document.getElementById('q5_4_contact_line').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
+
+                // Navigation button event listeners
+                prevBtn.addEventListener('click', prevPage);
+                nextBtn.addEventListener('click', nextPage);
 
                 /**
                  * Saves form data to LocalStorage.
@@ -2023,6 +2149,14 @@
                         hideQuestionGroup(q1_23_certification_details_group);
                     }
 
+                    // Re-evaluate Q3.18 religious/cultural preference
+                    const religiousCulturalYes = document.getElementById('q3_18_religious_cultural_1');
+                    if (religiousCulturalYes && religiousCulturalYes.checked) {
+                        showQuestionGroup(q3_18_details_group);
+                    } else {
+                        hideQuestionGroup(q3_18_details_group);
+                    }
+
                     // Re-evaluate Q5.4 contact methods
                     handleQ5_4_Visibility();
                 }
@@ -2040,10 +2174,13 @@
                 hideQuestionGroup(q1_9_group);
                 hideQuestionGroup(q1_10_group);
                 hideQuestionGroup(q1_23_certification_details_group);
+                hideQuestionGroup(q3_18_details_group); // Hide new Q3.18 conditional input
                 hideQuestionGroup(q5_4_wechat_group);
                 hideQuestionGroup(q5_4_whatsapp_group);
                 hideQuestionGroup(q5_4_line_group);
 
+                // Initial display of the first page
+                showPage(currentPageIndex);
                 loadFormData(); // Attempt to load saved data and set initial visibility
             });
 
