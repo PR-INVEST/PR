@@ -153,13 +153,31 @@
 
         /* Button styling */
         .submit-button {
-            /* Enhanced button styling */
-            @apply bg-gradient-to-r from-blue-700 to-indigo-800 hover:from-blue-800 hover:to-indigo-900 text-white
-                   font-extrabold text-3xl py-5 px-14 rounded-full shadow-2xl /* Increased font size to text-3xl (30px), more padding */
-                   transition-all duration-300 transform hover:scale-105 hover:shadow-3xl /* More aggressive hover effect */
-                   focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-75
-                   border border-white border-opacity-30; /* Added more padding, bolder font, text-2xl */
-            letter-spacing: 0.035rem; /* Apply letter spacing to button text */
+            /* Enhanced button styling with !important for overriding and explicit properties */
+            background: linear-gradient(to right, #2563eb, #4f46e5) !important; /* blue-700 to indigo-800 */
+            color: white !important;
+            font-weight: 800 !important; /* font-extrabold */
+            font-size: 30px !important; /* text-3xl */
+            padding: 20px 56px !important; /* py-5 px-14 */
+            border-radius: 9999px !important; /* rounded-full */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important; /* shadow-2xl */
+            transition: all 0.3s ease-in-out !important; /* transition-all duration-300 */
+            transform: scale(1) !important; /* Initial scale */
+            border: 1px solid rgba(255, 255, 255, 0.3) !important; /* border border-white border-opacity-30 */
+            letter-spacing: 0.035rem !important;
+
+            /* Hover effects */
+            &:hover {
+                background: linear-gradient(to right, #1d4ed8, #4338ca) !important; /* blue-800 to indigo-900 */
+                transform: scale(1.05) !important; /* hover:scale-105 */
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important; /* hover:shadow-3xl (a slightly stronger shadow) */
+            }
+
+            /* Focus effects */
+            &:focus {
+                outline: none !important;
+                box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.75) !important; /* focus:ring-4 focus:ring-blue-400 focus:ring-opacity-75 */
+            }
         }
         /* Section heading specific styling */
         .question-section h2 {
