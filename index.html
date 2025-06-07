@@ -122,8 +122,8 @@
             background: linear-gradient(to right, #2563eb, #4f46e5) !important; /* blue-700 to indigo-800 */
             color: white !important;
             font-weight: 800 !important; /* font-extrabold */
-            font-size: 30px !important; /* text-3xl */
-            padding: 20px 56px !important; /* py-5 px-14 */
+            font-size: 24px !important; /* Adjusted to text-2xl from text-3xl */
+            padding: 16px 40px !important; /* Adjusted padding from py-5 px-14 */
             border-radius: 9999px !important; /* rounded-full */
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important; /* shadow-2xl */
             transition: all 0.3s ease-in-out !important; /* transition-all duration-300 */
@@ -180,50 +180,47 @@
             }
         }
 
-        /* Progress Bar Styles */
-        .progress-bar-container {
-            /* Adjusted margin-top and margin-bottom for specified spacing */
-            @apply w-full bg-gray-700 rounded-full h-8 relative shadow-inner; /* Taller, more prominent, inner shadow */
-            margin-top: 32px; /* Fixed margin-top */
-            margin-bottom: 20px; /* Default for small screens (20px) */
+        /* Progress Bar Styles - Removed as per user request */
+        /* .progress-bar-container {
+            @apply w-full bg-gray-700 rounded-full h-8 relative shadow-inner;
+            margin-top: 32px;
+            margin-bottom: 20px;
         }
         @media (min-width: 768px) {
             .progress-bar-container {
-                margin-bottom: 24px; /* For larger screens (24px) */
+                margin-bottom: 24px;
             }
         }
-
         .progress-bar-fill {
-            @apply h-full bg-blue-600 rounded-full transition-all duration-500 ease-in-out shadow-md; /* Deeper blue, subtle shadow */
-            width: 0%; /* Initial width */
+            @apply h-full bg-blue-600 rounded-full transition-all duration-500 ease-in-out shadow-md;
+            width: 0%;
         }
         .progress-text {
-            @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-white text-shadow-md; /* Text over bar, white, bold, shadow */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Custom text shadow for readability */
-            font-size: 18px; /* Default for small screens (18px) */
+            @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-white text-shadow-md;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            font-size: 18px;
         }
         @media (min-width: 768px) {
             .progress-text {
-                font-size: 22px; /* For larger screens (22px) */
+                font-size: 22px;
             }
         }
-        /* For browsers that don't support text-shadow, ensure contrast */
         .progress-bar-fill + .progress-text {
-            /* This targets the text when the bar is filled to ensure contrast */
-            color: #fff; /* Ensure white text on blue background */
+            color: #fff;
         }
         .progress-bar-fill[style*="width: 0%"] + .progress-text {
-            /* When the bar is empty, ensure text is visible on gray background */
-            color: #e2e8f0; /* Tailwind slate-200 for contrast on dark gray background */
-        }
+            color: #e2e8f0;
+        } */
 
 
         /* Navigation Buttons Styles */
         .navigation-buttons {
-            @apply flex justify-between mt-8 mb-12 max-w-2xl mx-auto space-x-4; /* Centered, spaced buttons */
+            /* Changed to justify-end to align submit button to the right */
+            @apply flex justify-end mt-8 mb-12 max-w-5xl mx-auto; /* Max width adjusted for better alignment */
         }
         .nav-button {
-            @apply flex-1 flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105;
+            /* This class is effectively removed from the HTML, but kept for reference */
+            @apply flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105;
             background: linear-gradient(to right, #3b82f6, #4f46e5); /* blue-500 to indigo-600 */
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             font-size: 1.125rem; /* text-lg */
@@ -273,11 +270,11 @@
             </div>
         </div>
 
-        <!-- Progress Bar -->
-        <div class="progress-bar-container">
+        <!-- Progress Bar - REMOVED -->
+        <!-- <div class="progress-bar-container">
             <div id="progressBarFill" class="progress-bar-fill"></div>
             <span id="progressText" class="progress-text">进度: 0 / 0</span>
-        </div>
+        </div> -->
 
         <!-- Questionnaire Form -->
         <form id="immigrationQuestionnaire" action="https://formspree.io/f/xldngdge" method="POST" class="space-y-12">
@@ -811,7 +808,8 @@
             </div>
 
             <!-- Section 2: 财务状况与投资偏好 -->
-            <div id="page2" class="page question-section hidden" data-page-index="1">
+            <!-- Removed 'hidden' class from all page divs -->
+            <div id="page2" class="page question-section" data-page-index="1">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第二部分：财务状况与投资偏好
                 </h2>
@@ -1139,7 +1137,8 @@
             </div>
 
             <!-- Section 3: 居住与生活偏好 -->
-            <div id="page3" class="page question-section hidden" data-page-index="2">
+            <!-- Removed 'hidden' class from all page divs -->
+            <div id="page3" class="page question-section" data-page-index="2">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第三部分：居住与生活偏好
                 </h2>
@@ -1503,7 +1502,8 @@
             </div>
 
             <!-- Section 4: 区域与国家偏好 -->
-            <div id="page4" class="page question-section hidden" data-page-index="3">
+            <!-- Removed 'hidden' class from all page divs -->
+            <div id="page4" class="page question-section" data-page-index="3">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第四部分：区域与国家偏好
                 </h2>
@@ -1710,7 +1710,8 @@
             </div>
 
             <!-- Section 5: 个人联系方式 (Moved from original Q1-4) -->
-            <div id="page5" class="page question-section hidden" data-page-index="4">
+            <!-- Removed 'hidden' class from all page divs -->
+            <div id="page5" class="page question-section" data-page-index="4">
                 <h2 class="font-bold text-gray-900 mb-8 border-b-2 border-blue-400 pb-5">
                     第五部分：个人联系方式
                 </h2>
@@ -1721,13 +1722,13 @@
                 </div>
 
                 <div class="question-group">
-                    <label for="q5_2_email">2. 您的邮箱地址是？ (必填)</label>
-                    <input type="email" id="q5_2_email" name="email_contact" placeholder="请这里输入您的邮箱" required>
+                    <label for="q5_2_email">2. 您的邮箱地址是？ (可选)</label>
+                    <input type="email" id="q5_2_email" name="email_contact" placeholder="请这里输入您的邮箱">
                 </div>
 
                 <div class="question-group">
-                    <label for="q5_3_phone">3. 您的电话号码是？ (必填，请包含国家区号)</label>
-                    <input type="tel" id="q5_3_phone" name="phone_contact" placeholder="例如：+86 13812345678" required>
+                    <label for="q5_3_phone">3. 您的电话号码是？ (可选)</label>
+                    <input type="tel" id="q5_3_phone" name="phone_contact" placeholder="例如：13812345678">
                 </div>
 
                 <div class="question-group">
@@ -1771,9 +1772,8 @@
             </div>
 
             <div class="navigation-buttons">
-                <button type="button" id="prevBtn" class="nav-button hidden">上一页</button>
-                <button type="button" id="nextBtn" class="nav-button">下一页</button>
-                <button type="submit" id="submitBtn" class="submit-button hidden">提交问卷</button>
+                <!-- Previous and Next buttons are removed -->
+                <button type="submit" id="submitBtn" class="submit-button">提交问卷</button>
             </div>
         </form>
 
@@ -1819,16 +1819,17 @@
                 const q5_4_whatsapp_group = document.getElementById('q5_4_whatsapp_group');
                 const q5_4_line_group = document.getElementById('q5_4_line_group');
 
-                // Pagination elements
-                const pages = document.querySelectorAll('.page');
-                const prevBtn = document.getElementById('prevBtn');
-                const nextBtn = document.getElementById('nextBtn');
-                const submitBtn = document.getElementById('submitBtn');
-                const progressBarFill = document.getElementById('progressBarFill');
-                const progressText = document.getElementById('progressText');
+                // Pagination elements - REMOVED, but keeping variables for clarity and easier removal of other references
+                // const pages = document.querySelectorAll('.page');
+                // const prevBtn = document.getElementById('prevBtn');
+                // const nextBtn = document.getElementById('nextBtn');
+                // const submitBtn = document.getElementById('submitBtn'); // Still needed
+                // const progressBarFill = document.getElementById('progressBarFill'); // Removed
+                // const progressText = document.getElementById('progressText'); // Removed
 
-                let currentPageIndex = 0;
-                const totalPages = pages.length; // Now 5 pages
+                // let currentPageIndex = 0; // Removed
+                // const totalPages = pages.length; // Removed
+
 
                 /**
                  * Clears inputs and hides a question group.
@@ -1863,68 +1864,7 @@
                     document.getElementById('q5_4_contact_line').checked ? showQuestionGroup(q5_4_line_group) : hideQuestionGroup(q5_4_line_group);
                 }
 
-                /**
-                 * Displays the specified page and updates navigation buttons.
-                 * @param {number} index - The index of the page to display.
-                 */
-                function showPage(index) {
-                    pages.forEach((page, i) => {
-                        if (i === index) {
-                            page.classList.remove('hidden');
-                        } else {
-                            page.classList.add('hidden');
-                        }
-                    });
-
-                    // Update button visibility
-                    prevBtn.classList.toggle('hidden', index === 0);
-                    nextBtn.classList.toggle('hidden', index === totalPages - 1);
-                    submitBtn.classList.toggle('hidden', index !== totalPages - 1);
-
-                    // Scroll to top of the form when page changes
-                    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-                    updateProgressBar();
-                }
-
-                /**
-                 * Updates the progress bar and text.
-                 */
-                function updateProgressBar() {
-                    const progress = ((currentPageIndex + 1) / totalPages) * 100;
-                    progressBarFill.style.width = `${progress}%`;
-                    progressText.textContent = `进度: ${currentPageIndex + 1} / ${totalPages}`;
-
-                    // Adjust text color based on progress for better contrast
-                    if (progress < 50) { // If progress bar is less than halfway, use dark text
-                        progressText.classList.remove('text-white');
-                        progressText.classList.add('text-gray-700');
-                    } else { // If progress bar is more than halfway, use white text
-                        progressText.classList.remove('text-gray-700');
-                        progressText.classList.add('text-white');
-                    }
-                }
-
-                /**
-                 * Goes to the next page.
-                 */
-                function nextPage() {
-                    // Optional: Add validation for current page here before proceeding
-                    if (currentPageIndex < totalPages - 1) {
-                        currentPageIndex++;
-                        showPage(currentPageIndex);
-                    }
-                }
-
-                /**
-                 * Goes to the previous page.
-                 */
-                function prevPage() {
-                    if (currentPageIndex > 0) {
-                        currentPageIndex--;
-                        showPage(currentPageIndex);
-                    }
-                }
+                // Removed showPage, updateProgressBar, nextPage, prevPage functions.
 
                 // Event listener for Question 1.4 (family present)
                 familyPresentRadios.forEach(radio => {
@@ -2038,9 +1978,9 @@
                 document.getElementById('q5_4_contact_whatsapp').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
                 document.getElementById('q5_4_contact_line').addEventListener('change', function() { handleQ5_4_Visibility(); saveFormData(); });
 
-                // Navigation button event listeners
-                prevBtn.addEventListener('click', prevPage);
-                nextBtn.addEventListener('click', nextPage);
+                // Navigation button event listeners - REMOVED
+                // prevBtn.addEventListener('click', prevPage);
+                // nextBtn.addEventListener('click', nextPage);
 
                 /**
                  * Saves form data to LocalStorage.
@@ -2174,16 +2114,34 @@
                 hideQuestionGroup(q3_18_details_group); // Hide new Q3.18 conditional input
                 hideQuestionGroup(q5_4_wechat_group);
                 hideQuestionGroup(q5_4_whatsapp_group);
-                hideQuestionGroup(q5_4_line_group);
+                hide54LineGroup(); // Explicitly hide the line group
 
-                // Initial display of the first page
-                showPage(currentPageIndex);
+                // Initial display logic for pages - REMOVED (all pages are now visible by default in HTML)
+                // showPage(currentPageIndex);
                 loadFormData(); // Attempt to load saved data and set initial visibility
+
+                // Function to explicitly hide q5_4_line_group inputs if they are not selected.
+                // This is a local helper function for initial state setup.
+                function hide54LineGroup() {
+                    const lineCheckbox = document.getElementById('q5_4_contact_line');
+                    if (!lineCheckbox.checked) {
+                        hideQuestionGroup(q5_4_line_group);
+                    }
+                }
+                hide54LineGroup(); // Call once on DOMContentLoaded
             });
 
             // Form submission handler (for logging data and Formspree submission)
             document.getElementById('immigrationQuestionnaire').addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent default form submission to handle with custom message box
+                // IMPORTANT: Trigger browser's native validation first
+                if (!event.target.reportValidity()) {
+                    // If validation fails, prevent default submission and stop further execution
+                    event.preventDefault();
+                    console.log('Form validation failed. Please fill in all required fields.');
+                    return; // Stop the script
+                }
+
+                event.preventDefault(); // Prevent default form submission to handle with custom message box after validation passes
                 const formData = new FormData(event.target);
                 const data = {};
                 for (let [key, value] of formData.entries()) {
@@ -2212,11 +2170,11 @@
                         document.getElementById('messageBox').classList.remove('hidden');
                     } else {
                         console.error('Form submission failed');
-                        // Optionally show an error message to the user
+                        // Optionally show a more detailed error message to the user
                     }
                 }).catch(error => {
                     console.error('Network error or Formspree submission issue:', error);
-                    // Optionally show an error message to the user
+                    // Optionally show a more detailed error message to the user
                 });
             });
 
@@ -2225,7 +2183,8 @@
                 document.getElementById('messageBox').classList.add('hidden');
                 // Optionally redirect or reset form after closing message box
                 form.reset(); // Reset the form after successful submission
-                showPage(0); // Go back to the first page
+                // No need to showPage(0) as it's a single page now, just scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         </script>
     </div>
